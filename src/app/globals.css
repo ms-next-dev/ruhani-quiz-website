@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* homepage banner scale up effect */
+@keyframes scaleUp {
+    from {
+        transform: scale(1.5);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.scale-animation {
+    animation: scaleUp 10s ease-out;
+}
