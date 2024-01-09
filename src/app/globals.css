@@ -7,6 +7,12 @@ body :root {
   height: 100%;
 }
 
+@layer {
+  .container {
+    @apply max-w-[1430px] mx-auto px-6 md:px-20 lg:px-36;
+  }
+}
+
 /* homepage banner scale up effect */
 @keyframes scaleUp {
   from {
