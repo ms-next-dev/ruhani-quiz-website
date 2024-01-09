@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Subject {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+
+  createdAt DateTime @default(now())
+}
+
+model Billboard {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String @unique
+  image String
+
+  creatorId String @db.ObjectId
+  creator   User?  @relation(fields: [creatorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+enum AccountType {
+  admin
+  alim
+  moderator
+  partner
+  member
+}
+
+model User {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  email    String  @unique
+  password String?
+
+  first_name String?
+  last_name  String?
+  avatar     String?
+
+  educational_qualification String?
+  designation               String?
+  district                  String?
+  phone                     String? @default("019")
+  connect                   String?
+
+  isActive Boolean     @default(true)
+  notice   String?
+  score    Int?        @default(0)
+  role     AccountType @default(member)
+
+  emailVerified DateTime?
+
+  billboards Billboard[]
+  accounts   Account[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model Topic {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String @unique
+  image String
+
+  billboardId String? @db.ObjectId
+
+  questions Question[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum AnswerSelectionType {
+  single
+  double
+}
+
+model Question {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  question String
+
+  answerSelectionType AnswerSelectionType @default(single)
+
+  correct_answer Int[]
+
+  options String[]
+
+  explanation String?
+
+  point     Int     @default(1)
+  published Boolean @default(false)
+
+  // total number of played this question
+  played Int? @default(0)
+
+  // all relation
+  topicId String @db.ObjectId
+  topic   Topic? @relation(fields: [topicId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("questions")
+}
