@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import Footer from "@/components/footer";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/navbar/navbar";
 import { SonnerToastProvider } from "@/providers/sonner-toast-provider";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";

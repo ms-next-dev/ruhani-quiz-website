@@ -8,6 +8,7 @@ import * as z from "zod";
 import { LoginSchema } from "@/Schemas";
 import { signIn } from "@/auth";
 import { getUserByEmail } from "@/data/user";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   // Parse the parameters values from LoginSchema
@@ -42,7 +43,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       email,
       password,
       role,
-      redirectTo: "/",
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
     return {
       success: "Login successful",
