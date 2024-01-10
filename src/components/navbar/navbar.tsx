@@ -66,7 +66,7 @@ const Navbar = () => {
       <section className="container flex justify-between items-center">
         <div>
           <Image
-            src={"/logo-white-edited.png"}
+            src={"/logo/logo-white-edited.png"}
             alt="logo"
             width={87}
             height={52}
