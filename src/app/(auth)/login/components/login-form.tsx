@@ -1,4 +1,15 @@
 "use client";
+
+// Packages
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AccountType } from "@prisma/client";
+import Link from "next/link";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
+
+// Local Imports
 import { LoginSchema } from "@/Schemas";
 import { login } from "@/actions/auth/login";
 import { AuthCardWrapper } from "@/components/auth/auth-card-wrapper";
@@ -12,19 +23,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-// Packages
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AccountType } from "@prisma/client";
-import Link from "next/link";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import * as z from "zod";
 
-// Local imports
 const LoginForm = () => {
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -36,15 +36,13 @@ const LoginForm = () => {
     },
   });
 
+  // on submit function when login form is submitted
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
-    setError("");
-    setSuccess("");
     const toastId = toast.loading("Logging in...");
 
     startTransition(() => {
       login(values).then((res: any) => {
         if (res.error) {
-          setError(res.error);
           toast.error(res.error, {
             id: toastId,
           });
@@ -52,7 +50,6 @@ const LoginForm = () => {
         }
 
         if (res.success) {
-          setSuccess(res.success);
           toast.success(res.success, {
             id: toastId,
           });

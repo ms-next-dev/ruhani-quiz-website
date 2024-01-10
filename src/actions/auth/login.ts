@@ -1,11 +1,13 @@
 "use server";
-import { LoginSchema } from "@/Schemas";
-import { signIn } from "@/auth";
-import { getUserByEmail } from "@/data/user";
 // Packages
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
 import * as z from "zod";
+
+// Local Imports
+import { LoginSchema } from "@/Schemas";
+import { signIn } from "@/auth";
+import { getUserByEmail } from "@/data/user";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   // Parse the parameters values from LoginSchema
