@@ -1,4 +1,15 @@
 "use client";
+
+// Packages
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AccountType } from "@prisma/client";
+import Link from "next/link";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
+
+// Local Imports
 import { RegistrationSchema } from "@/Schemas";
 import { register } from "@/actions/auth/register";
 import { AuthCardWrapper } from "@/components/auth/auth-card-wrapper";
@@ -14,22 +25,14 @@ import {
 import { FormError } from "@/components/ui/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
 import { Input } from "@/components/ui/input";
-// Packages
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AccountType } from "@prisma/client";
-import Link from "next/link";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import * as z from "zod";
-
-// Local imports
 
 const RegistrationForm = () => {
+  // Component State
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
+  // form Object
   const form = useForm<z.infer<typeof RegistrationSchema>>({
     resolver: zodResolver(RegistrationSchema),
     defaultValues: {
@@ -40,6 +43,7 @@ const RegistrationForm = () => {
     },
   });
 
+  // on submit function when registration form is submitted
   const onSubmit = async (values: z.infer<typeof RegistrationSchema>) => {
     setError("");
     setSuccess("");
