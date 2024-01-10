@@ -14,7 +14,8 @@ import { Roboto } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
+import UserButton from "./UserButton";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
@@ -88,18 +89,7 @@ const Navbar = () => {
             Logout
           </Button>
         ) : (
-          <div className="hidden lg:flex justify-end items-center gap-x-6">
-            <Link href={"/sign-up"}>Sign Up</Link>
-            <Link href={"/login"}>
-              <Button
-                variant="outline"
-                size={"lg"}
-                className="text-[15px] font-normal rounded-[20px]"
-              >
-                Login
-              </Button>
-            </Link>
-          </div>
+          <UserButton />
         )}
       </section>
       <div className="lg:hidden">
