@@ -7,7 +7,9 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useCurrentRole } from "@/hooks/use-current-role";
 import { Menu } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { Roboto } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,6 +23,8 @@ const roboto = Roboto({
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
+
+  const currentRole = useCurrentRole();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,18 +78,29 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <div className="hidden lg:flex justify-end items-center gap-x-6">
-          <Link href={"/"}>Sign Up</Link>
-          <Link href={"/"}>
-            <Button
-              variant="outline"
-              size={"lg"}
-              className="text-[15px] font-normal rounded-[20px]"
-            >
-              Login
-            </Button>
-          </Link>
-        </div>
+        {currentRole ? (
+          <Button
+            variant="link"
+            size={"lg"}
+            className="text-[15px] font-normal rounded-[20px]"
+            onClick={() => signOut()}
+          >
+            Logout
+          </Button>
+        ) : (
+          <div className="hidden lg:flex justify-end items-center gap-x-6">
+            <Link href={"/sign-up"}>Sign Up</Link>
+            <Link href={"/login"}>
+              <Button
+                variant="outline"
+                size={"lg"}
+                className="text-[15px] font-normal rounded-[20px]"
+              >
+                Login
+              </Button>
+            </Link>
+          </div>
+        )}
       </section>
       <div className="lg:hidden">
         <Drawer>
