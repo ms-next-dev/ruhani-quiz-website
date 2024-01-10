@@ -10,6 +10,10 @@ import { signIn } from "@/auth";
 import { getUserByEmail } from "@/data/user";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
+/**
+ * login is a server action
+ * Used for user login like user verification, password matching and next auth login
+ */
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   // Parse the parameters values from LoginSchema
   const validatedFields = LoginSchema.safeParse(values);

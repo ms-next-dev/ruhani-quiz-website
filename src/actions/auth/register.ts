@@ -12,6 +12,10 @@ import { prismaDb } from "@/lib/db";
 import { sentVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/token";
 
+/**
+ * register is a server action
+ * Used for user registration
+ */
 export const register = async (data: z.infer<typeof RegistrationSchema>) => {
   // Parse the data from registration schema
   const validatedFields = RegistrationSchema.safeParse(data);
