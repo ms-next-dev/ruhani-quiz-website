@@ -1,4 +1,11 @@
 "use client";
+
+// Packages
+import { LogOut, Settings, User } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+
+// Local Imports
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -10,9 +17,6 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, Settings, User } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
 import { Button } from "../ui/button";
 
 const UserButton = () => {
