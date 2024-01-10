@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut } from "@/auth";
 import {
   Drawer,
   DrawerContent,
@@ -9,10 +10,10 @@ import {
 } from "@/components/ui/drawer";
 import { useCurrentRole } from "@/hooks/use-current-role";
 import { Menu } from "lucide-react";
-import { signOut } from "next-auth/react";
 import { Roboto } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import UserButton from "./UserButton";
@@ -26,6 +27,7 @@ const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
 
   const currentRole = useCurrentRole();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,11 +72,18 @@ const Navbar = () => {
             alt="logo"
             width={87}
             height={52}
+            onClick={() => router.push("/")}
           />
         </div>
-        <div className={`hidden lg:flex justify-center items-center gap-x-10`}>
+        <div
+          className={`hidden lg:flex justify-center items-center gap-x-5 xl:gap-x-10 `}
+        >
           {menu.map((m) => (
-            <Link key={m.id} href={m.link} className="text-[15px]">
+            <Link
+              key={m.id}
+              href={m.link}
+              className="text-[15px] hover:text-[#FF004C]"
+            >
               {m.text}
             </Link>
           ))}
@@ -83,7 +92,7 @@ const Navbar = () => {
           <Button
             variant="link"
             size={"lg"}
-            className="text-[15px] font-normal rounded-[20px]"
+            className="hidden lg:block text-[15px] font-normal rounded-[20px]"
             onClick={() => signOut()}
           >
             Logout
@@ -91,41 +100,56 @@ const Navbar = () => {
         ) : (
           <UserButton />
         )}
+
+        {/* mobile nav */}
+        <div className="lg:hidden">
+          <Drawer>
+            <DrawerTrigger>
+              <Menu className="w-8 h-8" />
+            </DrawerTrigger>
+            <DrawerContent className="bg-white text-black">
+              <DrawerHeader>
+                <div
+                  className={`flex flex-col justify-center items-center gap-y-5 mb-5`}
+                >
+                  {menu.map((m) => (
+                    <Link key={m.id} href={m.link} className="text-[15px]">
+                      {m.text}
+                    </Link>
+                  ))}
+                </div>
+              </DrawerHeader>
+              <DrawerFooter>
+                {currentRole ? (
+                  <div className="flex justify-center">
+                    <Button
+                      variant="link"
+                      size={"lg"}
+                      className="lg:hidden w-2/5 text-[15px] font-normal rounded-[20px] border border-[#FF004C]"
+                      onClick={() => signOut()}
+                    >
+                      Logout
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col justify-center items-center gap-y-5">
+                    <Link href={"/sign-up"}>Sign Up</Link>
+                    <Link href={"/login"}>
+                      <Button
+                        variant="outline"
+                        size={"lg"}
+                        className="text-[15px] font-normal rounded-[20px]"
+                      >
+                        Login
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </DrawerFooter>
+            </DrawerContent>
+          </Drawer>
+        </div>
       </section>
-      <div className="lg:hidden">
-        <Drawer>
-          <DrawerTrigger>
-            <Menu className="w-8 h-8" />
-          </DrawerTrigger>
-          <DrawerContent className="bg-white text-black">
-            <DrawerHeader>
-              <div
-                className={`flex flex-col justify-center items-center gap-y-5 mb-5`}
-              >
-                {menu.map((m) => (
-                  <Link key={m.id} href={m.link} className="text-[15px]">
-                    {m.text}
-                  </Link>
-                ))}
-              </div>
-            </DrawerHeader>
-            <DrawerFooter>
-              <div className="flex flex-col justify-center items-center gap-y-5">
-                <Link href={"/"}>Sign Up</Link>
-                <Link href={"/"}>
-                  <Button
-                    variant="outline"
-                    size={"lg"}
-                    className="text-[15px] font-normal rounded-[20px]"
-                  >
-                    Login
-                  </Button>
-                </Link>
-              </div>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-      </div>
     </nav>
   );
 };
