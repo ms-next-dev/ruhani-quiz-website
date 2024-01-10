@@ -88,18 +88,7 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        {currentRole ? (
-          <Button
-            variant="link"
-            size={"lg"}
-            className="hidden lg:block text-[15px] font-normal rounded-[20px]"
-            onClick={() => signOut()}
-          >
-            Logout
-          </Button>
-        ) : (
-          <UserButton />
-        )}
+        <UserButton />
 
         {/* mobile nav */}
         <div className="lg:hidden">
