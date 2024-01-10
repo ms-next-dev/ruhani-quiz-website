@@ -1,9 +1,14 @@
 "use server";
+
 // Local imports
 import { getUserByEmail } from "@/data/user";
 import { getVerificationTokenByToken } from "@/data/verification-token";
 import { prismaDb } from "@/lib/db";
 
+/**
+ * newVerification is a server action
+ * Used for checking the email verification token
+ */
 export const newVerification = async (token: string) => {
   // get the verification token from database operation
   const existingToken = await getVerificationTokenByToken(token);
