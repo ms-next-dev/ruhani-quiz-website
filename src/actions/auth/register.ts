@@ -2,7 +2,6 @@
 
 // Packages
 import { AccountType } from "@prisma/client";
-import bcrypt from "bcryptjs";
 import * as z from "zod";
 
 // Local Imports
@@ -11,6 +10,7 @@ import { getUserByEmail } from "@/data/user";
 import { prismaDb } from "@/lib/db";
 import { sentVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/token";
+import md5 from "md5";
 
 /**
  * register is a server action
@@ -28,7 +28,7 @@ export const register = async (data: z.infer<typeof RegistrationSchema>) => {
   const { email, first_name, password, role } = validatedFields.data;
 
   // Hash password using bcrypt package manager
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = md5(password);
 
   const existingUser = await getUserByEmail(email);
 
