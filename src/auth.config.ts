@@ -1,10 +1,10 @@
 // Packages
 import { AccountType } from "@prisma/client";
-import bcrypt from "bcryptjs";
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 // Local Imports
+import md5 from "md5";
 import { LoginSchema } from "./Schemas";
 import { prismaDb } from "./lib/db";
 
@@ -27,7 +27,12 @@ export default {
 
           if (!user || !user.password) return null;
 
-          const passwordMatch = await bcrypt.compare(password, user.password);
+          // Database hashed password
+          const DBPassword = user.password;
+          // Hashing the current password
+          const currentPassword = md5(password);
+          // Checking the password is matched
+          const passwordMatch = currentPassword === DBPassword;
 
           if (passwordMatch) return user;
         }

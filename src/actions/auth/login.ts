@@ -1,6 +1,5 @@
 "use server";
 // Packages
-import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
 import * as z from "zod";
 
@@ -9,6 +8,7 @@ import { LoginSchema } from "@/Schemas";
 import { signIn } from "@/auth";
 import { getUserByEmail } from "@/data/user";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import md5 from "md5";
 
 /**
  * login is a server action
@@ -32,11 +32,12 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     return { error: "Account doesn't exist!" };
   }
 
+  // DB hashed password
+  const DBPassword = existingUser.password;
+  // hashing the current password
+  const currentPassword = md5(password);
   // Checking if the user password is correct
-  const isPasswordMatched = await bcrypt.compare(
-    password,
-    existingUser.password
-  );
+  const isPasswordMatched = DBPassword === currentPassword;
 
   if (!isPasswordMatched) {
     return { error: "Password mismatch!" };
