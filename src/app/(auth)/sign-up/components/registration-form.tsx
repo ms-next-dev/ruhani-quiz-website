@@ -4,7 +4,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AccountType } from "@prisma/client";
 import Link from "next/link";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -31,6 +31,7 @@ const RegistrationForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const [mounted, setMounted] = useState(false);
 
   // form Object
   const form = useForm<z.infer<typeof RegistrationSchema>>({
@@ -42,6 +43,12 @@ const RegistrationForm = () => {
       first_name: "",
     },
   });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   // on submit function when registration form is submitted
   const onSubmit = async (values: z.infer<typeof RegistrationSchema>) => {

@@ -1,4 +1,8 @@
-import LoginForm from "./components/login-form";
+// Packages
+import dynamic from "next/dynamic";
+
+// Local Imports
+const LoginForm = dynamic(() => import("./components/login-form"));
 
 const Login = () => {
   return (

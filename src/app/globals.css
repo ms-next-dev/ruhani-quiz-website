@@ -7,6 +7,21 @@ body :root {
   height: 100%;
 }
 
+/* scroll-bar start */
+html::-webkit-scrollbar {
+  width: 10px;
+}
+html::-webkit-scrollbar-thumb {
+  background: #ff004ceb;
+
+  border-radius: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: #08040d;
+}
+/* scroll-bar end */
+
 @layer {
   .container {
     @apply max-w-[1430px] mx-auto px-6 md:px-20 lg:px-36;
