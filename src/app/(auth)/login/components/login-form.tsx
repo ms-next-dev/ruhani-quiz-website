@@ -4,7 +4,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AccountType } from "@prisma/client";
 import Link from "next/link";
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 
 const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
+  const [mounted, setMounted] = useState(false);
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -35,6 +36,13 @@ const LoginForm = () => {
       role: "member" as AccountType,
     },
   });
+
+  // Fixed Hydration Error
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   // on submit function when login form is submitted
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {

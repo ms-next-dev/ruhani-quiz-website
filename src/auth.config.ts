@@ -27,9 +27,11 @@ export default {
 
           if (!user || !user.password) return null;
 
+          // Database hashed password
           const DBPassword = user.password;
+          // Hashing the current password
           const currentPassword = md5(password);
-
+          // Checking the password is matched
           const passwordMatch = currentPassword === DBPassword;
 
           if (passwordMatch) return user;

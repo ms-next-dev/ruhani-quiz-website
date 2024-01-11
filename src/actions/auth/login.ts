@@ -32,9 +32,11 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     return { error: "Account doesn't exist!" };
   }
 
-  // Checking if the user password is correct
+  // DB hashed password
   const DBPassword = existingUser.password;
+  // hashing the current password
   const currentPassword = md5(password);
+  // Checking if the user password is correct
   const isPasswordMatched = DBPassword === currentPassword;
 
   if (!isPasswordMatched) {
