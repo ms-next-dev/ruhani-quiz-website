@@ -50,6 +50,10 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    router.prefetch("/login");
+  }, []);
+
   const menu = [
     { id: 1, link: "/", text: "Home" },
     { id: 2, link: "/", text: "Topics" },
