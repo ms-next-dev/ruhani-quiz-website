@@ -4,9 +4,9 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <div className="flex items-center justify-center h-[calc(100vh-110px)] ">
-        <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-md rounded-2xl md:flex-row md:space-y-0 min-h-[480px]">
+    <div className="flex items-center justify-center h-[calc(100vh-110px)] ">
+      <div>
+        <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-md rounded-2xl md:flex-row md:space-y-0 min-h-[530px] ">
           {/* <!-- left side --> */}
           <div>
             <img
@@ -16,7 +16,7 @@ export default function AuthLayout({
             />
           </div>
           {/* <!-- right side --> */}
-          <div className="relative min-w-[200px]">{children}</div>
+          <div className="relative w-fit">{children}</div>
         </div>
       </div>
     </div>

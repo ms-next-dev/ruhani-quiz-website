@@ -5,12 +5,13 @@ import dynamic from "next/dynamic";
 const RegistrationForm = dynamic(
   () => import("./components/registration-form")
 );
+const PageTransition = dynamic(() => import("@/framer/page-transition"));
 
 const SignUpPage = () => {
   return (
-    <div className="container">
+    <PageTransition>
       <RegistrationForm />;
-    </div>
+    </PageTransition>
   );
 };
 
