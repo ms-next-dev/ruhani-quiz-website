@@ -68,7 +68,7 @@ const LoginForm = () => {
   };
   return (
     <AuthCardWrapper
-      headerLabel="Welcom back! Please enter your details"
+      headerLabel="Login Now! Please enter your detailes!"
       backButtonLabel="Don't have an account?"
       backButtonHref="/sign-up"
       showSocial

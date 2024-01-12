@@ -76,8 +76,8 @@ const RegistrationForm = () => {
   };
   return (
     <AuthCardWrapper
-      headerLabel=""
-      backButtonLabel="Already have account?"
+      headerLabel="Create an account"
+      backButtonLabel="Already have an account?"
       backButtonHref="/login"
       showSocial
     >
