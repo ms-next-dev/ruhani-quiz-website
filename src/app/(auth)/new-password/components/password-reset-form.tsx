@@ -2,16 +2,14 @@
 
 // Packages
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AccountType } from "@prisma/client";
-import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
 // Local Imports
-import { RegistrationSchema } from "@/Schemas";
-import { register } from "@/actions/auth/register";
+import { NewPasswordSchema } from "@/Schemas";
+import { newPassword } from "@/actions/auth/new-password";
 import { AuthCardWrapper } from "@/components/auth/auth-card-wrapper";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,38 +23,43 @@ import {
 import { FormError } from "@/components/ui/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
 import { Input } from "@/components/ui/input";
+import { useRouter, useSearchParams } from "next/navigation";
 
-const RegistrationForm = () => {
-  // Component State
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
+const PasswordResetForm = () => {
   const [isPending, startTransition] = useTransition();
   const [mounted, setMounted] = useState(false);
+  const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
 
-  // form Object
-  const form = useForm<z.infer<typeof RegistrationSchema>>({
-    resolver: zodResolver(RegistrationSchema),
+  // Hooks
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const token = searchParams.get("token");
+
+  const form = useForm<z.infer<typeof NewPasswordSchema>>({
+    resolver: zodResolver(NewPasswordSchema),
     defaultValues: {
-      email: "",
       password: "",
-      role: "member" as AccountType,
-      first_name: "",
+      confirmPassword: "",
     },
   });
 
+  // Fixed Hydration Error
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) return null;
 
-  // on submit function when registration form is submitted
-  const onSubmit = async (values: z.infer<typeof RegistrationSchema>) => {
+  // on submit function when login form is submitted
+  const onSubmit = async (values: z.infer<typeof NewPasswordSchema>) => {
     setError("");
     setSuccess("");
     const toastId = toast.loading("Please wait...");
+
     startTransition(() => {
-      register(values).then((res) => {
+      newPassword(values, token as string).then((res: any) => {
         if (res.error) {
           toast.error(res.error, {
             id: toastId,
@@ -69,82 +72,60 @@ const RegistrationForm = () => {
           toast.success(res.success, {
             id: toastId,
           });
-          setSuccess(res.success);
+          form.reset();
+          setSuccess("Password Updated!");
+          setTimeout(() => {
+            router.push("/login");
+          }, 5000);
+          return;
         }
       });
     });
   };
   return (
     <AuthCardWrapper
-      headerLabel="Create an account"
-      backButtonLabel="Already have an account?"
+      headerLabel=""
+      backButtonLabel=""
       backButtonHref="/login"
-      showSocial
+      showSocial={false}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="space-y-2">
-            <FormField
-              control={form.control}
-              name="first_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>First Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      type="text"
-                      className="border border-black/50 h-[30px]"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="abc@gmail.com"
-                      type="email"
-                      className="border border-black/50 h-[30px]"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <div className="space-y-3">
             <FormField
               control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>New Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="******"
+                      placeholder="New Password"
                       disabled={isPending}
                       type="password"
-                      className="border border-black/50 h-[30px]"
+                      className="border border-black/50"
                     />
                   </FormControl>
-                  <Button
-                    size="sm"
-                    variant="link"
-                    asChild
-                    className="px-0 font-normal"
-                    disabled={isPending}
-                  >
-                    <Link href="/auth/reset">Forgot password?</Link>
-                  </Button>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm New Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="Confirm New Password"
+                      disabled={isPending}
+                      type="password"
+                      className="border border-black/50"
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -154,10 +135,10 @@ const RegistrationForm = () => {
           <FormSuccess message={success} />
           <Button
             type="submit"
-            disabled={isPending}
-            className="w-full bg-black text-white hover:bg-black/80 duration-500 h-[35px] text-[12px] font-normal"
+            disabled={isPending || !!success}
+            className="w-full bg-black text-white hover:bg-black/80 duration-500"
           >
-            Registration
+            Reset Now
           </Button>
         </form>
       </Form>
@@ -165,4 +146,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default PasswordResetForm;

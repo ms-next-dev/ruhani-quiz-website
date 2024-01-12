@@ -7,6 +7,7 @@ import { Inter } from "next/font/google";
 // Local Imports
 import { auth } from "@/auth";
 import { getSubjects } from "@/hooks/get-subjects";
+import NProgress from "@/providers/NProgress";
 import { SonnerToastProvider } from "@/providers/sonner-toast-provider";
 import "./globals.css";
 const Navbar = dynamic(() => import("@/components/navbar/navbar"));
@@ -32,6 +33,7 @@ export default async function RootLayout({
             <html lang="en">
                 <body className={inter.className}>
                     <SonnerToastProvider />
+                    <NProgress />
                     <Navbar subjects={subjects} />
                     <main>{children}</main>
                     <Footer />
