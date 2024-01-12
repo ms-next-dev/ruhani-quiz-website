@@ -44,7 +44,7 @@ const Banner = () => {
               src={image.img}
               alt={`Image ${index + 1}`}
               fill
-              objectFit="cover"
+              style={{ objectFit: "cover" }}
             />
             <div className="bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full"></div>
           </div>
