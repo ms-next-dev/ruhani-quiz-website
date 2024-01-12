@@ -24,7 +24,7 @@ const Footer = () => {
   if (!mounted) return null;
 
   const pathName = usePathname();
-  const hidedPaths = ["/login", "/sign-up"];
+  const hidedPaths = ["/login", "/sign-up", "/reset", "/new-password"];
 
   if (hidedPaths.includes(pathName)) {
     return null;

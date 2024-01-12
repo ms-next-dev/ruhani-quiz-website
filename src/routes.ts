@@ -10,7 +10,13 @@ export const publicRoutes = ["/", "/api/quiz"];
  * These routes will redirect logged in users to the Home page
  * @type {string[]}
  */
-export const authRoutes = ["/login", "/sign-up", "/new-verification"];
+export const authRoutes = [
+  "/login",
+  "/sign-up",
+  "/new-verification",
+  "/reset",
+  "/new-password",
+];
 
 /**
  * The prefix for API authentication routes
