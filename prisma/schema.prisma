@@ -142,8 +142,29 @@ model Question {
   topicId String @db.ObjectId
   topic   Topic? @relation(fields: [topicId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
+  // Relation with QuizAnswer
+  quizAnswerId String?     @unique @db.ObjectId
+  quizAnswer   QuizAnswer? @relation(fields: [quizAnswerId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("questions")
+}
+
+model Quiz {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  participated String @db.ObjectId
+  total_marks  Int?
+
+  questions QuizAnswer[]
+}
+
+model QuizAnswer {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  question      Question?
+  user_answered Int[]
+
+  quizId String @db.ObjectId
+  quiz   Quiz   @relation(fields: [quizId], references: [id])
 }
