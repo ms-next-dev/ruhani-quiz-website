@@ -1,4 +1,5 @@
 // Packages
+import AuthUIWrapper from "@/components/auth/auth-ui-wrapper";
 import dynamic from "next/dynamic";
 
 // Local Imports
@@ -9,9 +10,11 @@ const PageTransition = dynamic(() => import("@/framer/page-transition"));
 
 const SignUpPage = () => {
   return (
-    <PageTransition>
-      <RegistrationForm />;
-    </PageTransition>
+    <AuthUIWrapper>
+      <PageTransition>
+        <RegistrationForm />;
+      </PageTransition>
+    </AuthUIWrapper>
   );
 };
 

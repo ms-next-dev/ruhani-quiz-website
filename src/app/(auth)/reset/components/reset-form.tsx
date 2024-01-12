@@ -2,16 +2,14 @@
 
 // Packages
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AccountType } from "@prisma/client";
-import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
 // Local Imports
-import { LoginSchema } from "@/Schemas";
-import { login } from "@/actions/auth/login";
+import { ResetPasswordSchema } from "@/Schemas";
+import { reset } from "@/actions/auth/reset";
 import { AuthCardWrapper } from "@/components/auth/auth-card-wrapper";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,18 +20,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { FormError } from "@/components/ui/form-error";
+import { FormSuccess } from "@/components/ui/form-success";
 import { Input } from "@/components/ui/input";
 
-const LoginForm = () => {
+const ResetForm = () => {
   const [isPending, startTransition] = useTransition();
   const [mounted, setMounted] = useState(false);
+  const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<z.infer<typeof ResetPasswordSchema>>({
+    resolver: zodResolver(ResetPasswordSchema),
     defaultValues: {
       email: "",
-      password: "",
-      role: "member" as AccountType,
     },
   });
 
@@ -45,15 +45,18 @@ const LoginForm = () => {
   if (!mounted) return null;
 
   // on submit function when login form is submitted
-  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
-    const toastId = toast.loading("Logging in...");
+  const onSubmit = async (values: z.infer<typeof ResetPasswordSchema>) => {
+    setError("");
+    setSuccess("");
+    const toastId = toast.loading("Sending reset email...");
 
     startTransition(() => {
-      login(values).then((res: any) => {
+      reset(values).then((res: any) => {
         if (res.error) {
           toast.error(res.error, {
             id: toastId,
           });
+          setError(res.error);
           return;
         }
 
@@ -61,6 +64,7 @@ const LoginForm = () => {
           toast.success(res.success, {
             id: toastId,
           });
+          setSuccess(res.success);
           return;
         }
       });
@@ -68,10 +72,10 @@ const LoginForm = () => {
   };
   return (
     <AuthCardWrapper
-      headerLabel="Welcom back! Please enter your details"
-      backButtonLabel="Don't have an account?"
-      backButtonHref="/sign-up"
-      showSocial
+      headerLabel="Forgot your password?"
+      backButtonLabel="Back to login"
+      backButtonHref="/login"
+      showSocial={false}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -95,40 +99,15 @@ const LoginForm = () => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="******"
-                      type="password"
-                      disabled={isPending}
-                      className="border border-black/50"
-                    />
-                  </FormControl>
-                  <Button
-                    size="sm"
-                    variant="link"
-                    asChild
-                    className="px-0 font-normal"
-                  >
-                    <Link href="/reset">Forgot password?</Link>
-                  </Button>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
+          <FormError message={error} />
+          <FormSuccess message={success} />
           <Button
             type="submit"
             disabled={isPending}
             className="w-full bg-black text-white hover:bg-black/80 duration-500"
           >
-            Login
+            Send reset email
           </Button>
         </form>
       </Form>
@@ -136,4 +115,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ResetForm;

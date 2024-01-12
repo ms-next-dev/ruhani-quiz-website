@@ -2,16 +2,14 @@
 
 // Packages
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AccountType } from "@prisma/client";
-import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
 // Local Imports
-import { LoginSchema } from "@/Schemas";
-import { login } from "@/actions/auth/login";
+import { NewPasswordSchema } from "@/Schemas";
+import { newPassword } from "@/actions/auth/new-password";
 import { AuthCardWrapper } from "@/components/auth/auth-card-wrapper";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,18 +20,28 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { FormError } from "@/components/ui/form-error";
+import { FormSuccess } from "@/components/ui/form-success";
 import { Input } from "@/components/ui/input";
+import { useRouter, useSearchParams } from "next/navigation";
 
-const LoginForm = () => {
+const PasswordResetForm = () => {
   const [isPending, startTransition] = useTransition();
   const [mounted, setMounted] = useState(false);
+  const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  // Hooks
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const token = searchParams.get("token");
+
+  const form = useForm<z.infer<typeof NewPasswordSchema>>({
+    resolver: zodResolver(NewPasswordSchema),
     defaultValues: {
-      email: "",
       password: "",
-      role: "member" as AccountType,
+      confirmPassword: "",
     },
   });
 
@@ -45,15 +53,18 @@ const LoginForm = () => {
   if (!mounted) return null;
 
   // on submit function when login form is submitted
-  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
-    const toastId = toast.loading("Logging in...");
+  const onSubmit = async (values: z.infer<typeof NewPasswordSchema>) => {
+    setError("");
+    setSuccess("");
+    const toastId = toast.loading("Please wait...");
 
     startTransition(() => {
-      login(values).then((res: any) => {
+      newPassword(values, token as string).then((res: any) => {
         if (res.error) {
           toast.error(res.error, {
             id: toastId,
           });
+          setError(res.error);
           return;
         }
 
@@ -61,6 +72,11 @@ const LoginForm = () => {
           toast.success(res.success, {
             id: toastId,
           });
+          form.reset();
+          setSuccess("Password Updated!");
+          setTimeout(() => {
+            router.push("/login");
+          }, 5000);
           return;
         }
       });
@@ -68,26 +84,26 @@ const LoginForm = () => {
   };
   return (
     <AuthCardWrapper
-      headerLabel="Welcom back! Please enter your details"
-      backButtonLabel="Don't have an account?"
-      backButtonHref="/sign-up"
-      showSocial
+      headerLabel=""
+      backButtonLabel=""
+      backButtonHref="/login"
+      showSocial={false}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-3">
             <FormField
               control={form.control}
-              name="email"
+              name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>New Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="abc@gmail.com"
+                      placeholder="New Password"
                       disabled={isPending}
-                      type="email"
+                      type="password"
                       className="border border-black/50"
                     />
                   </FormControl>
@@ -97,38 +113,32 @@ const LoginForm = () => {
             />
             <FormField
               control={form.control}
-              name="password"
+              name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Confirm New Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="******"
-                      type="password"
+                      placeholder="Confirm New Password"
                       disabled={isPending}
+                      type="password"
                       className="border border-black/50"
                     />
                   </FormControl>
-                  <Button
-                    size="sm"
-                    variant="link"
-                    asChild
-                    className="px-0 font-normal"
-                  >
-                    <Link href="/reset">Forgot password?</Link>
-                  </Button>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
+          <FormError message={error} />
+          <FormSuccess message={success} />
           <Button
             type="submit"
-            disabled={isPending}
+            disabled={isPending || !!success}
             className="w-full bg-black text-white hover:bg-black/80 duration-500"
           >
-            Login
+            Reset Now
           </Button>
         </form>
       </Form>
@@ -136,4 +146,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default PasswordResetForm;

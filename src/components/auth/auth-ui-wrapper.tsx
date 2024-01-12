@@ -1,8 +1,8 @@
-export default function AuthLayout({
-  children,
-}: {
+interface AuthUIWrapperProps {
   children: React.ReactNode;
-}) {
+}
+
+const AuthUIWrapper: React.FC<AuthUIWrapperProps> = ({ children }) => {
   return (
     <div className="flex items-center justify-center h-[calc(100vh-110px)] ">
       <div>
@@ -21,4 +21,6 @@ export default function AuthLayout({
       </div>
     </div>
   );
-}
+};
+
+export default AuthUIWrapper;
