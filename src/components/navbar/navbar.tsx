@@ -75,16 +75,15 @@ const Navbar = () => {
       } `}
     >
       <section className="container flex justify-between items-center">
-        <div>
+        <Link href="/">
           <Image
             src={"/logo/logo-white-edited.png"}
             alt="logo"
             width={87}
             height={52}
             className="cursor-pointer hover:scale-105 duration-500 ease-in-out"
-            onClick={() => router.push("/")}
           />
-        </div>
+        </Link>
         <div
           className={`hidden lg:flex justify-center items-center gap-x-5 xl:gap-x-10 `}
         >
