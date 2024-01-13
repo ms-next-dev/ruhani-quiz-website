@@ -18,6 +18,12 @@ export const reset = async (values: z.infer<typeof ResetPasswordSchema>) => {
   if (!existingUser) {
     return { error: "Email not found!" };
   }
+
+  if (existingUser.role !== "member") {
+    return {
+      error: `${existingUser.role} account are not permitted to  password resets`,
+    };
+  }
   // TODO: Generate token & send email
   const resetToken = await generatePasswordResetToken(email);
   await sendPasswordResetEmail(resetToken.email, resetToken.token);
