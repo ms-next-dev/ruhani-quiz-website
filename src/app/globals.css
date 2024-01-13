@@ -62,3 +62,11 @@ html::-webkit-scrollbar-track {
 }
 
 /* #1e0b39 */
+
+.progress-bar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, white 79%, transparent 80% 100%),
+    conic-gradient(#4ade80 75%, #bbf7d0 0);
+}
