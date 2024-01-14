@@ -2,7 +2,7 @@
 import SubjectCard from "@/components/cards/subject-card";
 import TopicCard from "@/components/cards/topic-card";
 import { Separator } from "@/components/ui/separator";
-import { getSubjects } from "@/hooks/get-subjects";
+import { getSubjects } from "@/data/subjects";
 import { montserrat } from "@/lib/fonts";
 
 const TopicsPage = async () => {
