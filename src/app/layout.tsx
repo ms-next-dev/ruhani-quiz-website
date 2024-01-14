@@ -6,7 +6,7 @@ import { Inter } from "next/font/google";
 
 // Local Imports
 import { auth } from "@/auth";
-import { getSubjects } from "@/hooks/get-subjects";
+import { getSubjects } from "@/data/subjects";
 import NProgress from "@/providers/NProgress";
 import { SonnerToastProvider } from "@/providers/sonner-toast-provider";
 import "./globals.css";

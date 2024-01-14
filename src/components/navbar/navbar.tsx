@@ -83,7 +83,7 @@ const Navbar: React.FC<NavbarProps> = ({ subjects }) => {
         <nav
             className={`${
                 roboto.className
-            } text-white py-4 sticky top-0 w-full z-10 flex justify-between items-center  ${
+            } text-white py-4 sticky top-0 w-full z-50 flex justify-between items-center  ${
                 scrolling
                     ? "bg-black top-0 transition-all duration-500"
                     : "top-0 bg-black"
