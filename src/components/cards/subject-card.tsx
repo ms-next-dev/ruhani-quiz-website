@@ -14,7 +14,7 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
         <div className="hover:scale-110 rounded-[20px_0px] hover:rounded-[20px_20px] duration-500">
             <div className=" p-6 rounded-[20px_0px] hover:rounded-[20px_20px] duration-1000 shadow-[3.134px_3.134px_18.804px_3.134px_rgba(0,0,0,0.25)]">
                 <p
-                    className={`${montserrat.className} text-2xl font-bold text-center mt-12 mb-8 capitalize`}
+                    className={`${montserrat.className} text-2xl lg:text-xl xl:text-2xl font-bold text-center mt-12 mb-8 capitalize whitespace-nowrap`}
                 >
                     {subject.name}
                 </p>
