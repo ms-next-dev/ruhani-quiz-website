@@ -13,7 +13,7 @@ const MySelfCard = () => {
           alt="profile"
           width={100}
           height={100}
-          className="z-50 absolute top-[95%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#FF004C]"
+          className="z-20 absolute top-[95%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#FF004C]"
         />
       </CardHeader>
       <CardContent className="mt-14">
