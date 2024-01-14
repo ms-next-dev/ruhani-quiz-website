@@ -44,6 +44,7 @@ export const {
 
       token.role = existingUser.role;
       token.avatar = existingUser.avatar;
+      token.emailVerified = existingUser.emailVerified;
 
       return token;
     },

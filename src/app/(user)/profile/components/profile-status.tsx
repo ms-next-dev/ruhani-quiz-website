@@ -1,12 +1,23 @@
-import { Button } from "@/components/ui/button";
+import { auth } from "@/auth";
 import { Card, CardContent } from "@/components/ui/card";
+import { getUserByEmail } from "@/data/user";
+import EmailVerificationCard from "./email-verification-card";
 import ProfileSuggestionCards from "./profile-suggestion-cards";
 
-const ProfileStatus = () => {
+const ProfileStatus = async () => {
+  const authUser = await auth();
+  const user = await getUserByEmail(authUser?.user?.email as string);
+
+  const emailVerified = user?.emailVerified;
+
   return (
     <section className="flex flex-col gap-8">
-      <ProfileCompletionCard />
-      {/* <EmailVerificationCard /> */}
+      {emailVerified ? (
+        <ProfileCompletionCard />
+      ) : (
+        <EmailVerificationCard email={user?.email as string} />
+      )}
+
       <ProfileSuggestionCards />
     </section>
   );
@@ -35,27 +46,6 @@ const ProfileCompletionCard = () => {
           >
             45%
           </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
-
-const EmailVerificationCard = () => {
-  return (
-    <Card className="rounded-[20px]">
-      <CardContent className="p-6 flex items-center justify-between">
-        <div>
-          <h3 className="font-semibold">Please verify your email</h3>
-          <p className="text-[12px] lg:text-[14px] max-w-[500px] text-slate-600">
-            Welcome! 🌟 Verify your email to unlock quizzes. Check inbox/spam.
-            Let's start quizzing!
-          </p>
-        </div>
-        <div>
-          <Button variant="primary" className="rounded-[10px]">
-            Send Email
-          </Button>
         </div>
       </CardContent>
     </Card>
