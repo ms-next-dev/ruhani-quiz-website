@@ -19,7 +19,7 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic }) => {
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
             }}
-            className="hover:scale-110 rounded-[0px_20px] hover:rounded-[20px_20px] duration-700"
+            className="hover:scale-110 rounded-[0px_20px] hover:rounded-[20px_20px] duration-700 shadow-[3.134px_3.134px_18.804px_3.134px_rgba(0,0,0,0.40)]"
         >
             <div className="text-white p-6 bg-[linear-gradient(0deg,rgba(20,18,18,0.98)12.89%,rgba(4,2,2,0.64)48.38%)] shadow-lg rounded-[0px_20px] hover:rounded-[20px_20px] duration-1000">
                 <p
