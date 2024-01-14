@@ -25,7 +25,7 @@ const SubjectDropDown: React.FC<SubjectDropDownProps> = ({ subjects }) => {
                     Subjects
                 </span>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-44 bg-white -mt-2 lg:mt-5 -ml-28 md:-ml-80 lg:ml-20">
+            <DropdownMenuContent className="w-52 bg-white -mt-2 lg:mt-5 -ml-28 md:-ml-80 lg:ml-28">
                 <DropdownMenuGroup>
                     {subjects.length > 0 &&
                         subjects.map((subject) => (
@@ -38,7 +38,9 @@ const SubjectDropDown: React.FC<SubjectDropDownProps> = ({ subjects }) => {
                                     className="text-[15px] hover:text-[#FF004C] flex items-center p-1 duration-300"
                                 >
                                     <BookCheck className="mr-2 h-4 w-4" />
-                                    <span>{subject.name}</span>
+                                    <span className="whitespace-nowrap">
+                                        {subject.name}
+                                    </span>
                                 </Link>
                             </DropdownMenuItem>
                         ))}
