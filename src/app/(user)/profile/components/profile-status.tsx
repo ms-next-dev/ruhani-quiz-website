@@ -1,8 +1,14 @@
+// Packages
+import dynamic from "next/dynamic";
+
+// Local Imports
 import { auth } from "@/auth";
 import { Card, CardContent } from "@/components/ui/card";
 import { getUserByEmail } from "@/data/user";
-import EmailVerificationCard from "./email-verification-card";
 import ProfileSuggestionCards from "./profile-suggestion-cards";
+const EmailVerificationCard = dynamic(
+  () => import("./email-verification-card")
+);
 
 const ProfileStatus = async () => {
   const authUser = await auth();
