@@ -5,7 +5,7 @@ import { getVerificationTokenByEmail } from "@/data/verification-token";
 import { sentVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/token";
 
-export const SentVerificationEmail = async (email: string) => {
+export const resendVerificationEmail = async (email: string) => {
   const existingToken = await getVerificationTokenByEmail(email);
   const existingUser = await getUserByEmail(email);
 
