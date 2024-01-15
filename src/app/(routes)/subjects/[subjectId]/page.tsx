@@ -1,21 +1,18 @@
-// Local Imports
+// Local Import
 import SubjectCard from "@/components/cards/subject-card";
 import TopicCard from "@/components/cards/topic-card";
 import { Separator } from "@/components/ui/separator";
-import { getSubjects } from "@/data/subjects";
+import { getSubjectById, getSubjects } from "@/data/subjects";
 import { getTopicsBySubjectId } from "@/data/topic";
 import { montserrat } from "@/lib/fonts";
 
-const TopicsPage = async () => {
-    const subjects = await getSubjects();
-    const islam = subjects.find(
-        (subject) => subject.name.toLowerCase() === "islam"
-    );
+const SubjectPage = async ({ params }: { params: { subjectId: string } }) => {
+    const topics = await getTopicsBySubjectId(params.subjectId.toString());
+    const subject = await getSubjectById(params.subjectId.toString());
+    const allSubjects = await getSubjects();
 
-    const topics = await getTopicsBySubjectId(islam?.id.toString());
-
-    const filteredSubjects = subjects.filter(
-        (subject) => subject.name.toLowerCase() !== "islam"
+    const filteredSubjects = allSubjects.filter(
+        (subject) => subject.id !== params.subjectId
     );
 
     return (
@@ -24,7 +21,7 @@ const TopicsPage = async () => {
             <div
                 className="h-[30vh] md:h-[40vh] lg:h-[50vh]"
                 style={{
-                    background: `url(${"/page-banner/topics-page-banner.png"})`,
+                    background: `url(${"/page-banner/subject-banner.jpg"})`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
                 }}
@@ -47,15 +44,22 @@ const TopicsPage = async () => {
                 <h1
                     className={`${montserrat.className} text-xl lg:text-3xl font-bold mb-1`}
                 >
-                    Islam - Topics
+                    {subject?.name} - Topics
                 </h1>
                 <div className="w-full lg:w-2/3 xl:w-1/3 h-[2px] bg-black mb-5 lg:mb-10"></div>
 
-                <div className="min-h-[70vh] mb-10">
+                <div className="min-h-[50vh] mb-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-10">
                         {topics !== null &&
-                            topics.map((topic) => (
-                                <TopicCard key={topic.id} topic={topic} />
+                            (topics.length === 0 ? (
+                                <p className="py-60 text-center text-xl font-semibold col-span-4">
+                                    Oops! No topics are available in this
+                                    subject. Please, explore others.
+                                </p>
+                            ) : (
+                                topics.map((topic) => (
+                                    <TopicCard key={topic.id} topic={topic} />
+                                ))
                             ))}
                     </div>
                 </div>
@@ -80,4 +84,4 @@ const TopicsPage = async () => {
     );
 };
 
-export default TopicsPage;
+export default SubjectPage;

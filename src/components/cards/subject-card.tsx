@@ -21,7 +21,7 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject }) => {
                 <div className="flex justify-between items-center">
                     <p>10 Topics</p>
                     <Link
-                        href={"/"}
+                        href={`/subjects/${subject.id}`}
                         className="rounded-xl text-white text-sm font-medium bg-[#FF004C] px-3 py-2"
                     >
                         Explore
