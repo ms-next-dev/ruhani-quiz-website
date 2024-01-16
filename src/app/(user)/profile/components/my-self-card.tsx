@@ -1,6 +1,7 @@
 // Packages
 import { User } from "@prisma/client";
 import Image from "next/image";
+import { getPlaiceholder } from "plaiceholder";
 
 // Local Imports
 import { Button } from "@/components/ui/button";
@@ -11,11 +12,41 @@ interface MySelfCardProps {
   user: User;
 }
 
-const MySelfCard: React.FC<MySelfCardProps> = ({ user }) => {
+const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
+  const profileImage =
+    user.avatar ||
+    "https://res.cloudinary.com/dn2pqzag1/image/upload/v1703740293/ruhani%20quiz/avatar_itcz1v.jpg";
+
+  const coverPhoto =
+    user.coverPhoto ||
+    "https://res.cloudinary.com/dn2pqzag1/image/upload/v1705403352/pf9jdnlmk9vdhem71z9q.jpg";
+
+  const profileBuffer = await fetch(profileImage).then(async (res) =>
+    Buffer.from(await res.arrayBuffer())
+  );
+
+  const coverBuffer = await fetch(coverPhoto).then(async (res) =>
+    Buffer.from(await res.arrayBuffer())
+  );
+
+  const { base64 } = await getPlaiceholder(profileBuffer);
+  const { base64: coverBase64 } = await getPlaiceholder(coverBuffer);
+
   return (
     <Card className="rounded-[20px] relative shadow-md h-auto ">
-      <CardHeader className="relative h-[160px]">
-        <div className="absolute top-0 left-0 h-[160px] bg-red-100 w-full rounded-t-[20px]"></div>
+      <CardHeader className="relative h-[160px] w-full">
+        {/* <div className="absolute top-0 left-0 h-[160px] bg-red-100 w-full rounded-t-[20px]"></div> */}
+        <Image
+          src={
+            user.coverPhoto ||
+            "https://res.cloudinary.com/dn2pqzag1/image/upload/v1705403352/pf9jdnlmk9vdhem71z9q.jpg"
+          }
+          alt="cover"
+          fill
+          className="rounded-t-[20px]"
+          placeholder="blur"
+          blurDataURL={coverBase64}
+        />
         <Image
           src={
             user.avatar ||
@@ -25,6 +56,8 @@ const MySelfCard: React.FC<MySelfCardProps> = ({ user }) => {
           width={100}
           height={100}
           className="z-20 h-[100px] absolute top-[95%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#FF004C]"
+          placeholder="blur"
+          blurDataURL={base64}
         />
       </CardHeader>
       <CardContent className="mt-14">

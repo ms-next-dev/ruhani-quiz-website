@@ -23,7 +23,7 @@ const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
     user.connect,
     user.emailVerified,
     user.bio,
-    user.cover_photo,
+    user.coverPhoto,
   ];
   const totalFields = requiredFields.length;
 

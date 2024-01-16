@@ -60,3 +60,9 @@ export const PhoneSchema = z.object({
       message: "Phone number must be at least 11 characters",
     }),
 });
+
+export const CoverPhotoSchema = z.object({
+  coverPhoto: z.string().min(10, {
+    message: "Cover photo must be at least 10 characters",
+  }),
+});

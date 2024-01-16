@@ -44,11 +44,11 @@ model User {
   email    String  @unique
   password String?
 
-  first_name  String?
-  last_name   String?
-  avatar      String?
-  bio         String?
-  cover_photo String?
+  first_name String?
+  last_name  String?
+  avatar     String?
+  bio        String?
+  coverPhoto String?
 
   educational_qualification String?
   designation               String?
