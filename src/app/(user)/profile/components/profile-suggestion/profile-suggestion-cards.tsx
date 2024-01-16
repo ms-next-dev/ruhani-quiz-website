@@ -1,6 +1,7 @@
 import { User as UserModal } from "@prisma/client";
 import BioCard from "./cards/bio-card";
 import NameCard from "./cards/name-card";
+import PhoneCard from "./cards/phone-card";
 import ProfilePhotoUploadCard from "./cards/profile-photo-upload-card";
 import VerificationCard from "./cards/verification-card";
 
@@ -121,6 +122,10 @@ const ProfileSuggestionCards: React.FC<ProfileSuggestionCardsProps> = ({
     {
       id: 4,
       data: <ProfilePhotoUploadCard user={user} />,
+    },
+    {
+      id: 5,
+      data: <PhoneCard user={user} />,
     },
   ];
   return (

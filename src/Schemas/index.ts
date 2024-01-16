@@ -49,3 +49,14 @@ export const BioSchema = z.object({
     message: "First name must be at least 3 characters",
   }),
 });
+
+export const PhoneSchema = z.object({
+  phone: z
+    .string()
+    .min(11, {
+      message: "Phone number must be at least 11 characters",
+    })
+    .max(11, {
+      message: "Phone number must be at least 11 characters",
+    }),
+});
