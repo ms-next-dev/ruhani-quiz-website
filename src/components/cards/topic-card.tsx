@@ -35,7 +35,7 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic }) => {
                 <div className="flex justify-between items-center">
                     <p>{topic.totalQuestion} Questions</p>
                     <Link
-                        href={"/"}
+                        href={`/topics/${topic.id}`}
                         className="rounded-[10px_0px] text-white text-sm font-medium bg-[#FF004C] px-3 py-2"
                     >
                         Play Quiz
