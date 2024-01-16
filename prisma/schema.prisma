@@ -53,7 +53,7 @@ model User {
   educational_qualification String?
   designation               String?
   district                  String?
-  phone                     String? @default("019")
+  phone                     String?
   connect                   String?
 
   isActive Boolean     @default(true)

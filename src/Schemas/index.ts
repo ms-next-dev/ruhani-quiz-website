@@ -37,3 +37,15 @@ export const NewPasswordSchema = z.object({
       }
     ),
 });
+
+export const NameSchema = z.object({
+  first_name: z.string().min(3, {
+    message: "First name must be at least 3 characters",
+  }),
+});
+
+export const BioSchema = z.object({
+  bio: z.string().min(3, {
+    message: "First name must be at least 3 characters",
+  }),
+});

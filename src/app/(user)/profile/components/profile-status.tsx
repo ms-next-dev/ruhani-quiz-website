@@ -2,9 +2,9 @@
 import dynamic from "next/dynamic";
 
 // Local Imports
-import { auth } from "@/auth";
-import { prismaDb } from "@/lib/db";
-import ProfileSuggestionCards from "./profile-suggestion-cards";
+import { User } from "@prisma/client";
+import { useMemo } from "react";
+import ProfileSuggestionCards from "./profile-suggestion/profile-suggestion-cards";
 const EmailVerificationCard = dynamic(
   () => import("./email-verification-card")
 );
@@ -13,15 +13,17 @@ const ProfileCompletionCard = dynamic(
   () => import("./profile-completion-card")
 );
 
-const ProfileStatus = async () => {
-  const authUser = await auth();
-  const user = await prismaDb.user.findUnique({
-    where: {
-      email: authUser?.user?.email as string,
-    },
-  });
+interface ProfileStatusProps {
+  user: User;
+}
 
-  const emailVerified = user?.emailVerified;
+const ProfileStatus: React.FC<ProfileStatusProps> = async ({ user }) => {
+  const emailVerified = useMemo(() => {
+    if (user.emailVerified) {
+      return true;
+    }
+    return false;
+  }, [user.emailVerified]);
 
   return (
     <section className="flex flex-col gap-8">
@@ -31,7 +33,7 @@ const ProfileStatus = async () => {
         <EmailVerificationCard email={user?.email as string} />
       )}
 
-      <ProfileSuggestionCards />
+      <ProfileSuggestionCards user={user as User} />
     </section>
   );
 };

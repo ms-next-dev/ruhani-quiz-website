@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.monirhrabby.com",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
     ],
   },
 };
