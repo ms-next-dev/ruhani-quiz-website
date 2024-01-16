@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form";
 import Modal from "@/components/ui/modal";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 
 interface BioCardProps {
   user: UserModel;
@@ -76,7 +77,7 @@ const BioCard: React.FC<BioCardProps> = ({ user }) => {
             variant="primary"
             size="sm"
             className="rounded-[20px]"
-            disabled={isPending}
+            disabled={isPending || !!user.bio}
             onClick={() => setOpen(true)}
           >
             Enter bio
@@ -98,7 +99,9 @@ const BioCard: React.FC<BioCardProps> = ({ user }) => {
                   <Textarea
                     placeholder="Tell our networks a bit about yourself."
                     id="bio"
-                    className="placeholder:text-gray-500"
+                    className={cn(
+                      "placeholder:text-gray-400 text-[12px] border-gray-400 rounded-[4px]"
+                    )}
                     {...field}
                     disabled={isPending}
                   />

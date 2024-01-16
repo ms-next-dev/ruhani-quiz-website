@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
+import { cn } from "@/lib/utils";
 
 interface EducationCardProps {
   user: UserModel;
@@ -77,7 +78,7 @@ const EducationCard: React.FC<EducationCardProps> = ({ user }) => {
             variant="primary"
             size="sm"
             className="rounded-[20px]"
-            disabled={isPending || open}
+            disabled={isPending || open || !!user.educational_qualification}
             onClick={() => setOpen(true)}
           >
             Enter
@@ -103,7 +104,9 @@ const EducationCard: React.FC<EducationCardProps> = ({ user }) => {
                     placeholder="Write your last educational degree"
                     {...field}
                     id="educational_qualification"
-                    className="placeholder:text-gray-500"
+                    className={cn(
+                      "placeholder:text-gray-400 text-[12px] border-gray-400 rounded-[4px]"
+                    )}
                     disabled={isPending || !open}
                   />
                   <FormMessage />

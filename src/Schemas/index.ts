@@ -83,3 +83,9 @@ export const DistrictSchema = z.object({
     message: "District is required!",
   }),
 });
+
+export const ConnectSchema = z.object({
+  connect: z.string().min(1, {
+    message: "Connect is required!",
+  }),
+});

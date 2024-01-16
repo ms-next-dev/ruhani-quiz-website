@@ -2,7 +2,7 @@
 // Packages
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User as UserModel } from "@prisma/client";
-import { User } from "lucide-react";
+import { Briefcase } from "lucide-react";
 import { memo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -29,6 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 interface DesignationCardProps {
   user: UserModel;
@@ -123,7 +124,7 @@ const DesignationCard: React.FC<DesignationCardProps> = ({ user }) => {
       <Card className="rounded-[20px]">
         <CardContent className="p-6 flex flex-col items-center justify-center gap-2">
           <div className="bg-red-100 h-[40px] w-[40px] rounded-full flex justify-center items-center">
-            <User className="w-5 h-5" />
+            <Briefcase className="w-5 h-5" />
           </div>
           <h3 className="font-semibold">Designation</h3>
           <p className="text-center text-[10px] lg:text-[12px] text-slate-600">
@@ -133,7 +134,7 @@ const DesignationCard: React.FC<DesignationCardProps> = ({ user }) => {
             variant="primary"
             size="sm"
             className="rounded-[20px]"
-            disabled={isPending || open}
+            disabled={isPending || open || !!user.designation}
             onClick={() => setOpen(true)}
           >
             Select
@@ -157,7 +158,11 @@ const DesignationCard: React.FC<DesignationCardProps> = ({ user }) => {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger
+                        className={cn(
+                          "placeholder:text-gray-400 text-[12px] border-gray-400 rounded-[4px]"
+                        )}
+                      >
                         <SelectValue placeholder="Select a designation" />
                       </SelectTrigger>
                     </FormControl>

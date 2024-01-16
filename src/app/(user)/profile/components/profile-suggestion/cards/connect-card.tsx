@@ -2,18 +2,17 @@
 // Packages
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User as UserModel } from "@prisma/client";
-import { MapPin } from "lucide-react";
+import { Zap } from "lucide-react";
 import { memo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
 // Local Imports
-import { DistrictSchema } from "@/Schemas";
+import { ConnectSchema } from "@/Schemas";
 import { updateUser } from "@/actions/user/user-update";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import DistrictSwitcher from "@/components/ui/district-switcher";
 import {
   Form,
   FormField,
@@ -21,69 +20,68 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
 
-interface DistrictCardProps {
+interface ConnectCardProps {
   user: UserModel;
 }
 
-const DistrictCard: React.FC<DistrictCardProps> = ({ user }) => {
+const ConnectCard: React.FC<ConnectCardProps> = ({ user }) => {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState<true | false>(false);
 
   // form
-  const form = useForm<z.infer<typeof DistrictSchema>>({
-    resolver: zodResolver(DistrictSchema),
+  const form = useForm<z.infer<typeof ConnectSchema>>({
+    resolver: zodResolver(ConnectSchema),
     defaultValues: {
-      district: user.district || "",
+      connect: user.connect || "",
     },
   });
 
   // Function for update user name
-  const onSubmit = (values: z.infer<typeof DistrictSchema>) => {
-    const toastId = toast.loading("Please wait...");
+  const onSubmit = (values: z.infer<typeof ConnectSchema>) => {
+    const toastId = toast.loading("Connecting...");
     startTransition(() => {
       updateUser(values, user.id).then((res) => {
         if (res.error) {
-          toast.error("Failed to update your district!", {
+          toast.error("Failed to update your social link!", {
             id: toastId,
           });
           return;
         }
 
         if (res.success) {
-          toast.success("District has been updated!", {
+          toast.success("Social link has been updated!", {
             id: toastId,
           });
-          setTimeout(() => {
-            setOpen(false);
-          }, 1000);
+          setOpen(false);
+          form.reset();
           return;
         }
       });
     });
   };
-
   return (
     <>
       <Card className="rounded-[20px]">
         <CardContent className="p-6 flex flex-col items-center justify-center gap-2">
           <div className="bg-red-100 h-[40px] w-[40px] rounded-full flex justify-center items-center">
-            <MapPin className="w-5 h-5" />
+            <Zap className="w-5 h-5" />
           </div>
-          <h3 className="font-semibold">District</h3>
+          <h3 className="font-semibold">Connect</h3>
           <p className="text-center text-[10px] lg:text-[12px] text-slate-600">
-            Select your residential district location
+            Connect your social media profile
           </p>
           <Button
             variant="primary"
             size="sm"
             className="rounded-[20px]"
-            disabled={isPending || open || !!user.district}
+            disabled={isPending || open || !!user.connect}
             onClick={() => setOpen(true)}
           >
-            Select
+            Connect
           </Button>
         </CardContent>
       </Card>
@@ -95,17 +93,19 @@ const DistrictCard: React.FC<DistrictCardProps> = ({ user }) => {
           >
             <FormField
               control={form.control}
-              name="district"
+              name="connect"
               render={({ field }) => (
-                <FormItem className="flex flex-col gap-y-2">
-                  <FormLabel htmlFor="designation">Designation</FormLabel>
-                  <DistrictSwitcher
-                    user={user}
-                    field={field}
-                    isPending={isPending}
+                <FormItem>
+                  <FormLabel htmlFor="connect">Social Link</FormLabel>
+                  <Input
+                    type="text"
+                    placeholder="https://www.facebook.com/monirhabderabby"
                     className={cn(
                       "placeholder:text-gray-400 text-[12px] border-gray-400 rounded-[4px]"
                     )}
+                    {...field}
+                    id="connect"
+                    disabled={isPending || !open}
                   />
                   <FormMessage />
                 </FormItem>
@@ -116,7 +116,7 @@ const DistrictCard: React.FC<DistrictCardProps> = ({ user }) => {
               className="w-full"
               disabled={isPending || !open}
             >
-              Submit
+              Connect
             </Button>
           </form>
         </Form>
@@ -126,4 +126,4 @@ const DistrictCard: React.FC<DistrictCardProps> = ({ user }) => {
   );
 };
 
-export default memo(DistrictCard);
+export default memo(ConnectCard);

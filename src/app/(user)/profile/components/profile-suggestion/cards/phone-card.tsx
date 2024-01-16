@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
+import { cn } from "@/lib/utils";
 
 interface PhoneCardProps {
   user: UserModel;
@@ -77,7 +78,7 @@ const PhoneCard: React.FC<PhoneCardProps> = ({ user }) => {
             variant="primary"
             size="sm"
             className="rounded-[20px]"
-            disabled={isPending}
+            disabled={isPending || !!user.phone}
             onClick={() => setOpen(true)}
           >
             Enter phone
@@ -101,6 +102,9 @@ const PhoneCard: React.FC<PhoneCardProps> = ({ user }) => {
                     placeholder="+880"
                     {...field}
                     id="phone"
+                    className={cn(
+                      "placeholder:text-gray-400 text-[12px] border-gray-400 rounded-[4px]"
+                    )}
                     disabled={isPending || !open}
                   />
                   <FormMessage />

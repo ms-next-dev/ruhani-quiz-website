@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
+import { cn } from "@/lib/utils";
 
 interface NameCardProps {
   user: UserModel;
@@ -77,7 +78,9 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
             variant="primary"
             size="sm"
             className="rounded-[20px]"
-            disabled={isPending || open}
+            disabled={
+              isPending || open || !!user.first_name || !!user.last_name
+            }
             onClick={() => setOpen(true)}
           >
             Enter name
@@ -101,6 +104,9 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
                     placeholder="Enter Your Name"
                     {...field}
                     id="first_name"
+                    className={cn(
+                      "placeholder:text-gray-400 text-[12px] border-gray-400 rounded-[4px]"
+                    )}
                     disabled={isPending || !open}
                   />
                   <FormMessage />
