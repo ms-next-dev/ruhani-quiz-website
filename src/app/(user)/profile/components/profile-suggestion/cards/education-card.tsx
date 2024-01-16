@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import * as z from "zod";
 
 // Local Imports
-import { BioSchema } from "@/Schemas";
+import { EducationSchema } from "@/Schemas";
 import { updateUser } from "@/actions/user/user-update";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -20,43 +20,44 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
-import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
-interface BioCardProps {
+interface EducationCardProps {
   user: UserModel;
 }
 
-const BioCard: React.FC<BioCardProps> = ({ user }) => {
-  const [open, setOpen] = useState<true | false>(false);
+const EducationCard: React.FC<EducationCardProps> = ({ user }) => {
   const [isPending, startTransition] = useTransition();
+  const [open, setOpen] = useState<true | false>(false);
 
   // form
-  const form = useForm<z.infer<typeof BioSchema>>({
-    resolver: zodResolver(BioSchema),
+  const form = useForm<z.infer<typeof EducationSchema>>({
+    resolver: zodResolver(EducationSchema),
     defaultValues: {
-      bio: user.bio || "",
+      educational_qualification: user.educational_qualification || "",
     },
   });
 
-  // function for update bio
-  const onSubmit = (values: z.infer<typeof BioSchema>) => {
+  // Function for update user name
+  const onSubmit = (values: z.infer<typeof EducationSchema>) => {
     const toastId = toast.loading("Please wait...");
     startTransition(() => {
       updateUser(values, user.id).then((res) => {
         if (res.error) {
-          toast.error("Failed to update your bio!", {
+          toast.error("Failed to update your education!", {
             id: toastId,
           });
           return;
         }
 
         if (res.success) {
-          toast.success("Your bio has been updated!", {
+          toast.success("Your educational qualification has been updated!", {
             id: toastId,
           });
           setOpen(false);
+          form.reset();
           return;
         }
       });
@@ -69,18 +70,18 @@ const BioCard: React.FC<BioCardProps> = ({ user }) => {
           <div className="bg-red-100 h-[40px] w-[40px] rounded-full flex justify-center items-center">
             <GraduationCap className="w-5 h-5" />
           </div>
-          <h3 className="font-semibold">Bio</h3>
+          <h3 className="font-semibold">Education</h3>
           <p className="text-center text-[10px] lg:text-[12px] text-slate-600">
-            Tell our networks a bit about yourself.
+            Specify your education level
           </p>
           <Button
             variant="primary"
             size="sm"
             className="rounded-[20px]"
-            disabled={isPending || !!user.bio}
+            disabled={isPending || open || !!user.educational_qualification}
             onClick={() => setOpen(true)}
           >
-            Enter bio
+            Enter
           </Button>
         </CardContent>
       </Card>
@@ -92,20 +93,23 @@ const BioCard: React.FC<BioCardProps> = ({ user }) => {
           >
             <FormField
               control={form.control}
-              name="bio"
+              name="educational_qualification"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="bio">Bio</FormLabel>
-                  <Textarea
-                    placeholder="Tell our networks a bit about yourself."
-                    id="bio"
+                  <FormLabel htmlFor="educational_qualification">
+                    Education
+                  </FormLabel>
+                  <Input
+                    type="text"
+                    placeholder="Write your last educational degree"
+                    {...field}
+                    id="educational_qualification"
                     className={cn(
                       "placeholder:text-gray-400 text-[12px] border-gray-400 rounded-[4px]"
                     )}
-                    {...field}
-                    disabled={isPending}
+                    disabled={isPending || !open}
                   />
-                  <FormMessage {...field} />
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -114,7 +118,7 @@ const BioCard: React.FC<BioCardProps> = ({ user }) => {
               className="w-full"
               disabled={isPending || !open}
             >
-              Add Bio
+              Enter
             </Button>
           </form>
         </Form>
@@ -124,4 +128,4 @@ const BioCard: React.FC<BioCardProps> = ({ user }) => {
   );
 };
 
-export default memo(BioCard);
+export default memo(EducationCard);

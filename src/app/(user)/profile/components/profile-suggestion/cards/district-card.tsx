@@ -2,17 +2,18 @@
 // Packages
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User as UserModel } from "@prisma/client";
-import { GraduationCap } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { memo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
 // Local Imports
-import { BioSchema } from "@/Schemas";
+import { DistrictSchema } from "@/Schemas";
 import { updateUser } from "@/actions/user/user-update";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import DistrictSwitcher from "@/components/ui/district-switcher";
 import {
   Form,
   FormField,
@@ -21,66 +22,68 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Modal from "@/components/ui/modal";
-import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
-interface BioCardProps {
+interface DistrictCardProps {
   user: UserModel;
 }
 
-const BioCard: React.FC<BioCardProps> = ({ user }) => {
-  const [open, setOpen] = useState<true | false>(false);
+const DistrictCard: React.FC<DistrictCardProps> = ({ user }) => {
   const [isPending, startTransition] = useTransition();
+  const [open, setOpen] = useState<true | false>(false);
 
   // form
-  const form = useForm<z.infer<typeof BioSchema>>({
-    resolver: zodResolver(BioSchema),
+  const form = useForm<z.infer<typeof DistrictSchema>>({
+    resolver: zodResolver(DistrictSchema),
     defaultValues: {
-      bio: user.bio || "",
+      district: user.district || "",
     },
   });
 
-  // function for update bio
-  const onSubmit = (values: z.infer<typeof BioSchema>) => {
+  // Function for update user name
+  const onSubmit = (values: z.infer<typeof DistrictSchema>) => {
     const toastId = toast.loading("Please wait...");
     startTransition(() => {
       updateUser(values, user.id).then((res) => {
         if (res.error) {
-          toast.error("Failed to update your bio!", {
+          toast.error("Failed to update your district!", {
             id: toastId,
           });
           return;
         }
 
         if (res.success) {
-          toast.success("Your bio has been updated!", {
+          toast.success("District has been updated!", {
             id: toastId,
           });
-          setOpen(false);
+          setTimeout(() => {
+            setOpen(false);
+          }, 1000);
           return;
         }
       });
     });
   };
+
   return (
     <>
       <Card className="rounded-[20px]">
         <CardContent className="p-6 flex flex-col items-center justify-center gap-2">
           <div className="bg-red-100 h-[40px] w-[40px] rounded-full flex justify-center items-center">
-            <GraduationCap className="w-5 h-5" />
+            <MapPin className="w-5 h-5" />
           </div>
-          <h3 className="font-semibold">Bio</h3>
+          <h3 className="font-semibold">District</h3>
           <p className="text-center text-[10px] lg:text-[12px] text-slate-600">
-            Tell our networks a bit about yourself.
+            Select your residential district location
           </p>
           <Button
             variant="primary"
             size="sm"
             className="rounded-[20px]"
-            disabled={isPending || !!user.bio}
+            disabled={isPending || open || !!user.district}
             onClick={() => setOpen(true)}
           >
-            Enter bio
+            Select
           </Button>
         </CardContent>
       </Card>
@@ -92,20 +95,19 @@ const BioCard: React.FC<BioCardProps> = ({ user }) => {
           >
             <FormField
               control={form.control}
-              name="bio"
+              name="district"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel htmlFor="bio">Bio</FormLabel>
-                  <Textarea
-                    placeholder="Tell our networks a bit about yourself."
-                    id="bio"
+                <FormItem className="flex flex-col gap-y-2">
+                  <FormLabel htmlFor="designation">Designation</FormLabel>
+                  <DistrictSwitcher
+                    user={user}
+                    field={field}
+                    isPending={isPending}
                     className={cn(
                       "placeholder:text-gray-400 text-[12px] border-gray-400 rounded-[4px]"
                     )}
-                    {...field}
-                    disabled={isPending}
                   />
-                  <FormMessage {...field} />
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -114,7 +116,7 @@ const BioCard: React.FC<BioCardProps> = ({ user }) => {
               className="w-full"
               disabled={isPending || !open}
             >
-              Add Bio
+              Submit
             </Button>
           </form>
         </Form>
@@ -124,4 +126,4 @@ const BioCard: React.FC<BioCardProps> = ({ user }) => {
   );
 };
 
-export default memo(BioCard);
+export default memo(DistrictCard);

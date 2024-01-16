@@ -70,7 +70,7 @@ const CoverPhotoUploadCard: React.FC<CoverPhotoUploadCardProps> = ({
                   variant="primary"
                   size="sm"
                   className="rounded-[20px]"
-                  disabled={isLoading || isPending}
+                  disabled={isLoading || isPending || !!user?.coverPhoto}
                   onClick={onClick}
                 >
                   Upload

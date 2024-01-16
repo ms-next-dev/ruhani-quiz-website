@@ -48,7 +48,7 @@ const VerificationCard: React.FC<VerificationCardProps> = ({ user }) => {
             variant="primary"
             size="sm"
             className="rounded-[20px]"
-            disabled={isPending || sent}
+            disabled={isPending || sent || !!user?.emailVerified}
             onClick={handleVerification}
           >
             Verify
