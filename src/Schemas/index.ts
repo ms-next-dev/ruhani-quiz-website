@@ -66,3 +66,20 @@ export const CoverPhotoSchema = z.object({
     message: "Cover photo must be at least 10 characters",
   }),
 });
+
+export const EducationSchema = z.object({
+  educational_qualification: z.string().min(1, {
+    message: "Education is required!",
+  }),
+});
+export const DesignationSchema = z.object({
+  designation: z.string().min(1, {
+    message: "Designation is required!",
+  }),
+});
+
+export const DistrictSchema = z.object({
+  district: z.string().min(1, {
+    message: "District is required!",
+  }),
+});

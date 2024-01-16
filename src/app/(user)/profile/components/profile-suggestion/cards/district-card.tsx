@@ -9,10 +9,11 @@ import { toast } from "sonner";
 import * as z from "zod";
 
 // Local Imports
-import { NameSchema } from "@/Schemas";
+import { DistrictSchema } from "@/Schemas";
 import { updateUser } from "@/actions/user/user-update";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import DistrictSwitcher from "@/components/ui/district-switcher";
 import {
   Form,
   FormField,
@@ -20,48 +21,49 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
 
-interface NameCardProps {
+interface DistrictCardProps {
   user: UserModel;
 }
 
-const NameCard: React.FC<NameCardProps> = ({ user }) => {
+const DistrictCard: React.FC<DistrictCardProps> = ({ user }) => {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState<true | false>(false);
 
   // form
-  const form = useForm<z.infer<typeof NameSchema>>({
-    resolver: zodResolver(NameSchema),
+  const form = useForm<z.infer<typeof DistrictSchema>>({
+    resolver: zodResolver(DistrictSchema),
     defaultValues: {
-      first_name: user.first_name || "",
+      district: user.district || "",
     },
   });
 
   // Function for update user name
-  const onSubmit = (values: z.infer<typeof NameSchema>) => {
+  const onSubmit = (values: z.infer<typeof DistrictSchema>) => {
     const toastId = toast.loading("Please wait...");
     startTransition(() => {
       updateUser(values, user.id).then((res) => {
         if (res.error) {
-          toast.error("Failed to update your name!", {
+          toast.error("Failed to update your district!", {
             id: toastId,
           });
           return;
         }
 
         if (res.success) {
-          toast.success("Your name has been updated!", {
+          toast.success("District has been updated!", {
             id: toastId,
           });
-          setOpen(false);
-          form.reset();
+          setTimeout(() => {
+            setOpen(false);
+          }, 1000);
           return;
         }
       });
     });
   };
+
   return (
     <>
       <Card className="rounded-[20px]">
@@ -69,9 +71,9 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
           <div className="bg-red-100 h-[40px] w-[40px] rounded-full flex justify-center items-center">
             <User className="w-5 h-5" />
           </div>
-          <h3 className="font-semibold">Name</h3>
+          <h3 className="font-semibold">District</h3>
           <p className="text-center text-[10px] lg:text-[12px] text-slate-600">
-            Enter name to personalize profile.
+            Select your residential district location
           </p>
           <Button
             variant="primary"
@@ -80,7 +82,7 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
             disabled={isPending || open}
             onClick={() => setOpen(true)}
           >
-            Enter name
+            Select
           </Button>
         </CardContent>
       </Card>
@@ -92,16 +94,14 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
           >
             <FormField
               control={form.control}
-              name="first_name"
+              name="district"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel htmlFor="first_name">First Name</FormLabel>
-                  <Input
-                    type="text"
-                    placeholder="Enter Your Name"
-                    {...field}
-                    id="first_name"
-                    disabled={isPending || !open}
+                <FormItem className="flex flex-col gap-y-2">
+                  <FormLabel htmlFor="designation">Designation</FormLabel>
+                  <DistrictSwitcher
+                    user={user}
+                    field={field}
+                    isPending={isPending}
                   />
                   <FormMessage />
                 </FormItem>
@@ -112,7 +112,7 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
               className="w-full"
               disabled={isPending || !open}
             >
-              Enter
+              Submit
             </Button>
           </form>
         </Form>
@@ -122,4 +122,4 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
   );
 };
 
-export default memo(NameCard);
+export default memo(DistrictCard);

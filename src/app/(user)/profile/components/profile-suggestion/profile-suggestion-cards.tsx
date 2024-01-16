@@ -1,6 +1,9 @@
 import { User as UserModal } from "@prisma/client";
 import BioCard from "./cards/bio-card";
 import CoverPhotoUploadCardCopy from "./cards/cover-photo-upload-card copy";
+import DesignationCard from "./cards/designation-card";
+import DistrictCard from "./cards/district-card";
+import EducationCard from "./cards/education-card";
 import NameCard from "./cards/name-card";
 import PhoneCard from "./cards/phone-card";
 import ProfilePhotoUploadCard from "./cards/profile-photo-upload-card";
@@ -131,6 +134,18 @@ const ProfileSuggestionCards: React.FC<ProfileSuggestionCardsProps> = ({
     {
       id: 6,
       data: <CoverPhotoUploadCardCopy user={user} />,
+    },
+    {
+      id: 7,
+      data: <EducationCard user={user} />,
+    },
+    {
+      id: 8,
+      data: <DesignationCard user={user} />,
+    },
+    {
+      id: 9,
+      data: <DistrictCard user={user} />,
     },
   ];
   return (

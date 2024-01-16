@@ -2,14 +2,14 @@
 // Packages
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User as UserModel } from "@prisma/client";
-import { User } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import { memo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
 // Local Imports
-import { NameSchema } from "@/Schemas";
+import { EducationSchema } from "@/Schemas";
 import { updateUser } from "@/actions/user/user-update";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -23,36 +23,36 @@ import {
 import { Input } from "@/components/ui/input";
 import Modal from "@/components/ui/modal";
 
-interface NameCardProps {
+interface EducationCardProps {
   user: UserModel;
 }
 
-const NameCard: React.FC<NameCardProps> = ({ user }) => {
+const EducationCard: React.FC<EducationCardProps> = ({ user }) => {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState<true | false>(false);
 
   // form
-  const form = useForm<z.infer<typeof NameSchema>>({
-    resolver: zodResolver(NameSchema),
+  const form = useForm<z.infer<typeof EducationSchema>>({
+    resolver: zodResolver(EducationSchema),
     defaultValues: {
-      first_name: user.first_name || "",
+      educational_qualification: user.educational_qualification || "",
     },
   });
 
   // Function for update user name
-  const onSubmit = (values: z.infer<typeof NameSchema>) => {
+  const onSubmit = (values: z.infer<typeof EducationSchema>) => {
     const toastId = toast.loading("Please wait...");
     startTransition(() => {
       updateUser(values, user.id).then((res) => {
         if (res.error) {
-          toast.error("Failed to update your name!", {
+          toast.error("Failed to update your education!", {
             id: toastId,
           });
           return;
         }
 
         if (res.success) {
-          toast.success("Your name has been updated!", {
+          toast.success("Your educational qualification has been updated!", {
             id: toastId,
           });
           setOpen(false);
@@ -67,11 +67,11 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
       <Card className="rounded-[20px]">
         <CardContent className="p-6 flex flex-col items-center justify-center gap-2">
           <div className="bg-red-100 h-[40px] w-[40px] rounded-full flex justify-center items-center">
-            <User className="w-5 h-5" />
+            <GraduationCap className="w-5 h-5" />
           </div>
-          <h3 className="font-semibold">Name</h3>
+          <h3 className="font-semibold">Education</h3>
           <p className="text-center text-[10px] lg:text-[12px] text-slate-600">
-            Enter name to personalize profile.
+            Specify your education level
           </p>
           <Button
             variant="primary"
@@ -80,7 +80,7 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
             disabled={isPending || open}
             onClick={() => setOpen(true)}
           >
-            Enter name
+            Enter
           </Button>
         </CardContent>
       </Card>
@@ -92,15 +92,18 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
           >
             <FormField
               control={form.control}
-              name="first_name"
+              name="educational_qualification"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="first_name">First Name</FormLabel>
+                  <FormLabel htmlFor="educational_qualification">
+                    Education
+                  </FormLabel>
                   <Input
                     type="text"
-                    placeholder="Enter Your Name"
+                    placeholder="Write your last educational degree"
                     {...field}
-                    id="first_name"
+                    id="educational_qualification"
+                    className="placeholder:text-gray-500"
                     disabled={isPending || !open}
                   />
                   <FormMessage />
@@ -122,4 +125,4 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
   );
 };
 
-export default memo(NameCard);
+export default memo(EducationCard);
