@@ -37,3 +37,32 @@ export const NewPasswordSchema = z.object({
       }
     ),
 });
+
+export const NameSchema = z.object({
+  first_name: z.string().min(3, {
+    message: "First name must be at least 3 characters",
+  }),
+});
+
+export const BioSchema = z.object({
+  bio: z.string().min(3, {
+    message: "First name must be at least 3 characters",
+  }),
+});
+
+export const PhoneSchema = z.object({
+  phone: z
+    .string()
+    .min(11, {
+      message: "Phone number must be at least 11 characters",
+    })
+    .max(11, {
+      message: "Phone number must be at least 11 characters",
+    }),
+});
+
+export const CoverPhotoSchema = z.object({
+  coverPhoto: z.string().min(10, {
+    message: "Cover photo must be at least 10 characters",
+  }),
+});
