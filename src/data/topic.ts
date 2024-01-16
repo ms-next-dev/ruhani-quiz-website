@@ -22,3 +22,26 @@ export const getTopicsBySubjectId = async (subjectId: string | undefined) => {
         return null;
     }
 };
+
+export const getTopicById = async (topicId: string) => {
+    try {
+        const topic = await prismaDb.topic.findFirst({
+            where: {
+                id: topicId,
+            },
+            include: {
+                billboard: {
+                    select: {
+                        id: true,
+                        image: true,
+                    },
+                },
+            },
+        });
+
+        return topic;
+    } catch (error) {
+        console.log("GET_TOPIC_BY_ID_ERROR", error);
+        return null;
+    }
+};
