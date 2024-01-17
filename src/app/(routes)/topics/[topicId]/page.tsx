@@ -1,5 +1,6 @@
 // Local Imports
 import PageBanner from "@/components/page-banner";
+import { Button } from "@/components/ui/button";
 import { getTopicById } from "@/data/topic";
 import { hindSiliguriBangla, hindSiliguriEnglish } from "@/lib/fonts";
 
@@ -37,7 +38,7 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
             {/* Banner section */}
             <PageBanner
                 bannerImg={topic?.billboard?.image}
-                title1="PLAY QUIZ"
+                title1="Play Quiz"
                 title2="Enrich Your Limit Of Knowledge"
             />
 
@@ -91,6 +92,16 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
                             </div>
                         </div>
                     ))}
+                </div>
+
+                <div className="flex justify-center mt-12">
+                    <Button
+                        variant="primary"
+                        size="lg"
+                        className={`${hindSiliguriEnglish.className} text-2xl tracking-wide font-bold py-6 px-28 rounded-3xl border-[2px] border-[#FF004C] hover:text-[#FF004C] hover:bg-white duration-500`}
+                    >
+                        Start Quiz
+                    </Button>
                 </div>
             </div>
         </div>

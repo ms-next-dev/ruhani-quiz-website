@@ -1,4 +1,4 @@
-import { montserrat } from "@/lib/fonts";
+import { hindSiliguriEnglish } from "@/lib/fonts";
 
 interface PageBannerProps {
     bannerImg: string | undefined;
@@ -23,12 +23,12 @@ const PageBanner: React.FC<PageBannerProps> = ({
             ></div>
             <div className="flex justify-center">
                 <div
-                    className={`${montserrat.className} text-center text-[#FF004C] bg-black/40 py-6 md:py-14 xl:py-16 px-4 md:px-16 xl:px-28 tracking-wider rounded-[25px_0px] shadow-[3.134px_3.134px_18.804px_3.134px_rgba(0,0,0,0.50)] -mt-16 md:-mt-28 xl:-mt-36 mb-8 lg:mb-12`}
+                    className={`${hindSiliguriEnglish.className} text-center text-[#FF004C] bg-white/95 py-4 md:py-6 lg:py-8 xl:py-10 px-4 md:px-16 lg:px-16 xl:px-28 tracking-wider rounded-[25px_0px] shadow-lg -mt-12 md:-mt-16 lg:-mt-20 xl:-mt-24 mb-8 lg:mb-12`}
                 >
-                    <h1 className="text-4xl md:text-6xl xl:text-7xl font-bold uppercase">
+                    <h1 className="text-3xl md:text-5xl lg:text-5xl font-bold capitalize">
                         {title1}
                     </h1>
-                    <h3 className="text-lg md:text-3xl xl:text-5xl mt-2 md:mt-4 lg:mt-6 xl:mt-8 font-medium text-white capitalize">
+                    <h3 className="text-lg md:text-2xl lg:text-3xl mt-0 md:mt-1 lg:mt-2 xl:mt-4 font-medium capitalize">
                         {title2}
                     </h3>
                 </div>
