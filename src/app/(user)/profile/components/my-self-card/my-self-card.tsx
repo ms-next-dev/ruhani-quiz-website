@@ -4,9 +4,9 @@ import Image from "next/image";
 import { getPlaiceholder } from "plaiceholder";
 
 // Local Imports
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import MySelfBody from "./my-self-body";
 
 interface MySelfCardProps {
   user: User;
@@ -76,18 +76,7 @@ const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
           </div>
         </div>
         <Separator className="my-4" />
-        <p className="text-[14px] text-slate-600 text-left">{user.bio}</p>
-
-        {user.bio && (
-          <div className="mt-6 w-full flex justify-center">
-            <Button
-              variant="outline"
-              className="border-[#FF004C]/60 rounded-[20px] hover:bg-[#FF004C]/10 hover:text-[#FF004C] duration-500 text-[#FF004C]"
-            >
-              Edit bio
-            </Button>
-          </div>
-        )}
+        <MySelfBody user={user} />
       </CardContent>
     </Card>
   );
