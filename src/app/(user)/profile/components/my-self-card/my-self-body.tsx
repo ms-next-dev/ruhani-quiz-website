@@ -1,7 +1,10 @@
 "use client";
 // Packages
 import { User } from "@prisma/client";
+import { CldUploadWidget } from "next-cloudinary";
 import React, { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 // Local Imports
@@ -11,9 +14,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CldUploadWidget } from "next-cloudinary";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 interface MySelfBodyProps {
   user: User;
