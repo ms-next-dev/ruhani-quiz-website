@@ -45,9 +45,14 @@ export const NameSchema = z.object({
 });
 
 export const BioSchema = z.object({
-  bio: z.string().min(3, {
-    message: "First name must be at least 3 characters",
-  }),
+  bio: z
+    .string()
+    .min(3, {
+      message: "Bio must be at least 3 characters",
+    })
+    .max(220, {
+      message: "Bio must be under 220 characters",
+    }),
 });
 
 export const PhoneSchema = z.object({

@@ -1,7 +1,10 @@
+// Packages
+import { User } from "@prisma/client";
+
+// Local Imports
 import { auth } from "@/auth";
 import { prismaDb } from "@/lib/db";
-import { User } from "@prisma/client";
-import MySelfCard from "./my-self-card";
+import MySelfCard from "./my-self-card/my-self-card";
 import ProfileStatus from "./profile-status";
 
 const ProfileContainer = async () => {
