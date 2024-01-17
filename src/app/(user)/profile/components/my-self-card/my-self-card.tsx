@@ -1,12 +1,20 @@
 // Packages
 import { User } from "@prisma/client";
-import { Briefcase, CalendarDays, CheckCircle2, MapPin } from "lucide-react";
+import {
+  Briefcase,
+  CalendarDays,
+  CheckCircle2,
+  GraduationCap,
+  MapPin,
+  Phone,
+} from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
 import { getPlaiceholder } from "plaiceholder";
 
 // Local Imports
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   HoverCard,
@@ -15,7 +23,6 @@ import {
 } from "@/components/ui/hover-card";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import MySelfBody from "./my-self-body";
 
 interface MySelfCardProps {
   user: User;
@@ -42,7 +49,7 @@ const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
   const { base64: coverBase64 } = await getPlaiceholder(coverBuffer);
 
   return (
-    <Card className="rounded-[20px] relative shadow-md h-auto ">
+    <Card className="rounded-[20px] relative shadow-md h-auto w-full">
       <CardHeader className="relative h-[160px] w-full">
         <Image
           src={
@@ -68,20 +75,13 @@ const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
           blurDataURL={base64}
         />
       </CardHeader>
-      <CardContent className="">
-        <section className="flex justify-between">
-          <div className="mt-14">
+      <CardContent className="w-full relative">
+        <section className="flex justify-between w-full">
+          <div className="mt-14 w-full ">
             <Name user={user} />
-            <p className="text-[14px] font-medium text-gray-500 flex items-center gap-x-2">
-              <Briefcase className="w-3 h-3" />
-              {user.designation}
-            </p>
-            <p className="text-[14px] font-normal text-gray-500 flex items-center gap-x-2">
-              <MapPin className={cn("w-3 h-3")} />
-              {user.district}
-            </p>
+            <Info user={user} />
           </div>
-          <section>
+          <section className="absolute top-0 right-6">
             <div className="flex justify-center mt-4 gap-8">
               <div className="flex flex-col items-center">
                 <h3 className="font-semibold">1.1k</h3>
@@ -95,9 +95,24 @@ const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
             </div>
           </section>
         </section>
+        {/* action button */}
+        <section className="my-4 ">
+          <div className="space-x-3">
+            <Button variant="primary" className="rounded-[20px] " size="sm">
+              Edit Profile
+            </Button>
+            <Button
+              variant="outline"
+              className="rounded-[20px] border-main/80 hover:border-main text-main/80 hover:text-main"
+              size="sm"
+            >
+              Settings
+            </Button>
+          </div>
+        </section>
 
-        <Separator className="my-4" />
-        <MySelfBody user={user} />
+        <Separator className="mb-4" />
+        <p className="text-left text-slate-600 text-[14px]">{user.bio}</p>
       </CardContent>
     </Card>
   );
@@ -105,6 +120,7 @@ const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
 
 export default MySelfCard;
 
+// Name Components
 const Name: React.FC<MySelfCardProps> = ({ user }) => {
   return (
     <h3 className="text-left text-gray-600 font-medium text-[18px] flex items-center gap-x-2">
@@ -142,5 +158,30 @@ const Name: React.FC<MySelfCardProps> = ({ user }) => {
         </HoverCardContent>
       </HoverCard>
     </h3>
+  );
+};
+
+// Info Component
+const Info: React.FC<MySelfCardProps> = ({ user }) => {
+  return (
+    <div className="w-full grid grid-cols-3 mt-2 space-y-1 ">
+      <p className="text-[12px] md:text-[14px] font-normal text-gray-500 flex items-center gap-x-2">
+        <Briefcase className="w-3 h-3" />
+        {user.designation}
+      </p>
+      <p className="text-[12px] md:text-[14px] col-span-2 font-normal text-gray-500 flex items-center gap-x-2">
+        <GraduationCap className="w-3 h-3" />
+        {user.educational_qualification}
+      </p>
+      <p className="text-[12px] md:text-[14px] font-normal text-gray-500 flex items-center gap-x-2">
+        <MapPin className={cn("w-3 h-3")} />
+        {user.district}
+      </p>
+
+      <p className="text-[12px] md:text-[14px] font-normal text-gray-500 flex items-center gap-x-2">
+        <Phone className={cn("w-3 h-3")} />
+        {user.phone}
+      </p>
+    </div>
   );
 };
