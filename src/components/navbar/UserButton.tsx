@@ -22,6 +22,8 @@ import { Button } from "../ui/button";
 const UserButton = () => {
   const session = useSession();
   const loggedIn = session?.status == "authenticated";
+  const profilePhoto =
+    session?.data?.user?.avatar || "https://github.com/shadcn.png";
 
   return (
     <div className="hidden lg:block">
@@ -29,7 +31,10 @@ const UserButton = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+              <AvatarImage
+                src={profilePhoto}
+                alt={session?.data?.user?.name!}
+              />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
