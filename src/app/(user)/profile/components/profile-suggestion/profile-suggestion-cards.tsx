@@ -1,17 +1,22 @@
 // Packages
 import { User as UserModal } from "@prisma/client";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
 
 // Local Imports
-import { useMemo } from "react";
-import ConnectCard from "./cards/connect-card";
-import CoverPhotoUploadCardCopy from "./cards/cover-photo-upload-card copy";
-import DesignationCard from "./cards/designation-card";
-import DistrictCard from "./cards/district-card";
-import EducationCard from "./cards/education-card";
-import NameCard from "./cards/name-card";
-import PhoneCard from "./cards/phone-card";
-import ProfilePhotoUploadCard from "./cards/profile-photo-upload-card";
-import VerificationCard from "./cards/verification-card";
+const ConnectCard = dynamic(() => import("./cards/connect-card"));
+const DesignationCard = dynamic(() => import("./cards/designation-card"));
+const DistrictCard = dynamic(() => import("./cards/district-card"));
+const NameCard = dynamic(() => import("./cards/name-card"));
+const PhoneCard = dynamic(() => import("./cards/phone-card"));
+const EducationCard = dynamic(() => import("./cards/education-card"));
+const VerificationCard = dynamic(() => import("./cards/verification-card"));
+const ProfilePhotoUploadCard = dynamic(
+  () => import("./cards/profile-photo-upload-card")
+);
+const CoverPhotoUploadCardCopy = dynamic(
+  () => import("./cards/cover-photo-upload-card copy")
+);
 
 interface ProfileSuggestionCardsProps {
   user: UserModal;

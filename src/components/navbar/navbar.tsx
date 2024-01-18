@@ -53,8 +53,6 @@ const Navbar: React.FC<NavbarProps> = ({ subjects }) => {
     session?.data?.user?.avatar || "https://github.com/shadcn.png";
   const router = useRouter();
 
-  console.log(profilePhoto);
-
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {

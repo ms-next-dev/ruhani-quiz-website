@@ -96,9 +96,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
                       hover:text-gray-500 
                       focus:outline-none 
                       focus:ring-2 
-                      focus:ring-indigo-500 
+                      focus:ring-main 
                       focus:ring-offset-2
                     "
+                    tabIndex={-1}
                     onClick={onClose}
                   >
                     <span className="sr-only">Close</span>
