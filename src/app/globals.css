@@ -24,7 +24,7 @@ html::-webkit-scrollbar-track {
 
 @layer {
   .container {
-    @apply max-w-[1430px] mx-auto px-6 md:px-20 lg:px-36;
+    @apply max-w-[1430px] mx-auto px-4 md:px-20 lg:px-36;
   }
 }
 

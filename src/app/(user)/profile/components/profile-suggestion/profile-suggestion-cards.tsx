@@ -3,7 +3,6 @@ import { User as UserModal } from "@prisma/client";
 
 // Local Imports
 import { useMemo } from "react";
-import BioCard from "./cards/bio-card";
 import ConnectCard from "./cards/connect-card";
 import CoverPhotoUploadCardCopy from "./cards/cover-photo-upload-card copy";
 import DesignationCard from "./cards/designation-card";
@@ -31,11 +30,6 @@ const ProfileSuggestionCards: React.FC<ProfileSuggestionCardsProps> = ({
       id: 2,
       data: <VerificationCard user={user} />,
       completed: !!user.emailVerified,
-    },
-    {
-      id: 3,
-      data: <BioCard user={user} />,
-      completed: !!user.bio,
     },
     {
       id: 4,

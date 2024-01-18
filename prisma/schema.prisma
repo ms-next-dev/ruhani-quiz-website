@@ -47,7 +47,6 @@ model User {
   first_name String?
   last_name  String?
   avatar     String?
-  bio        String?
   coverPhoto String?
 
   educational_qualification String?
@@ -115,7 +114,7 @@ model Topic {
   billboardId String     @unique @db.ObjectId
   billboard   Billboard? @relation(fields: [billboardId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
-  subjectId   String?    @db.ObjectId
+  subjectId String? @db.ObjectId
 
   questions Question[]
 

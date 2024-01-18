@@ -7,7 +7,6 @@ import {
   Contact,
   HeartHandshake,
   Menu,
-  Settings,
   Trophy,
   User,
 } from "lucide-react";
@@ -164,13 +163,6 @@ const Navbar: React.FC<NavbarProps> = ({ subjects }) => {
                     >
                       <User className="mr-2 h-4 w-4" />
                       Profile
-                    </Link>
-                    <Link
-                      href={"/"}
-                      className="w-full px-3 py-2 text-[15px] text-left hover:bg-[#FF004C]/25 rounded-xl duration-500 flex items-center"
-                    >
-                      <Settings className="mr-2 h-4 w-4" />
-                      Settings
                     </Link>
                     <div className="flex justify-center mt-2">
                       <Button
