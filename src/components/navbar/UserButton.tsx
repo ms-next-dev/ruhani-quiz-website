@@ -1,7 +1,7 @@
 "use client";
 
 // Packages
-import { LogOut, Settings, User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
@@ -49,14 +49,7 @@ const UserButton = () => {
                   <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                 </DropdownMenuItem>
               </Link>
-              <DropdownMenuItem className="hover:bg-[#ff004c22] duration-500 cursor-pointer">
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
-                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-              </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => signOut()}
               className="hover:bg-[#ff004c22] duration-500 cursor-pointer"

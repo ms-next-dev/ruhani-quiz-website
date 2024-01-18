@@ -22,7 +22,6 @@ const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
     user.phone,
     user.connect,
     user.emailVerified,
-    user.bio,
     user.coverPhoto,
   ];
   const totalFields = requiredFields.length;
@@ -34,11 +33,15 @@ const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
   const eachFieldPercentage = Math.round(100 / totalFields);
 
   // total completed profile percentage
-  const completed_percentage = completedFields * eachFieldPercentage;
+  let completed_percentage = completedFields * eachFieldPercentage;
+
+  if (completed_percentage === 99 || completed_percentage > 100) {
+    completed_percentage = 100;
+  }
 
   // Dynamic css of circle > progress-bar css located on globals.css
   const progressBarStyle = {
-    "--progress": `${completed_percentage > 100 ? 100 : completed_percentage}%`,
+    "--progress": `${completed_percentage}%`,
     height: "80px",
     width: "80px",
     borderRadius: "50%",

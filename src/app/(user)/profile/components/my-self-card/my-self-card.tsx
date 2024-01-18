@@ -14,7 +14,6 @@ import { getPlaiceholder } from "plaiceholder";
 
 // Local Imports
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   HoverCard,
@@ -23,6 +22,7 @@ import {
 } from "@/components/ui/hover-card";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import MySelfAction from "./my-self-action";
 
 interface MySelfCardProps {
   user: User;
@@ -96,23 +96,7 @@ const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
           </section>
         </section>
         {/* action button */}
-        <section className="my-4 ">
-          <div className="space-x-3">
-            <Button variant="primary" className="rounded-[20px] " size="sm">
-              Edit Profile
-            </Button>
-            <Button
-              variant="outline"
-              className="rounded-[20px] border-main/80 hover:border-main text-main/80 hover:text-main"
-              size="sm"
-            >
-              Settings
-            </Button>
-          </div>
-        </section>
-
-        <Separator className="mb-4" />
-        <p className="text-left text-slate-600 text-[14px]">{user.bio}</p>
+        <MySelfAction user={user} />
       </CardContent>
     </Card>
   );
