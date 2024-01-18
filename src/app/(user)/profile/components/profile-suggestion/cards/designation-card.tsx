@@ -29,6 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import designationList from "@/content/designationList";
 import { cn } from "@/lib/utils";
 
 interface DesignationCardProps {
@@ -71,53 +72,6 @@ const DesignationCard: React.FC<DesignationCardProps> = ({ user }) => {
       });
     });
   };
-
-  const designationLists = [
-    {
-      label: "Student",
-      value: "Student",
-    },
-    {
-      label: "Software Developer",
-      value: "Software Developer",
-    },
-    {
-      label: "Teacher",
-      value: "Teacher",
-    },
-    {
-      label: "Software Engineer",
-      value: "Software Engineer",
-    },
-    {
-      label: "Writer",
-      value: "Writer",
-    },
-    {
-      label: "Doctor",
-      value: "Doctor",
-    },
-    {
-      label: "Entrepreneur",
-      value: "Entrepreneur",
-    },
-    {
-      label: "Business Holder",
-      value: "Business Holder",
-    },
-    {
-      label: "Employer",
-      value: "Employer",
-    },
-    {
-      label: "Lawyer",
-      value: "Lawyer",
-    },
-    {
-      label: "Other",
-      value: "Other",
-    },
-  ];
 
   return (
     <>
@@ -167,7 +121,7 @@ const DesignationCard: React.FC<DesignationCardProps> = ({ user }) => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="bg-white">
-                      {designationLists.map(({ label, value }) => (
+                      {designationList.map(({ label, value }) => (
                         <SelectItem
                           className="w-full cursor-pointer"
                           value={value}

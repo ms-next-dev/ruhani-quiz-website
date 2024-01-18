@@ -9,6 +9,7 @@ import {
   Phone,
 } from "lucide-react";
 import moment from "moment";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { getPlaiceholder } from "plaiceholder";
 
@@ -22,7 +23,7 @@ import {
 } from "@/components/ui/hover-card";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import MySelfAction from "./my-self-action";
+const MySelfAction = dynamic(() => import("./my-self-action"));
 
 interface MySelfCardProps {
   user: User;
