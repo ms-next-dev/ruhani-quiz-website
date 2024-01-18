@@ -160,8 +160,10 @@ model Question {
 }
 
 model Quiz {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
-  participated String @db.ObjectId
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  participated String  @db.ObjectId
+  topicId      String  @db.ObjectId
+  played       Boolean @default(false)
   total_marks  Int?
 
   questions QuizAnswer[]
