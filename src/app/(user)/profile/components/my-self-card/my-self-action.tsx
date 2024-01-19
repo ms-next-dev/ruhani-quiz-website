@@ -1,13 +1,14 @@
 "use client";
 // Packages
 import { User } from "@prisma/client";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 
 // Local Imports
 import { Button } from "@/components/ui/button";
 import Modal from "@/components/ui/modal";
-import Settings from "./account-settings/settings";
-import ProfileEdit from "./profile-edit/profile-edit";
+const Settings = dynamic(() => import("./account-settings/settings"));
+const ProfileEdit = dynamic(() => import("./profile-edit/profile-edit"));
 
 interface MySelfAction {
   user: User;
@@ -46,7 +47,9 @@ const MySelfAction: React.FC<MySelfAction> = ({ user }) => {
         {modal === "profile" && (
           <ProfileEdit onClose={() => setOpen(false)} user={user} />
         )}
-        {modal === "settings" && <Settings user={user} />}
+        {modal === "settings" && (
+          <Settings user={user} onClose={() => setOpen(false)} />
+        )}
       </Modal>
     </section>
   );
