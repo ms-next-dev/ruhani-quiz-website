@@ -1,11 +1,11 @@
 // Local Imports
 import PageBanner from "@/components/page-banner";
-import { Button } from "@/components/ui/button";
-import { getTopicById } from "@/data/topic";
+import { getTopicByName } from "@/data/topic";
 import { hindSiliguriBangla, hindSiliguriEnglish } from "@/lib/fonts";
+import QuizRulesAction from "./components/quiz-rules-action";
 
-const TopicPage = async ({ params }: { params: { topicId: string } }) => {
-  const topic = await getTopicById(params.topicId);
+const TopicPage = async ({ params }: { params: { topicName: string } }) => {
+  const topic = await getTopicByName(params.topicName);
 
   const rules = [
     {
@@ -37,7 +37,7 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
     <div>
       {/* Banner section */}
       <PageBanner
-        bannerImg={topic?.billboard?.image}
+        bannerImg={topic?.data?.billboard?.image}
         title1="Play Quiz"
         title2="দোলনা থেকে মৃত্যু পর্যন্ত জ্ঞান অর্জন করো"
       />
@@ -95,13 +95,7 @@ const TopicPage = async ({ params }: { params: { topicId: string } }) => {
         </div>
 
         <div className="flex justify-center mt-12">
-          <Button
-            variant="primary"
-            size="lg"
-            className={`${hindSiliguriEnglish.className} text-2xl tracking-wide font-bold py-6 px-28 rounded-3xl border-[2px] border-[#FF004C] hover:text-[#FF004C] hover:bg-white duration-500`}
-          >
-            Start Quiz
-          </Button>
+          <QuizRulesAction topicName={params.topicName} />
         </div>
       </div>
     </div>
