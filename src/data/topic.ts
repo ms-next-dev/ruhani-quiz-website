@@ -1,10 +1,20 @@
 import { prismaDb } from "@/lib/db";
 
-export const getTopicsBySubjectId = async (subjectId: string | undefined) => {
+export const getTopicBySubjectName = async (subjectName: string) => {
+  const name = subjectName.split("_").join(" ");
+  const subject = await prismaDb.subject.findUnique({
+    where: {
+      name: name,
+    },
+  });
+
+  if (!subject) {
+    return { error: "Subject doesn't exist!", data: null };
+  }
   try {
     const result = await prismaDb.topic.findMany({
       where: {
-        subjectId: subjectId,
+        subjectId: subject.id,
       },
       include: {
         _count: true,
@@ -16,10 +26,10 @@ export const getTopicsBySubjectId = async (subjectId: string | undefined) => {
       totalQuestion: _count.questions,
     }));
 
-    return data;
+    return { success: "Topic retrieved!", data };
   } catch (error: any) {
     console.log("GET_TOPIC_BY_SUBJECT_ID", error);
-    return null;
+    return { error: "Failed to retrieve topic!" };
   }
 };
 

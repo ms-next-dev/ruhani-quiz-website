@@ -1,4 +1,4 @@
-// Local Imports
+// Local Import
 import SubjectCard from "@/components/cards/subject-card";
 import TopicCard from "@/components/cards/topic-card";
 import PageBanner from "@/components/page-banner";
@@ -7,45 +7,46 @@ import { Separator } from "@/components/ui/separator";
 import { getSubjects } from "@/data/subjects";
 import { getTopicBySubjectName } from "@/data/topic";
 
-const TopicsPage = async () => {
-  const subjects = await getSubjects();
-  const islam = subjects.find(
-    (subject) => subject.name.toLowerCase() === "islam"
-  );
+const SubjectPage = async ({ params }: { params: { subjectName: string } }) => {
+  const { data: topics } = await getTopicBySubjectName(params.subjectName);
+  const allSubjects = await getSubjects();
 
-  const { data: topics } = await getTopicBySubjectName(
-    islam?.name.split("_").join(" ") as string
-  );
-
-  const filteredSubjects = subjects.filter(
-    (subject) => subject.name.toLowerCase() !== "islam"
+  const filteredSubjects = allSubjects.filter(
+    (subject) => subject.name !== params.subjectName.split("_").join(" ")
   );
 
   return (
     <div>
       {/* banner section */}
       <PageBanner
-        bannerImg="/page-banner/topics-page-banner.png"
-        title1="Play Quiz"
+        bannerImg="/page-banner/subject-banner.jpg"
+        title1="Play QUIZ"
         title2="Enrich your limit of Knowledge"
       />
 
       <div className="container p-5 lg:p-12 xl:p-20">
         {/* Islamic topic section */}
-        <SectionTitle title="Islam - Topics" />
+        <SectionTitle title="Topics Lists" />
 
-        <div className="h-auto  my-[50px] lg:mb-[100px]">
+        <div className="min-h-[50vh] mb-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-10">
             {topics !== null &&
-              topics?.map((topic: any) => (
-                <TopicCard key={topic.id} topic={topic} />
+              (topics?.length === 0 ? (
+                <p className=" py-32 text-center text-xl text-gray-500 font-normal col-span-4">
+                  Oops! No topics are available in this subject. <br /> Please,
+                  explore others.
+                </p>
+              ) : (
+                topics?.map((topic) => (
+                  <TopicCard key={topic.id} topic={topic} />
+                ))
               ))}
           </div>
         </div>
 
         {/* Subject suggestion */}
         <Separator className="h-[2px] bg-black/50" />
-        <div className="my-5 lg:my-10">
+        <div className="my-5 lg:10">
           <SectionTitle title="Subject Suggestions" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 my-[50px]">
@@ -59,4 +60,4 @@ const TopicsPage = async () => {
   );
 };
 
-export default TopicsPage;
+export default SubjectPage;
