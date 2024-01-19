@@ -31,7 +31,7 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic }) => {
     >
       <div className="text-white p-6 bg-[linear-gradient(0deg,rgba(20,18,18,0.98)12.89%,rgba(4,2,2,0.64)48.38%)] shadow-lg rounded-[0px_20px] hover:rounded-[20px_20px] duration-1000">
         <p
-          className={`${montserrat.className} text-3xl font-bold text-center text-white mt-12 mb-8 uppercase whitespace-nowrap`}
+          className={`${montserrat.className} text-[20px] font-semibold text-center text-white mt-12 mb-8 uppercase whitespace-nowrap`}
         >
           {topic.name}
         </p>

@@ -1,9 +1,10 @@
 // Local Imports
 import { prismaDb } from "@/lib/db";
+import { redirect } from "next/navigation";
 
 const QuizGround = async ({ params }: { params: { quizId: string } }) => {
   if (params.quizId.length > 24) {
-    throw new Error("Sorrry");
+    redirect("/topics");
   }
   const quiz = await prismaDb.quiz.findUnique({
     where: {
@@ -15,7 +16,7 @@ const QuizGround = async ({ params }: { params: { quizId: string } }) => {
   });
 
   if (!quiz) {
-    throw new Error("Sorrry");
+    redirect("/");
   }
   return <div>QuizGround</div>;
 };
