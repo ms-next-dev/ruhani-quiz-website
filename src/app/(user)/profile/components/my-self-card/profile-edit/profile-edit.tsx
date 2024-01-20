@@ -93,6 +93,7 @@ const ProfileEdit: React.FC<ProfileEdit> = ({ user, onClose }) => {
       });
     });
   };
+
   return (
     <div>
       <h3 className="text-[20px] font-medium text-gray-700">Edit Profile</h3>
@@ -174,6 +175,7 @@ const ProfileEdit: React.FC<ProfileEdit> = ({ user, onClose }) => {
                     src={profilePhoto!}
                     alt="profile"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="rounded-full shadow-sm"
                   />
                 </div>

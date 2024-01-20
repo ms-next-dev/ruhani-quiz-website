@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { memo } from "react";
 
 interface CardOpacityTransitionProps {
   children: React.ReactNode;
@@ -33,4 +33,4 @@ const CardOpacityTransition: React.FC<CardOpacityTransitionProps> = ({
   );
 };
 
-export default CardOpacityTransition;
+export default memo(CardOpacityTransition);

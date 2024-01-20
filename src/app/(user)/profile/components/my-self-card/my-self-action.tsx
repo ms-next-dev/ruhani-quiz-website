@@ -17,6 +17,7 @@ interface MySelfAction {
 const MySelfAction: React.FC<MySelfAction> = ({ user }) => {
   const [open, setOpen] = useState<true | false>(false);
   const [modal, setModalFor] = useState<"settings" | "profile">();
+
   return (
     <section className="my-4">
       <div className="space-x-3">

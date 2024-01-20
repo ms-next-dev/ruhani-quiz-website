@@ -45,7 +45,16 @@ const BrandLoader: React.FC<BrandLoader> = ({ variant }) => {
         }}
         className="loader flex justify-center items-center"
       >
-        <Image src={logoPath!} alt="logo" height={80} width={70} />
+        <Image
+          src={logoPath!}
+          alt="logo"
+          height={80}
+          width={70}
+          style={{
+            height: "auto",
+            width: "auto",
+          }}
+        />
       </motion.span>
     </div>
   );
