@@ -1,6 +1,9 @@
-import { Card, CardContent } from "@/components/ui/card";
+// Packages
 import { User } from "@prisma/client";
 import Image from "next/image";
+
+// Local Imports
+import { Card, CardContent } from "@/components/ui/card";
 
 interface QuizReportSummaryProps {
   user: User;
