@@ -3,6 +3,7 @@ import { User } from "@prisma/client";
 
 // Local Imports
 import { auth } from "@/auth";
+import CardOpacityTransition from "@/framer/card-opacity";
 import { prismaDb } from "@/lib/db";
 import MySelfCard from "./my-self-card/my-self-card";
 import ProfileStatus from "./profile-status";
@@ -21,18 +22,26 @@ const ProfileContainer = async () => {
     <div className="min-h-[80vh]">
       <div className="grid grid-cols-12 gap-4 gap-y-8 md:gap-8 container py-[20px]">
         <div className="col-span-12 md:col-span-6 lg:col-span-5  ">
-          <MySelfCard user={user as User} />
+          <CardOpacityTransition>
+            <MySelfCard user={user as User} />
+          </CardOpacityTransition>
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-7 h-fit ">
-          <ProfileStatus user={user as User} />
+          <CardOpacityTransition>
+            <ProfileStatus user={user as User} />
+          </CardOpacityTransition>
         </div>
       </div>
       <div className="grid grid-cols-12 gap-4 gap-y-8 md:gap-8 container py-[20px]">
         <div className="col-span-12 md:col-span-6 lg:col-span-5  ">
-          <QuizReportSummary user={user as User} />
+          <CardOpacityTransition>
+            <QuizReportSummary user={user as User} />
+          </CardOpacityTransition>
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-7 h-fit ">
-          <QuizMonthSummary />
+          <CardOpacityTransition>
+            <QuizMonthSummary />
+          </CardOpacityTransition>
         </div>
       </div>
     </div>
