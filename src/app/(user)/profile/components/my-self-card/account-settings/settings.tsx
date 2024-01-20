@@ -99,6 +99,7 @@ const Settings: React.FC<SettingsProps> = ({ user, onClose }) => {
       });
     });
   };
+
   return (
     <section>
       <motion.div
@@ -129,8 +130,9 @@ const Settings: React.FC<SettingsProps> = ({ user, onClose }) => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel htmlFor="email">Email</FormLabel>
                       <Input
+                        id="email"
                         placeholder="Enter your email"
                         {...field}
                         className={cn(
@@ -172,8 +174,9 @@ const Settings: React.FC<SettingsProps> = ({ user, onClose }) => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel htmlFor="password">Password</FormLabel>
                       <Input
+                        id="password"
                         placeholder="Password"
                         type="password"
                         {...field}
@@ -190,8 +193,11 @@ const Settings: React.FC<SettingsProps> = ({ user, onClose }) => {
                   name="confirmPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Confirm Password</FormLabel>
+                      <FormLabel htmlFor="confirmPassword">
+                        Confirm Password
+                      </FormLabel>
                       <Input
+                        id="confirmPassword"
                         placeholder="Confirm Password"
                         type="password"
                         {...field}
