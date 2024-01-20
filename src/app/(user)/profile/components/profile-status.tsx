@@ -26,7 +26,7 @@ const ProfileStatus: React.FC<ProfileStatusProps> = async ({ user }) => {
   }, [user.emailVerified]);
 
   return (
-    <section className="flex flex-col gap-8">
+    <section className="flex flex-col gap-8 ">
       {emailVerified ? (
         <ProfileCompletionCard user={user} />
       ) : (
