@@ -36,7 +36,7 @@ const Banner = () => {
           }}
         >
           <div
-            className={`w-full h-full transform ${
+            className={`w-full relative h-full transform ${
               index === currentSlide ? "scale-animation" : ""
             }`}
           >
@@ -45,6 +45,7 @@ const Banner = () => {
               alt={`Image ${index + 1}`}
               fill
               style={{ objectFit: "cover" }}
+              priority
             />
             <div className="bg-black bg-opacity-50 absolute top-0 left-0 w-full h-full"></div>
           </div>
