@@ -98,6 +98,10 @@ const Navbar: React.FC<NavbarProps> = ({ subjects }) => {
             alt="logo"
             width={87}
             height={52}
+            style={{
+              width: "auto",
+              height: "auto",
+            }}
             className="cursor-pointer hover:scale-105 duration-500 ease-in-out"
           />
         </Link>
