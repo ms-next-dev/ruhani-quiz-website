@@ -10,8 +10,6 @@ import {
 } from "lucide-react";
 import moment from "moment";
 import dynamic from "next/dynamic";
-import Image from "next/image";
-import { getPlaiceholder } from "plaiceholder";
 
 // Local Imports
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -21,6 +19,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import RuhaniImage from "@/components/ui/ruhani-image";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 const MySelfAction = dynamic(() => import("./my-self-action"));
@@ -38,43 +37,23 @@ const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
     user.coverPhoto ||
     "https://res.cloudinary.com/dn2pqzag1/image/upload/v1705403352/pf9jdnlmk9vdhem71z9q.jpg";
 
-  const profileBuffer = await fetch(profileImage).then(async (res) =>
-    Buffer.from(await res.arrayBuffer())
-  );
-
-  const coverBuffer = await fetch(coverPhoto).then(async (res) =>
-    Buffer.from(await res.arrayBuffer())
-  );
-
-  const { base64 } = await getPlaiceholder(profileBuffer);
-  const { base64: coverBase64 } = await getPlaiceholder(coverBuffer);
-
   return (
     <Card className="rounded-[20px] relative shadow-md h-auto w-full">
       <CardHeader className="relative h-[160px] w-full">
-        <Image
-          src={
-            user.coverPhoto ||
-            "https://res.cloudinary.com/dn2pqzag1/image/upload/v1705403352/pf9jdnlmk9vdhem71z9q.jpg"
-          }
+        <RuhaniImage
+          src={coverPhoto}
           alt="cover"
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="rounded-t-[20px]"
-          placeholder="blur"
-          blurDataURL={coverBase64}
+          placeholder={true}
         />
-        <Image
-          src={
-            user.avatar ||
-            "https://res.cloudinary.com/dn2pqzag1/image/upload/v1703740293/ruhani%20quiz/avatar_itcz1v.jpg"
-          }
+        <RuhaniImage
+          src={profileImage}
           alt="profile"
           width={100}
           height={100}
           className="z-20 h-[100px] absolute top-[95%] left-[80px] transform -translate-x-1/2 -translate-y-1/2 rounded-full border-[8px] border-white"
-          placeholder="blur"
-          blurDataURL={base64}
+          placeholder={true}
         />
       </CardHeader>
       <CardContent className="w-full relative">
