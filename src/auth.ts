@@ -11,6 +11,10 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  pages: {
+    signIn: "/login",
+    error: "/error",
+  },
   callbacks: {
     async signIn({ user, account }) {
       const existingUser = await getUserById(user.id);
