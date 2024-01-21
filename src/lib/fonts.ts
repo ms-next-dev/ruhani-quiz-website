@@ -20,12 +20,7 @@ export const poppins = Poppins({
 
 export const montserrat = Montserrat({ subsets: ["latin"] });
 
-export const hindSiliguriEnglish = Hind_Siliguri({
-    subsets: ["latin"],
-    weight: ["300", "400", "500", "600", "700"],
-});
-
-export const hindSiliguriBangla = Hind_Siliguri({
-    subsets: ["bengali"],
+export const hindSiliguri = Hind_Siliguri({
+    subsets: ["latin", "bengali"],
     weight: ["300", "400", "500", "600", "700"],
 });
