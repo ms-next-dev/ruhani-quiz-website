@@ -78,3 +78,52 @@ export const quizComplete = async (quizId: string) => {
     return { error: "Something went wrong!" };
   }
 };
+
+export const quizTimeUp = async (ids: string[], quizId: string) => {
+  ids.forEach(async (questionId: string) => {
+    await prismaDb.quizAnswer.create({
+      data: {
+        user_answered: [5],
+        quizId: quizId,
+        question: {
+          connect: {
+            id: questionId,
+          },
+        },
+      },
+    });
+  });
+
+  const allQuizAnswer = await prismaDb.quizAnswer.findMany({
+    where: {
+      quizId: quizId,
+    },
+    include: {
+      question: true,
+    },
+  });
+
+  let marks = 0;
+
+  allQuizAnswer.forEach(({ user_answered, question }) => {
+    if (user_answered[0] === question?.correct_answer[0]) {
+      marks += 1;
+    }
+  });
+
+  try {
+    await prismaDb.quiz.update({
+      where: {
+        id: quizId,
+      },
+      data: {
+        played: true,
+        total_marks: marks,
+      },
+    });
+    return { success: `You got ${marks / allQuizAnswer.length}!` };
+  } catch (error: any) {
+    console.log("QUIZ_COMPLETE_ERROR", error);
+    return { error: "Something went wrong!" };
+  }
+};
