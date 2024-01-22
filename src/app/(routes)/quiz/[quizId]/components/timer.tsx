@@ -1,7 +1,7 @@
 "use client";
 
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { Toaster, toast } from "sonner";
+import { Toaster } from "sonner";
 
 const minuteSeconds = 60;
 const hourSeconds = 3600;
@@ -31,13 +31,12 @@ interface TimerProps {
 
 const Timer: React.FC<TimerProps> = ({ onCompleteA }) => {
   const startTime = Date.now() / 1000;
-  const endTime = startTime + 600;
+  const endTime = startTime + 120;
 
   const remainingTime = endTime - startTime;
 
   const onComplete = () => {
     onCompleteA();
-    toast.error("Time up. Quiz will be auto submitted.");
   };
 
   return (

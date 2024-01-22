@@ -1,85 +1,27 @@
 "use client";
 
 // packages
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
-import { toast } from "sonner";
+import { Dispatch, SetStateAction, useState } from "react";
 
 // local imports
-import { createQuizAnswer } from "@/actions/quiz-answer/quizAnswer";
-import { quizComplete } from "@/actions/quiz/quiz";
 import { QuizQuestion } from "@/types";
-import { useRouter } from "next/navigation";
 
 type QuestionProps = {
-  questions: QuizQuestion[];
-  setQuestionNum: Dispatch<SetStateAction<number>>;
-  quizId: string;
+  isLoading: boolean;
+  selectedOptIndex: number | null;
+  setSelectedOptIndex: Dispatch<SetStateAction<number | null>>;
+  currentQuestion: QuizQuestion;
+  nextQuestion: () => void;
 };
 
 const Questions: React.FC<QuestionProps> = ({
-  questions,
-  setQuestionNum,
-  quizId,
+  isLoading,
+  selectedOptIndex,
+  setSelectedOptIndex,
+  currentQuestion,
+  nextQuestion,
 }) => {
-  // loading state
-  const [isLoading, setLoading] = useState(false);
-  // Current Question Index
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-
-  // Option Selection Index
-  const [selectedOptIndex, setSelectedOptIndex] = useState<number | null>(null);
   const [error, setError] = useState<true | false>(false);
-
-  // Current Question
-  const currentQuestion: QuizQuestion = questions[currentQuestionIndex];
-
-  const router = useRouter();
-
-  // Function for submit the answer and get the next question
-  // if This is the last question quiz will be submit and redirect to the result page
-  const nextQuestion = useCallback(() => {
-    setLoading(true);
-    const toastId = toast.loading("submitting...");
-    createQuizAnswer({
-      questionId: currentQuestion._id,
-      user_answered: [selectedOptIndex!],
-      quizId: quizId,
-    })
-      .then(async (res) => {
-        if (res.error) {
-          toast.error(res.error);
-          return;
-        }
-        if (res.success) {
-          if (currentQuestionIndex + 1 == questions?.length) {
-            await quizComplete(quizId)
-              .then((res) => {
-                if (res.error) {
-                  toast.error(res.error);
-                }
-
-                if (res.success) {
-                  router.push(`/quiz/${quizId}/result?new=true`);
-                }
-              })
-              .finally(() => {
-                toast.dismiss(toastId);
-                setLoading(false);
-              });
-
-            return;
-          }
-
-          setQuestionNum((prev) => prev + 1);
-          setCurrentQuestionIndex((prev) => prev + 1);
-          setSelectedOptIndex(null);
-        }
-      })
-      .finally(() => {
-        toast.dismiss(toastId);
-        setLoading(false);
-      });
-  }, [selectedOptIndex, currentQuestion?._id, quizId]);
 
   return (
     <div className="pt-6">
