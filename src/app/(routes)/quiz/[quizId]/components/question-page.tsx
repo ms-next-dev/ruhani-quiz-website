@@ -1,7 +1,7 @@
 "use client";
 
 // packages
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // Local Imports
 import { createQuizAnswer } from "@/actions/quiz-answer/quizAnswer";
@@ -99,6 +99,20 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questions, quizId }) => {
         toast.dismiss(toastId);
       });
   };
+
+  const handleVisibilityChange = () => {
+    if (document !== undefined && document.hidden) {
+      timeUpHandler();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   return (
     <div>
