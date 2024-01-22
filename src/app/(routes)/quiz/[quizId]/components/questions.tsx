@@ -1,121 +1,140 @@
 "use client";
 
 // packages
-import { Question } from "@prisma/client";
-import { Loader2 } from "lucide-react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { toast } from "sonner";
 
 // local imports
 import { createQuizAnswer } from "@/actions/quiz-answer/quizAnswer";
+import { quizComplete } from "@/actions/quiz/quiz";
+import { QuizQuestion } from "@/types";
+import { useRouter } from "next/navigation";
 
 type QuestionProps = {
-    questions: Question[];
-    setQuestionNum: Dispatch<SetStateAction<number>>;
-    quizId: string;
+  questions: QuizQuestion[];
+  setQuestionNum: Dispatch<SetStateAction<number>>;
+  quizId: string;
 };
 
 const Questions: React.FC<QuestionProps> = ({
-    questions,
-    setQuestionNum,
-    quizId,
+  questions,
+  setQuestionNum,
+  quizId,
 }) => {
-    const [isPending, startTransition] = useState();
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-    const [selectedOptIndex, setSelectedOptIndex] = useState<number | null>(
-        null
-    );
-    const [error, setError] = useState(false);
+  // loading state
+  const [isLoading, setLoading] = useState(false);
+  // Current Question Index
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-    const currentQuestion: Question = questions[currentQuestionIndex as number];
+  // Option Selection Index
+  const [selectedOptIndex, setSelectedOptIndex] = useState<number | null>(null);
+  const [error, setError] = useState<true | false>(false);
 
-    const handleNextQuestion = () => {
-        if (selectedOptIndex === null) {
-            setError(true);
-        } else {
-            const toastId = toast.loading("Processing...");
-            startTransition(() => {
-                createQuizAnswer({
-                    questionId: currentQuestion.id,
-                    user_answered: [selectedOptIndex],
-                    quizId: quizId,
-                }).then((res) => {
-                    if (res.error) {
-                        toast.error(res.error, {
-                            id: toastId,
-                        });
-                    }
+  // Current Question
+  const currentQuestion: QuizQuestion = questions[currentQuestionIndex];
 
-                    if (res.success) {
-                        // Move to the next question
-                        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-                        setQuestionNum((prev) => prev + 1);
-                        setSelectedOptIndex(null);
-                        setError(false);
-                    }
-                });
-            });
+  const router = useRouter();
+
+  // Function for submit the answer and get the next question
+  // if This is the last question quiz will be submit and redirect to the result page
+  const nextQuestion = useCallback(() => {
+    setLoading(true);
+    const toastId = toast.loading("submitting...");
+    createQuizAnswer({
+      questionId: currentQuestion._id,
+      user_answered: [selectedOptIndex!],
+      quizId: quizId,
+    })
+      .then(async (res) => {
+        if (res.error) {
+          toast.error(res.error);
+          return;
         }
-    };
+        if (res.success) {
+          if (currentQuestionIndex + 1 == questions?.length) {
+            await quizComplete(quizId)
+              .then((res) => {
+                if (res.error) {
+                  toast.error(res.error);
+                }
 
-    return (
-        <div>
-            <h1 className={`text-[30px] font-semibold mb-12`}>
-                {currentQuestion.question}
-            </h1>
-            <div className="space-y-5 w-full">
-                {currentQuestion.options.map((option, i) => (
-                    <div
-                        key={option}
-                        className="flex justify-start items-center gap-x-3 group"
-                        onClick={() => {
-                            setSelectedOptIndex(i);
-                            setError(false);
-                        }}
-                    >
-                        <div
-                            className={`${
-                                selectedOptIndex === i
-                                    ? "bg-[#FF004C] text-white"
-                                    : "bg-[#cccccc]"
-                            } py-4 px-6 text-xl font-medium rounded-md group-hover:bg-[#FF004C] group-hover:text-white duration-300 cursor-pointer`}
-                        >
-                            {i === 0 && "A"} {i === 1 && "B"} {i === 2 && "C"}{" "}
-                            {i === 3 && "D"}
-                        </div>
-                        <div
-                            className={`${
-                                selectedOptIndex === i
-                                    ? "bg-[#FF004C] text-white"
-                                    : "bg-[#cccccc]"
-                            } py-4 px-6 text-xl font-medium  rounded-md w-full group-hover:bg-[#FF004C] group-hover:text-white duration-300 cursor-pointer`}
-                        >
-                            {option}
-                        </div>
-                    </div>
-                ))}
-            </div>
+                if (res.success) {
+                  router.push(`/quiz/${quizId}/result?new=true`);
+                }
+              })
+              .finally(() => {
+                toast.dismiss(toastId);
+                setLoading(false);
+              });
 
-            <div className="flex justify-end items-center gap-x-5 mt-6">
-                {error && (
-                    <p className="text-base text-red-500">
-                        ** Please select an answer
-                    </p>
-                )}
-                <button
-                    onClick={handleNextQuestion}
-                    disabled={isPending}
-                    className="py-4 w-44 text-xl font-semibold bg-[#cccccc] rounded-md hover:bg-[#ff004c] hover:text-white duration-300 text-center flex justify-center"
-                >
-                    {isPending ? (
-                        <Loader2 className="h-6 w-6 animate-spin" />
-                    ) : (
-                        "Next Question"
-                    )}
-                </button>
+            return;
+          }
+
+          setQuestionNum((prev) => prev + 1);
+          setCurrentQuestionIndex((prev) => prev + 1);
+          setSelectedOptIndex(null);
+        }
+      })
+      .finally(() => {
+        toast.dismiss(toastId);
+        setLoading(false);
+      });
+  }, [selectedOptIndex, currentQuestion?._id, quizId]);
+
+  return (
+    <div className="pt-6">
+      <h1
+        className={`text-[20px] md:text-[25px] lg:text-[30px] font-semibold mb-12`}
+      >
+        {currentQuestion?.question}
+      </h1>
+      <div className="space-y-5 w-full">
+        {currentQuestion?.options.map((option, i) => (
+          <div
+            key={option}
+            className="flex justify-start items-center gap-x-3 group"
+            onClick={() => {
+              setSelectedOptIndex(i);
+              setError(false);
+            }}
+          >
+            <div
+              className={`${
+                selectedOptIndex === i
+                  ? "bg-[#FF004C] text-white"
+                  : "bg-[#cccccc]"
+              } py-2 px-4 md:py-4 md:px-6 text-[15px] md:text-xl font-medium rounded-md   duration-300 cursor-pointer`}
+            >
+              {i === 0 && "A"} {i === 1 && "B"} {i === 2 && "C"}{" "}
+              {i === 3 && "D"}
             </div>
-        </div>
-    );
+            <div
+              className={`${
+                selectedOptIndex === i
+                  ? "bg-[#FF004C] text-white"
+                  : "bg-[#cccccc]"
+              } py-2 px-4 md:py-4 md:px-6 text-[16px] md:text-lg font-normal  rounded-lg w-full group-hover:bg-main  duration-300 group-hover:text-white cursor-pointer`}
+            >
+              {option}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex justify-end items-center gap-x-5 mt-6">
+        {error && (
+          <p className="text-base text-red-500">** Please select an answer</p>
+        )}
+        <button
+          onClick={nextQuestion}
+          disabled={isLoading}
+          className="py-2 md:py-4 w-32 md:w-44 text-[16px] md:text-lg font-medium bg-[#cccccc] rounded-md disabled:bg-slate-200 disabled:text-slate-400 hover:bg-[#ff004c] hover:text-white duration-300 text-center flex justify-center "
+        >
+          <span>Next Question</span>
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Questions;
