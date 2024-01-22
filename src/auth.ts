@@ -17,10 +17,12 @@ export const {
   },
   callbacks: {
     async signIn({ user, account }) {
-      const existingUser = await getUserById(user.id);
-      if (!existingUser) {
-        return false;
-      }
+      if (account?.provider !== "credentials") return true;
+      console.log(account);
+      // const existingUser = await getUserById(user.id);
+      // if (!existingUser) {
+      //   return false;
+      // }
 
       return true;
     },

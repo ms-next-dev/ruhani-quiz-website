@@ -46,7 +46,9 @@ model User {
 
   first_name String?
   last_name  String?
+  name       String?
   avatar     String?
+  image      String?
   coverPhoto String?
 
   educational_qualification String?
