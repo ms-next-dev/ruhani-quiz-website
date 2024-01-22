@@ -43,3 +43,38 @@ export const createQuiz = async (topicName: string) => {
     return { error: "Failed to start quiz!", data: null };
   }
 };
+
+export const quizComplete = async (quizId: string) => {
+  const allQuizAnswer = await prismaDb.quizAnswer.findMany({
+    where: {
+      quizId: quizId,
+    },
+    include: {
+      question: true,
+    },
+  });
+
+  let marks = 0;
+
+  allQuizAnswer.forEach(({ user_answered, question }) => {
+    if (user_answered[0] === question?.correct_answer[0]) {
+      marks += 1;
+    }
+  });
+
+  try {
+    await prismaDb.quiz.update({
+      where: {
+        id: quizId,
+      },
+      data: {
+        played: true,
+        total_marks: marks,
+      },
+    });
+    return { success: `You got ${marks / allQuizAnswer.length}!` };
+  } catch (error: any) {
+    console.log("QUIZ_COMPLETE_ERROR", error);
+    return { error: "Something went wrong!" };
+  }
+};
