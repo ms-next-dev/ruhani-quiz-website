@@ -16,7 +16,10 @@ const timerProps = {
 const renderTime = (dimension: string, time: number) => {
     return (
         <div className="time-wrapper">
-            <div className="time text-3xl font-semibold">{time}</div>
+            <div className="time text-3xl font-semibold">
+                {/* {time} */}
+                {dimension === "minutes" ? Math.max(0, time) : time}
+            </div>
             <div>{dimension}</div>
         </div>
     );
@@ -32,7 +35,7 @@ interface TimerProps {
 
 const Timer: React.FC<TimerProps> = ({ onCompleteA }) => {
     const startTime = Date.now() / 1000;
-    const endTime = startTime + 120;
+    const endTime = startTime + 1 + 120;
 
     const remainingTime = endTime - startTime;
 
