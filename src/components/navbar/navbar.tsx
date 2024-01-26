@@ -15,7 +15,7 @@ import dynamic from "next/dynamic";
 import { Roboto } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaBlog } from "react-icons/fa";
 
@@ -47,6 +47,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ subjects }) => {
     const [scrolling, setScrolling] = useState(false);
 
+    const path = usePathname();
     const currentRole = useCurrentRole();
     const session = useSession();
     const profilePhoto =
@@ -108,12 +109,14 @@ const Navbar: React.FC<NavbarProps> = ({ subjects }) => {
                 <div
                     className={`hidden lg:flex justify-center items-center gap-x-5 xl:gap-x-10 `}
                 >
-                    <SubjectDropDown subjects={subjects} />
+                    <SubjectDropDown {...{ subjects, path }} />
                     {menu.map((m) => (
                         <Link
                             key={m.id}
                             href={m.link}
-                            className="text-[15px] hover:text-[#FF004C] duration-500"
+                            className={`${
+                                path === m.link && "text-[#FF004C]"
+                            } text-[15px] hover:text-[#FF004C] duration-500`}
                         >
                             {m.text}
                         </Link>
@@ -132,12 +135,15 @@ const Navbar: React.FC<NavbarProps> = ({ subjects }) => {
                                 <div
                                     className={`flex flex-col justify-center items-start`}
                                 >
-                                    <SubjectDropDown subjects={subjects} />
+                                    <SubjectDropDown {...{ subjects, path }} />
                                     {menu.map((m) => (
                                         <Link
                                             key={m.id}
                                             href={m.link}
-                                            className="w-full p-3 text-[15px] text-left hover:bg-[#FF004C]/25 rounded-xl duration-500 flex items-center"
+                                            className={`${
+                                                path === m.link &&
+                                                "text-[#FF004C]"
+                                            } w-full p-3 text-[15px] text-left hover:bg-[#FF004C]/25 rounded-xl duration-500 flex items-center`}
                                         >
                                             <m.icon className="mr-2 h-4 w-4" />
                                             {m.text}

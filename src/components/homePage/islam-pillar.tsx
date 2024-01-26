@@ -44,10 +44,10 @@ const IslamPillar = () => {
                     backgroundSize: "cover",
                 }}
             >
-                <div className="h-[70vh] bg-black/90">
-                    <div className="container p-20 grid grid-cols-3">
-                        <div className="col-span-2">
-                            <div className="flex items-center gap-x-8 mb-24">
+                <div className=" bg-black/90">
+                    <div className="container py-20 md:py-28 lg:py-32 md:px-12 grid grid-cols-3 lg:grid-cols-4">
+                        <div className="col-span-3 xl:col-span-3">
+                            <div className="flex flex-col md:flex-row items-start md:items-center gap-y-8 gap-x-8 mb-20 md:mb-28">
                                 <div className="relative">
                                     <div className="absolute top-0 w-20 h-20 border-4 border-[#FF004C] bg-black"></div>
                                     <div className="w-20 h-20 border-4 border-[#FF004C] bg-black rotate-45"></div>
@@ -56,13 +56,13 @@ const IslamPillar = () => {
                                     </p>
                                 </div>
                                 <h1
-                                    className={`${roboto.className} text-5xl font-semibold tracking-wide text-white`}
+                                    className={`${roboto.className} text-4xl md:text-5xl font-semibold tracking-wide text-white whitespace-nowrap md:whitespace-normal`}
                                 >
                                     The Pillars of Islam
                                 </h1>
                             </div>
 
-                            <div className="grid grid-cols-3 gap-20">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-28 md:gap-x-24 gap-y-20 lg:gap-24">
                                 {infos.map((info) => (
                                     <div
                                         key={info.id}
