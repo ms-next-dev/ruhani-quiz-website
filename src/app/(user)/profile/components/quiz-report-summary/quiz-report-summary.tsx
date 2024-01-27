@@ -13,8 +13,8 @@ const QuizReportSummary: React.FC<QuizReportSummaryProps> = ({ user }) => {
   // Dynamic css of circle > progress-bar css located on globals.css
   const progressBarStyle = {
     "--progress": `${62.8}%`,
-    height: "150px",
-    width: "150px",
+    height: "120px",
+    width: "120px",
     borderRadius: "50%",
   } as React.CSSProperties;
 

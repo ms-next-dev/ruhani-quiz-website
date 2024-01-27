@@ -89,7 +89,7 @@ export default MySelfCard;
 const Name: React.FC<MySelfCardProps> = ({ user }) => {
   return (
     <h3 className="text-left text-gray-600 font-medium text-[18px] flex items-center gap-x-2">
-      {user.first_name} {user.last_name}{" "}
+      {user.name}
       <HoverCard>
         <HoverCardTrigger asChild>
           <CheckCircle2

@@ -36,7 +36,7 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
   const form = useForm<z.infer<typeof NameSchema>>({
     resolver: zodResolver(NameSchema),
     defaultValues: {
-      first_name: user.first_name || "",
+      name: user.name || "",
     },
   });
 
@@ -78,9 +78,7 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
             variant="primary"
             size="sm"
             className="rounded-[20px]"
-            disabled={
-              isPending || open || !!user.first_name || !!user.last_name
-            }
+            disabled={isPending || open || !!user.name}
             onClick={() => setOpen(true)}
           >
             Enter name
@@ -95,7 +93,7 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
           >
             <FormField
               control={form.control}
-              name="first_name"
+              name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel htmlFor="first_name">First Name</FormLabel>
