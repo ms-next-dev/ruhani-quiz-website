@@ -14,7 +14,7 @@ const ProfileCompletionCard: React.FC<ProfileCompletionCardProps> = ({
 }) => {
   // Required fields to complete profile 100%
   const requiredFields = [
-    user.first_name,
+    user.name,
     user.avatar,
     user.educational_qualification,
     user.designation,

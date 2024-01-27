@@ -59,7 +59,7 @@ const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
       <CardContent className="w-full relative">
         <section className="flex justify-between w-full">
           <div className="mt-14 w-full ">
-            <Name user={user} />
+            {user.name ? <Name user={user} /> : null}
             <Info user={user} />
           </div>
           <section className="absolute top-0 right-6">
@@ -89,7 +89,7 @@ export default MySelfCard;
 const Name: React.FC<MySelfCardProps> = ({ user }) => {
   return (
     <h3 className="text-left text-gray-600 font-medium text-[18px] flex items-center gap-x-2">
-      {user.first_name} {user.last_name}{" "}
+      {user.name}
       <HoverCard>
         <HoverCardTrigger asChild>
           <CheckCircle2
@@ -130,23 +130,31 @@ const Name: React.FC<MySelfCardProps> = ({ user }) => {
 const Info: React.FC<MySelfCardProps> = ({ user }) => {
   return (
     <div className="w-full grid grid-cols-3 mt-2 space-y-1 ">
-      <p className="text-[12px] md:text-[14px] font-normal text-gray-500 flex items-center gap-x-2">
-        <Briefcase className="w-3 h-3" />
-        {user.designation}
-      </p>
-      <p className="text-[12px] md:text-[14px] col-span-2 font-normal text-gray-500 flex items-center gap-x-2">
-        <GraduationCap className="w-3 h-3" />
-        {user.educational_qualification}
-      </p>
-      <p className="text-[12px] md:text-[14px] font-normal text-gray-500 flex items-center gap-x-2">
-        <MapPin className={cn("w-3 h-3")} />
-        {user.district}
-      </p>
+      {user.designation && (
+        <p className="text-[12px] md:text-[14px] font-normal text-gray-500 flex items-center gap-x-2">
+          <Briefcase className="w-3 h-3" />
+          {user.designation}
+        </p>
+      )}
+      {user.educational_qualification && (
+        <p className="text-[12px] md:text-[14px] col-span-2 font-normal text-gray-500 flex items-center gap-x-2">
+          <GraduationCap className="w-3 h-3" />
+          {user.educational_qualification}
+        </p>
+      )}
+      {user.district && (
+        <p className="text-[12px] md:text-[14px] font-normal text-gray-500 flex items-center gap-x-2">
+          <MapPin className={cn("w-3 h-3")} />
+          {user.district}
+        </p>
+      )}
 
-      <p className="text-[12px] md:text-[14px] font-normal text-gray-500 flex items-center gap-x-2">
-        <Phone className={cn("w-3 h-3")} />
-        {user.phone}
-      </p>
+      {user.phone && (
+        <p className="text-[12px] md:text-[14px] font-normal text-gray-500 flex items-center gap-x-2">
+          <Phone className={cn("w-3 h-3")} />
+          {user.phone}
+        </p>
+      )}
     </div>
   );
 };

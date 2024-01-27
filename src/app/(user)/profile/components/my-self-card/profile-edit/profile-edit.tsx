@@ -38,8 +38,7 @@ interface ProfileEdit {
 }
 
 const formSchema = z.object({
-  first_name: z.string().optional(),
-  last_name: z.string().optional(),
+  name: z.string().optional(),
   avatar: z.string().optional(),
   educational_qualification: z.string().optional(),
   designation: z.string().optional(),
@@ -57,8 +56,7 @@ const ProfileEdit: React.FC<ProfileEdit> = ({ user, onClose }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      first_name: user.first_name || "",
-      last_name: user.last_name || "",
+      name: user.name || "",
       avatar: user.avatar || "",
       educational_qualification: user.educational_qualification || "",
       designation: user.designation || "",
@@ -183,29 +181,12 @@ const ProfileEdit: React.FC<ProfileEdit> = ({ user, onClose }) => {
 
               <FormField
                 control={form.control}
-                name="first_name"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>First Name</FormLabel>
                     <Input
                       placeholder="Your first name"
-                      {...field}
-                      className={cn(
-                        "placeholder:text-gray-400 text-[12px] border-gray-400 rounded-[4px]"
-                      )}
-                    />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="last_name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Last Name</FormLabel>
-                    <Input
-                      placeholder="Your last name"
                       {...field}
                       className={cn(
                         "placeholder:text-gray-400 text-[12px] border-gray-400 rounded-[4px]"
