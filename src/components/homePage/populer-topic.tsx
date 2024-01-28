@@ -1,13 +1,20 @@
-import { prismaDb } from "@/lib/db";
 import Image from "next/image";
-import RuhaniImage from "../ui/ruhani-image";
+import TopicCardV2 from "../ui/topic-card";
 
-const PopulerTopic = async () => {
-  const topics = await prismaDb.topic.findMany({
-    take: 6,
-  });
+interface Topic {
+  id: string;
+  name: string;
+  image: string;
+  totalQuestion: number;
+}
+
+interface PopularTopicProps {
+  topics: Topic[];
+}
+
+const PopulerTopic: React.FC<PopularTopicProps> = async ({ topics }) => {
   return (
-    <div className="h-[580px] relative">
+    <div className="relative">
       <Image
         src="/bg/color.svg"
         alt="color"
@@ -16,39 +23,22 @@ const PopulerTopic = async () => {
           objectFit: "cover",
         }}
       />
-      <section className="container pt-[100px]">
-        <h1 className=" text-xl md:text-[44px] leading-tight font-semibold">
-          Play Quiz Based on Your Subject <br /> and Unleash Your Intellectual
-          Prowess!
+      <section className="container py-[100px]">
+        <h1 className=" text-xl md:text-[44px] leading-tight font-semibold lg:w-1/2">
+          Our Diverse Quiz Topics Await Your Curiosity!
         </h1>
-        <p className=" font-light">
-          Unleashing Knowledge, Bangladesh's Biggest Quiz Experience!
+        <p className="font-light">
+          Dive into a World of Learning with an Array of Captivating Quiz Topics
+          Designed to Challenge and Enlighten!
         </p>
         <div className="mt-12 flex flex-wrap gap-[20px]">
-          {topics?.map(({ id, image }) => (
-            <div
+          {topics?.map(({ id, image, name, totalQuestion }) => (
+            <TopicCardV2
               key={id}
-              className="w-[188px] h-[239px]  rounded-[0.375rem] relative group z-50 cursor-pointer border-[.3px]  hover:border-main/30 duration-300"
-            >
-              <div className="h-full w-full relative">
-                <RuhaniImage
-                  src={image}
-                  alt="im"
-                  className="rounded-[0.375rem]"
-                  fill
-                  placeholder={true}
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(20,18,18,0.98)12.89%,rgba(4,2,2,0.64)48.38%)] rounded-[0.375rem]"></div>
-              </div>
-              <div className="absolute  left-[15px] bottom-[10px]">
-                <h3 className="text-white text-[12px]">5 Question</h3>
-              </div>
-              <div className="absolute bottom-0 right-0">
-                <button className="rounded-[0.375rem_0px] text-white text-sm font-medium bg-main/30 group-hover:bg-main/35 px-4 py-2">
-                  play
-                </button>
-              </div>
-            </div>
+              image={image}
+              totalQuestions={totalQuestion}
+              name={name}
+            />
           ))}
         </div>
       </section>
