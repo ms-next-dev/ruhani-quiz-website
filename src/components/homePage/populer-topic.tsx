@@ -24,7 +24,7 @@ const PopulerTopic: React.FC<PopularTopicProps> = async ({ topics }) => {
         }}
       />
       <section className="container py-[100px]">
-        <h1 className=" text-xl md:text-[44px] leading-tight font-semibold lg:w-1/2">
+        <h1 className=" text-[24px] md:text-[44px] leading-tight font-semibold lg:w-1/2">
           Our Diverse Quiz Topics Await Your Curiosity!
         </h1>
         <p className="font-light">

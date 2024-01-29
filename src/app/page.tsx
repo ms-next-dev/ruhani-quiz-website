@@ -2,7 +2,6 @@
 import dynamic from "next/dynamic";
 
 // Local Imports
-import HomeTopics from "@/components/homePage/home-topics";
 import IslamPillar from "@/components/homePage/islam-pillar";
 import PopulerTopic from "@/components/homePage/populer-topic";
 import PrayerTime from "@/components/homePage/prayer-time";
@@ -27,7 +26,7 @@ export default async function Home() {
     <div>
       <Banner />
       <PopulerTopic topics={data} />
-      <HomeTopics />
+      {/* <HomeTopics /> */}
       <PrayerTime />
       <IslamPillar />
       <h1 className="flex justify-center items-center my-80 text-2xl lg:text-8xl">

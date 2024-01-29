@@ -16,7 +16,7 @@ const PrayerTimeCard: React.FC<PrayerTimeProps> = ({ prayerTime }) => {
     <Tilt key={prayerTime.id}>
       <div
         // className="text-white px-8 py-14 rounded-t-full flex flex-col items-center bg-stone-500/85"
-        className="text-black px-6 py-12 rounded-t-full flex flex-col items-center  bg-black/5"
+        className="text-black px-6 py-12 rounded-t-full flex flex-col items-center  bg-white hover:bg-slate-50 transition-colors duration-300 border-1"
       >
         <div className="p-3 rounded-full bg-main/10">
           <Image src={prayerTime.icon} alt="icon" width={30} height={30} />

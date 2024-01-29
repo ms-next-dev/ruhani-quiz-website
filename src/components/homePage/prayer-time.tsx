@@ -1,96 +1,102 @@
-// Packages
-import dynamic from "next/dynamic";
+import RuhaniImage from "../ui/ruhani-image";
 
-// Local imports
-import { poppins } from "@/lib/fonts";
+// async function getData() {
+//   const res = await fetch(
+//     "http://api.aladhan.com/v1/timingsByCity?city=Dhaka&country=Bangladesh&method=1&school=1"
+//   );
 
-const PrayerTimeCard = dynamic(() => import("../cards/prayer-time-card"));
+//   if (!res.ok) {
+//     return "Failed to fetch data";
+//   }
 
-// function to get data from api
-async function getData() {
-    const res = await fetch(
-        "http://api.aladhan.com/v1/timingsByCity?city=Dhaka&country=Bangladesh&method=1&school=1"
-    );
-
-    if (!res.ok) {
-        return "Failed to fetch data";
-    }
-
-    return res.json();
-}
+//   return res.json();
+// }
 
 const PrayerTime = async () => {
-    // calling function for getting data from api
-    const data = await getData();
-    const prayerTimes = data.data.timings;
+  // calling function for getting data from api
+  // const data = await getData();
+  // const prayerTimes = data.data.timings;
 
-    // js variables
-    const date = data.data.date;
-    const engDate = date.readable;
-    const hijriDate = `${date.hijri.day} ${date.hijri.month.en} ${date.hijri.year} ${date.hijri.designation.abbreviated}`;
-
-    const modifiedPrayerTimes = [
-        {
-            id: 1,
-            waqt: "Fajr",
-            time: prayerTimes.Fajr,
-            icon: "/prayerTimeIcon/fajr.svg",
-        },
-        {
-            id: 2,
-            waqt: "Dhuhr",
-            time: prayerTimes.Dhuhr,
-            icon: "/prayerTimeIcon/dhuhr.svg",
-        },
-        {
-            id: 3,
-            waqt: "Asr",
-            time: prayerTimes.Asr,
-            icon: "/prayerTimeIcon/asr.svg",
-        },
-        {
-            id: 4,
-            waqt: "Maghrib",
-            time: prayerTimes.Maghrib,
-            icon: "/prayerTimeIcon/maghrib.svg",
-        },
-        {
-            id: 5,
-            waqt: "Isha",
-            time: prayerTimes.Isha,
-            icon: "/prayerTimeIcon/isha.svg",
-        },
-    ];
-
-    return (
+  // // js variables
+  // const date = data.data.date;
+  // const engDate = date.readable;
+  // const hijriDate = `${date.hijri.day} ${date.hijri.month.en} ${date.hijri.year} ${date.hijri.designation.abbreviated}`;
+  const times = [
+    {
+      id: 1,
+      title: "Fajar",
+      time: "4:10 am",
+    },
+    {
+      id: 2,
+      title: "Zuhr",
+      time: "12:36 am",
+    },
+    {
+      id: 3,
+      title: "Asr",
+      time: "4:45 am",
+    },
+    {
+      id: 4,
+      title: "Maghrib",
+      time: "4:45 am",
+    },
+    {
+      id: 5,
+      title: "Isha's",
+      time: "4:45 am",
+    },
+  ];
+  return (
+    <div className="py-[150px] container  relative">
+      <RuhaniImage
+        src="https://res.cloudinary.com/dn2pqzag1/image/upload/v1706444414/10337574_fsgpse.png"
+        fill
+        className="opacity-10"
+        alt="light"
+        placeholder={true}
+      />
+      <div className="flex flex-col md:flex-row gap-y-[50px] justify-center gap-x-[100px] items-start w-full">
         <div>
-            <div className="bg-[#f6f6f6]">
-                <div className="container py-12 lg:py-28">
-                    <h2
-                        className={`${poppins.className} font-bold text-center text-main text-4xl tracking-wide`}
-                    >
-                        Today&apos;s Prayer Times
-                    </h2>
-                    <div className="bg-[#FF004C] h-[2px] w-1/2 md:w-1/4 mx-auto my-8"></div>
-                    <div
-                        className={`${poppins.className} text-lg font-medium text-main text-center`}
-                    >
-                        <p>Islamic: {hijriDate}</p>
-                        <p>General: {engDate}</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-10 lg:gap-16 xl:gap-5 px-6 mt-12 md:mt-20">
-                        {modifiedPrayerTimes.map((prayerTime) => (
-                            <PrayerTimeCard
-                                key={prayerTime.id}
-                                prayerTime={prayerTime}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </div>
+          <h3 className="text-[#222222] text-xl md:text-[44px] leading-tight font-semibold">
+            Today Prayer Times
+          </h3>
+          <div className="mt-4">
+            <p className="text-[14px] font-light text-main">
+              Islamic: as-Sabt,18 Muharram 1442
+            </p>
+            <p className="text-[15px] text-gray-500 font-medium">
+              Sunday, September 6, 2020
+            </p>
+          </div>
+          <p className="text-gray-500 text-[20px] font-medium w-[400px] mt-4">
+            “O you who have believed, seek help through patience and prayer.
+            Indeed, Allah is with the patient”
+          </p>
         </div>
-    );
+        <div>
+          <div className="w-[400px] md:w-[300px] shadow-[rgba(99,99,99,0.2)_0px_2px_8px_0px]">
+            <div className="h-[50px] items-center bg-main/15 flex justify-around">
+              <span className="font-semibold">Salat</span>
+              <span className="font-semibold">Start</span>
+            </div>
+            <div>
+              {times.map(({ id, time, title }) => (
+                <div
+                  key={id}
+                  className="h-[50px] flex justify-around items-center border-b-[.5px] border-gray-200"
+                >
+                  <span className="font-medium text-gray-600">{title}</span>
+                  <span className="font-normal text-gray-400">{time}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default PrayerTime;
