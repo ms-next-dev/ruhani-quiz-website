@@ -5,21 +5,23 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { memo } from "react";
 
 interface LottiePlayerProps {
-  src: string;
+    src: string;
+    height: string;
+    width: string;
 }
 
-const LottiePlayer: React.FC<LottiePlayerProps> = ({ src }) => {
-  return (
-    <Player
-      autoplay
-      loop
-      src={src}
-      style={{
-        height: "400px",
-        width: "400px",
-      }}
-    ></Player>
-  );
+const LottiePlayer: React.FC<LottiePlayerProps> = ({ src, height, width }) => {
+    return (
+        <Player
+            autoplay
+            loop
+            src={src}
+            style={{
+                height: height,
+                width: width,
+            }}
+        ></Player>
+    );
 };
 
 export default memo(LottiePlayer);
