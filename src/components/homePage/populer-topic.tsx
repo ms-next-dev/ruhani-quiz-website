@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Title from "../ui/title";
 import TopicCardV2 from "../ui/topic-card";
 
 interface Topic {
@@ -24,13 +25,11 @@ const PopulerTopic: React.FC<PopularTopicProps> = async ({ topics }) => {
         }}
       />
       <section className="container py-[100px]">
-        <h1 className=" text-[24px] md:text-[44px] leading-tight font-semibold lg:w-1/2">
-          Our Diverse Quiz Topics Await Your Curiosity!
-        </h1>
-        <p className="font-light">
-          Dive into a World of Learning with an Array of Captivating Quiz Topics
-          Designed to Challenge and Enlighten!
-        </p>
+        <Title
+          title="Our Diverse Quiz Topics Await Your Curiosity!"
+          description="Dive into a World of Learning with an Array of Captivating Quiz Topics
+          Designed to Challenge and Enlighten!"
+        />
         <div className="mt-12 flex flex-wrap gap-[20px]">
           {topics?.map(({ id, image, name, totalQuestion }) => (
             <TopicCardV2

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronRight, MoveRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Title from "../ui/title";
 
 const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -90,13 +91,20 @@ const Banner = () => {
             }}
             className="space-y-4"
           >
-            <h1 className="text-white text-xl md:text-[44px] leading-tight font-semibold">
+            {/* <h1 className="text-white text-xl md:text-[44px] leading-tight font-semibold">
               Play Quiz Based on Your Subject <br /> and Unleash Your
               Intellectual Prowess!
             </h1>
             <p className="text-white/80 font-light">
               Unleashing Knowledge, Bangladesh's Biggest Quiz Experience!
-            </p>
+            </p> */}
+            <Title
+              title="Play Quiz Based on Your Subject and Unleash Your
+              Intellectual Prowess!"
+              titleClassName="text-white w-2/3"
+              description="Unleashing Knowledge, Bangladesh's Biggest Quiz Experience!"
+              descriptionClassName="text-white/80"
+            />
             <section className="flex flex-wrap gap-3">
               {subjects.map(({ id, name }) => (
                 <div
