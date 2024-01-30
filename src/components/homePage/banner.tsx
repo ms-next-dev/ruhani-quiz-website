@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ChevronRight, MoveRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
 
 const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -20,6 +20,33 @@ const Banner = () => {
     { img: "/rq-banner.png" },
     { img: "/rq-banner-1.jpg" },
     { img: "/rq-banner-2.jpg" },
+  ];
+
+  const subjects = [
+    {
+      id: 1,
+      name: "Islam",
+    },
+    {
+      id: 2,
+      name: "Web Development",
+    },
+    {
+      id: 3,
+      name: "App Development",
+    },
+    {
+      id: 4,
+      name: "Current Affairs",
+    },
+    {
+      id: 5,
+      name: "Englist",
+    },
+    {
+      id: 6,
+      name: "History Of Islam",
+    },
   ];
 
   return (
@@ -61,21 +88,39 @@ const Banner = () => {
               duration: 0.75,
               ease: "easeOut",
             }}
+            className="space-y-4"
           >
-            <h1 className="text-white text-3xl md:text-5xl leading-tight font-light lg:font-normal md:mb-4">
-              Welcome To
+            <h1 className="text-white text-xl md:text-[44px] leading-tight font-semibold">
+              Play Quiz Based on Your Subject <br /> and Unleash Your
+              Intellectual Prowess!
             </h1>
-            <h1 className="text-white text-5xl md:text-[67px] lg:text-[80px]  font-bold leading-tight lg:leading-[1.15] lg:max-w-3xl">
-              Islamic Quiz Competition
-            </h1>
-            <p className="mt-6 md:mt-8 lg:mt-12 xl:mt-14 mb-8 md:mb-10 text-white max-w-lg lg:max-w-xl text-sm md:text-lg lg:text-xl font-light lg:font-normal">
-              Lorem ipsum is placeholder text commonly used in the graphic,
-              print, and publishing industries for previewing layouts and visual
-              mockups.
+            <p className="text-white/80 font-light">
+              Unleashing Knowledge, Bangladesh's Biggest Quiz Experience!
             </p>
-            <Button variant="primary" size="lg" className="rounded-xl text-xl">
-              Let&apos;s do it
-            </Button>
+            <section className="flex flex-wrap gap-3">
+              {subjects.map(({ id, name }) => (
+                <div
+                  key={id}
+                  className="w-[172px] h-[116px] bg-white bg-opacity-5 backdrop-blur-lg rounded drop-shadow-lg hover:backdrop-blur-xl hover:border-slate-50/10 hover:border-[.7px] border-slate-50/5 border-[.5px] flex flex-col items-center justify-center gap-y-2 cursor-pointer group"
+                >
+                  <div className="p-2 bg-gray-400/10 rounded-full">
+                    <Image
+                      src="/icon/book.png"
+                      alt="bookIcon"
+                      width={35}
+                      height={35}
+                    />
+                  </div>
+                  <div className="text-[14px] text-white/85 flex items-center gap-x-2 ">
+                    {name} <MoveRight className="w-3 h-3 mt-1" />
+                  </div>
+                </div>
+              ))}
+            </section>
+            <p className="text-green-500/80 flex items-center group cursor-pointer">
+              Want to know more{" "}
+              <ChevronRight className="w-4 h-4 mt-1 ml-2 group-hover:ml-3 duration-300" />
+            </p>
           </motion.div>
         </div>
       </div>
