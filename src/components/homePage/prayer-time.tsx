@@ -49,7 +49,7 @@ const PrayerTime = async () => {
     },
   ];
   return (
-    <div className="py-[150px] container  relative">
+    <div className="py-[50px] md:py-[100px] lg:py-[150px] container  relative">
       <RuhaniImage
         src="https://res.cloudinary.com/dn2pqzag1/image/upload/v1706444414/10337574_fsgpse.png"
         fill
@@ -57,7 +57,7 @@ const PrayerTime = async () => {
         alt="light"
         placeholder={true}
       />
-      <div className="flex flex-col md:flex-row gap-y-[50px] justify-center gap-x-[100px] items-start w-full">
+      <div className="flex flex-col md:flex-row gap-y-[50px] justify-center md:gap-x-[20px] lg:gap-x-[100px] items-start w-full">
         <div>
           <h3 className="text-[#222222] text-xl md:text-[44px] leading-tight font-semibold">
             Today Prayer Times
@@ -75,8 +75,8 @@ const PrayerTime = async () => {
             Indeed, Allah is with the patient”
           </p>
         </div>
-        <div>
-          <div className="w-[400px] md:w-[300px] shadow-[rgba(99,99,99,0.2)_0px_2px_8px_0px]">
+        <div className="w-full md:w-auto">
+          <div className="w-full  md:w-[300px] shadow-[rgba(99,99,99,0.2)_0px_2px_8px_0px]">
             <div className="h-[50px] items-center bg-main/15 flex justify-around">
               <span className="font-semibold">Salat</span>
               <span className="font-semibold">Start</span>
