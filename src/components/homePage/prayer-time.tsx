@@ -1,4 +1,5 @@
 import RuhaniImage from "../ui/ruhani-image";
+import Title from "../ui/title";
 
 // async function getData() {
 //   const res = await fetch(
@@ -59,9 +60,7 @@ const PrayerTime = async () => {
       />
       <div className="flex flex-col md:flex-row gap-y-[50px] justify-center md:gap-x-[20px] lg:gap-x-[100px] items-start w-full">
         <div>
-          <h3 className="text-[#222222] text-xl md:text-[44px] leading-tight font-semibold">
-            Today Prayer Times
-          </h3>
+          <Title title="Today Prayer Times" titleClassName="text-[#222222]" />
           <div className="mt-4">
             <p className="text-[14px] font-light text-main">
               Islamic: as-Sabt,18 Muharram 1442
