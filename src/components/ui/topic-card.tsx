@@ -1,4 +1,8 @@
-import Link from "next/link";
+"use client";
+// Packages
+
+// Local Imports
+import { useRouter } from "next/navigation";
 import RuhaniImage from "./ruhani-image";
 
 interface TopicCardV2 {
@@ -14,10 +18,11 @@ const TopicCardV2: React.FC<TopicCardV2> = ({
 }) => {
   const prepareTopicName = name.split(" ").join("_");
   const url = `/topics/${prepareTopicName}`;
+  const router = useRouter();
   return (
-    <Link
-      href={url}
-      className="w-[188px] h-[219px]  rounded-[0.375rem] relative group  cursor-pointer border-[.3px]  hover:border-main/30 duration-300"
+    <div
+      onClick={() => router.push(url)}
+      className="w-[168px] md:w-[188px] h-[219px]  rounded-[0.375rem] relative group  cursor-pointer border-[.3px]  hover:border-main/30 duration-300"
     >
       <div className="h-full w-full relative">
         <RuhaniImage
@@ -37,7 +42,7 @@ const TopicCardV2: React.FC<TopicCardV2> = ({
           play
         </button>
       </div>
-    </Link>
+    </div>
   );
 };
 

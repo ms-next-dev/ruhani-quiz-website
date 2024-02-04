@@ -1,28 +1,31 @@
-import Image from "next/image";
+import { getAllTopics } from "@/data/topic";
+import RuhaniImage from "../ui/ruhani-image";
 import Title from "../ui/title";
 import TopicCardV2 from "../ui/topic-card";
 
-interface Topic {
+type Topics = {
   id: string;
   name: string;
   image: string;
+  billboardId: string;
+  subjectId: string | null;
+  createdAt: Date;
+  updatedAt: Date;
   totalQuestion: number;
-}
+}[];
 
-interface PopularTopicProps {
-  topics: Topic[];
-}
-
-const PopulerTopic: React.FC<PopularTopicProps> = async ({ topics }) => {
+const PopulerTopic = async () => {
+  const topics: Topics = await getAllTopics();
   return (
     <div className="relative">
-      <Image
-        src="/bg/color.svg"
+      <RuhaniImage
+        src="https://res.cloudinary.com/dn2pqzag1/image/upload/v1706613859/ruhani%20quiz/color_tcpxvg.png"
         alt="color"
         fill
         style={{
           objectFit: "cover",
         }}
+        placeholder
       />
       <section className="container py-[100px]">
         <Title
