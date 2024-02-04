@@ -146,14 +146,14 @@ const ResultPage = async ({
                             <Separator className="h-[1px] bg-black/10" />
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 my-6 md:my-10">
+                    <div className="columns-1 md:columns-2 gap-10 my-6 md:my-10">
                         {quizData?.data?.questions.map((question) => (
                             <div
                                 key={question.id}
-                                className="border border-t-8 border-gray-200 rounded-xl p-5"
+                                className="break-inside-avoid border border-t-8 border-gray-200 rounded-xl p-5 mb-6"
                             >
                                 <h1
-                                    className={`text-[16px] lg:text-[20px] font-semibold mb-5 md:h-20`}
+                                    className={`text-[16px] lg:text-[20px] font-semibold mb-5`}
                                 >
                                     {question.question?.question}
                                 </h1>
