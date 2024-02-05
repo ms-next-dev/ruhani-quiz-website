@@ -26,7 +26,13 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ name, varient }) => {
             "bg-slate-800/5 group-hover:bg-slate-800/10 duration-500"
         )}
       >
-        <Image src="/icon/book.png" alt="bookIcon" width={35} height={35} />
+        <Image
+          src="/icon/book.png"
+          alt="bookIcon"
+          width={35}
+          height={35}
+          className="opacity-80"
+        />
       </div>
       <div
         className={cn(

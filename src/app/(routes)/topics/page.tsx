@@ -34,7 +34,7 @@ const TopicsPage = async () => {
         <SectionTitle title="Choose topics" />
 
         <div className="h-auto  my-[50px] lg:mb-[100px]">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {topics !== null &&
               topics?.map(({ id, image, totalQuestion, name }) => (
                 <TopicCardV2
