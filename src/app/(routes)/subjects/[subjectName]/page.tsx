@@ -1,9 +1,8 @@
 // Local Import
-import SubjectCard from "@/components/cards/subject-card";
-import TopicCard from "@/components/cards/topic-card";
 import PageBanner from "@/components/page-banner";
 import SectionTitle from "@/components/ui/section-title";
-import { Separator } from "@/components/ui/separator";
+import SubjectCard from "@/components/ui/subject-card";
+import TopicCardV2 from "@/components/ui/topic-card";
 import { getSubjects } from "@/data/subjects";
 import { getTopicBySubjectName } from "@/data/topic";
 
@@ -26,10 +25,10 @@ const SubjectPage = async ({ params }: { params: { subjectName: string } }) => {
 
       <div className="container p-5 lg:p-12 xl:p-20">
         {/* Islamic topic section */}
-        <SectionTitle title="Topics Lists" />
+        <SectionTitle title="Choose topics" />
 
-        <div className="min-h-[50vh] mb-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-10">
+        <div className="h-auto lg:mb-[100px] my-[50px]">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-10">
             {topics !== null &&
               (topics?.length === 0 ? (
                 <p className=" py-32 text-center text-xl text-gray-500 font-normal col-span-4">
@@ -37,21 +36,25 @@ const SubjectPage = async ({ params }: { params: { subjectName: string } }) => {
                   explore others.
                 </p>
               ) : (
-                topics?.map((topic) => (
-                  <TopicCard key={topic.id} topic={topic} />
+                topics?.map(({ id, image, name, totalQuestion }) => (
+                  <TopicCardV2
+                    key={id}
+                    image={image}
+                    name={name}
+                    totalQuestion={totalQuestion}
+                  />
                 ))
               ))}
           </div>
         </div>
 
         {/* Subject suggestion */}
-        <Separator className="h-[2px] bg-black/50" />
-        <div className="my-5 lg:10">
-          <SectionTitle title="Subject Suggestions" />
+        <div className="my-5 lg:my-10">
+          <SectionTitle title="More Subjects" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 my-[50px]">
-            {filteredSubjects.map((subject) => (
-              <SubjectCard key={subject.id} subject={subject} />
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6  gap-10 my-[50px]">
+            {filteredSubjects.map(({ id, name }) => (
+              <SubjectCard key={id} name={name} varient="normal" />
             ))}
           </div>
         </div>
