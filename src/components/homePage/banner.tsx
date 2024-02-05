@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronRight, MoveRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import SubjectCard from "../ui/subject-card";
 import Title from "../ui/title";
 
 const Banner = () => {
@@ -91,13 +92,6 @@ const Banner = () => {
             }}
             className="space-y-4"
           >
-            {/* <h1 className="text-white text-xl md:text-[44px] leading-tight font-semibold">
-              Play Quiz Based on Your Subject <br /> and Unleash Your
-              Intellectual Prowess!
-            </h1>
-            <p className="text-white/80 font-light">
-              Unleashing Knowledge, Bangladesh's Biggest Quiz Experience!
-            </p> */}
             <Title
               title="Play Quiz Based on Your Subject and Unleash Your
               Intellectual Prowess!"
@@ -107,22 +101,7 @@ const Banner = () => {
             />
             <section className="flex flex-wrap gap-3">
               {subjects.map(({ id, name }) => (
-                <div
-                  key={id}
-                  className="w-[172px] h-[116px] bg-white bg-opacity-5 backdrop-blur-lg rounded drop-shadow-lg hover:backdrop-blur-xl hover:border-slate-50/10 hover:border-[.7px] border-slate-50/5 border-[.5px] flex flex-col items-center justify-center gap-y-2 cursor-pointer group"
-                >
-                  <div className="p-2 bg-gray-400/10 rounded-full">
-                    <Image
-                      src="/icon/book.png"
-                      alt="bookIcon"
-                      width={35}
-                      height={35}
-                    />
-                  </div>
-                  <div className="text-[14px] text-white/85 flex items-center gap-x-2 ">
-                    {name} <MoveRight className="w-3 h-3 mt-1" />
-                  </div>
-                </div>
+                <SubjectCard key={id} name={name} varient="glass" />
               ))}
             </section>
             <p className="text-green-500/80 flex items-center group cursor-pointer">

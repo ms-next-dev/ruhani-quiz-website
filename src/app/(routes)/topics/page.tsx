@@ -1,9 +1,9 @@
 // Local Imports
-import SubjectCard from "@/components/cards/subject-card";
-import TopicCard from "@/components/cards/topic-card";
 import PageBanner from "@/components/page-banner";
 import SectionTitle from "@/components/ui/section-title";
 import { Separator } from "@/components/ui/separator";
+import SubjectCard from "@/components/ui/subject-card";
+import TopicCardV2 from "@/components/ui/topic-card";
 import { getSubjects } from "@/data/subjects";
 import { getTopicBySubjectName } from "@/data/topic";
 
@@ -35,10 +35,15 @@ const TopicsPage = async () => {
         <SectionTitle title="Islam - Topics" />
 
         <div className="h-auto  my-[50px] lg:mb-[100px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-10">
+          <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-6 gap-5 lg:gap-10">
             {topics !== null &&
-              topics?.map((topic: any) => (
-                <TopicCard key={topic.id} topic={topic} />
+              topics?.map(({ id, image, totalQuestion, name }) => (
+                <TopicCardV2
+                  key={id}
+                  image={image}
+                  totalQuestion={totalQuestion}
+                  name={name}
+                />
               ))}
           </div>
         </div>
@@ -48,9 +53,9 @@ const TopicsPage = async () => {
         <div className="my-5 lg:my-10">
           <SectionTitle title="Subject Suggestions" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 my-[50px]">
-            {filteredSubjects.map((subject) => (
-              <SubjectCard key={subject.id} subject={subject} />
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-4 gap-10 my-[50px]">
+            {filteredSubjects.map(({ id, name }) => (
+              <SubjectCard key={id} name={name} varient="normal" />
             ))}
           </div>
         </div>
