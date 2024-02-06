@@ -1,5 +1,6 @@
 "use client";
 
+import { Subject } from "@prisma/client";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -7,7 +8,11 @@ import { useEffect, useState } from "react";
 import SubjectCard from "../ui/subject-card";
 import Title from "../ui/title";
 
-const Banner = () => {
+interface BannerProps {
+  subjects: Subject[];
+}
+
+const Banner: React.FC<BannerProps> = ({ subjects }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -22,33 +27,6 @@ const Banner = () => {
     { img: "/rq-banner.png" },
     { img: "/rq-banner-1.jpg" },
     { img: "/rq-banner-2.jpg" },
-  ];
-
-  const subjects = [
-    {
-      id: 1,
-      name: "Islam",
-    },
-    {
-      id: 2,
-      name: "Web Development",
-    },
-    {
-      id: 3,
-      name: "App Development",
-    },
-    {
-      id: 4,
-      name: "Current Affairs",
-    },
-    {
-      id: 5,
-      name: "Englist",
-    },
-    {
-      id: 6,
-      name: "History Of Islam",
-    },
   ];
 
   return (

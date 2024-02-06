@@ -1,6 +1,10 @@
-import { cn } from "@/lib/utils";
+// Packages
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+
+// Local Imports
+import { cn } from "@/lib/utils";
 
 interface SubjectCardProps {
   name: string;
@@ -8,8 +12,11 @@ interface SubjectCardProps {
 }
 
 const SubjectCard: React.FC<SubjectCardProps> = ({ name, varient }) => {
+  const prepareSubjctName = name.split(" ").join("_");
+  const url = `/subjects/${prepareSubjctName}`;
   return (
-    <div
+    <Link
+      href={url}
       className={cn(
         "w-[172px] h-[116px] bg-white bg-opacity-5  rounded    flex flex-col items-center justify-center gap-y-2 cursor-pointer group",
         varient === "glass" &&
@@ -43,7 +50,7 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ name, varient }) => {
       >
         {name} <MoveRight className="w-3 h-3 mt-1" />
       </div>
-    </div>
+    </Link>
   );
 };
 
