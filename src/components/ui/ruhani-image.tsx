@@ -51,6 +51,7 @@ const RuhaniImage: React.FC<RuhaniQuizProps> = async ({
       placeholder={placeholder ? "blur" : "empty"}
       blurDataURL={placeholder ? base64 : ""}
       className={cn(className)}
+      loading="lazy"
       {...props}
     />
   );

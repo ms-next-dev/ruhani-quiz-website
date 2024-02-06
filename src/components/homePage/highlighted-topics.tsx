@@ -14,8 +14,9 @@ type Topics = {
   totalQuestion: number;
 }[];
 
-const PopulerTopic = async () => {
-  const topics: Topics = await getAllTopics();
+const HighlightedTopics = async () => {
+  const data: Topics = await getAllTopics();
+
   return (
     <div className="relative">
       <RuhaniImage
@@ -25,7 +26,7 @@ const PopulerTopic = async () => {
         style={{
           objectFit: "cover",
         }}
-        placeholder
+        placeholder={true}
       />
       <section className="container py-[100px]">
         <Title
@@ -33,13 +34,13 @@ const PopulerTopic = async () => {
           description="Dive into a World of Learning with an Array of Captivating Quiz Topics
           Designed to Challenge and Enlighten!"
         />
-        <div className="mt-12 flex flex-wrap gap-[20px]">
-          {topics?.map(({ id, image, name, totalQuestion }) => (
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {data.map(({ id, name, image, totalQuestion }) => (
             <TopicCardV2
               key={id}
-              image={image}
-              totalQuestions={totalQuestion}
               name={name}
+              image={image}
+              totalQuestion={totalQuestion}
             />
           ))}
         </div>
@@ -48,4 +49,4 @@ const PopulerTopic = async () => {
   );
 };
 
-export default PopulerTopic;
+export default HighlightedTopics;
