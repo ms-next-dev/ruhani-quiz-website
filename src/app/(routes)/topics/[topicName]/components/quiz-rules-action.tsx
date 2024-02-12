@@ -1,7 +1,7 @@
 "use client";
 // Packages
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useTransition } from "react";
 import { toast } from "sonner";
 
 // Local Imports --------------------------------
@@ -14,7 +14,7 @@ interface QuizRulesAction {
 }
 
 const QuizRulesAction: React.FC<QuizRulesAction> = ({ topicName }) => {
-  const [isPending, startTransition] = useState();
+  const [isPending, startTransition] = useTransition();
 
   const router = useRouter();
   const handleQuizCreate = () => {
@@ -44,7 +44,7 @@ const QuizRulesAction: React.FC<QuizRulesAction> = ({ topicName }) => {
       disabled={isPending}
       role="button"
     >
-      Start Quiz
+      {isPending ? "Wait..." : "Start Quiz"}
     </Button>
   );
 };
