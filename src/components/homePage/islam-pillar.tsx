@@ -45,7 +45,7 @@ const IslamPillar = () => {
         }}
       >
         <div className=" bg-black/90">
-          <div className="container py-20 md:py-28 lg:py-32 md:px-12 grid grid-cols-3 lg:grid-cols-4">
+          <div className="container py-20 md:py-28 lg:py-32 md:px-20 grid grid-cols-3 lg:grid-cols-4">
             <div className="col-span-3 xl:col-span-3">
               <div className="flex flex-row h-fit items-start md:items-center gap-y-8 gap-x-8 mb-20 md:mb-28">
                 <div className="relative">
