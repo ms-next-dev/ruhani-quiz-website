@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface AuthUIWrapperProps {
   children: React.ReactNode;
 }
@@ -9,7 +11,7 @@ const AuthUIWrapper: React.FC<AuthUIWrapperProps> = ({ children }) => {
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-md rounded-2xl md:flex-row md:space-y-0 min-h-[530px] ">
           {/* <!-- left side --> */}
           <div>
-            <img
+            <Image
               src="/promo1.jpg"
               alt="img"
               className="w-[500px] h-full hidden rounded-l-2xl md:block object-cover"

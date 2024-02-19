@@ -91,7 +91,7 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questions, quizId }) => {
     router,
   ]);
 
-  const timeUpHandler = () => {
+  const timeUpHandler = useCallback(() => {
     setLoading(true);
     const toastId = toast.loading("Auto Submitting...");
     const currentQuestion = currentQuestionIndex;
@@ -116,13 +116,13 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questions, quizId }) => {
       .finally(() => {
         toast.dismiss(toastId);
       });
-  };
+  }, [currentQuestionIndex, questions, quizId, router]);
 
-  const handleVisibilityChange = () => {
+  const handleVisibilityChange = useCallback(() => {
     if (document !== undefined && document.hidden) {
       timeUpHandler();
     }
-  };
+  }, [timeUpHandler]);
 
   useEffect(() => {
     document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -130,52 +130,12 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questions, quizId }) => {
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []);
+  }, [handleVisibilityChange]);
+
+  // calculate is the last question
+  const isLastQuestion = questions.length === currentQuestionIndex + 1;
 
   return (
-    // <div>
-    //     <p className="text-center text-[16px] md:text-xl text-black mb-8 md:mb-14">
-    //         {currentQuestionIndex + 1}/{questions?.length} Question
-    //     </p>
-    //     <div>
-    //         <div>
-    //             <Progress
-    //                 value={
-    //                     (currentQuestionIndex + 1) *
-    //                     (100 / questions?.length)
-    //                 }
-    //                 className="rounded-none h-[10px] bg-[#cccccc]"
-    //             />
-    //         </div>
-    //         <div className="px-4 py-8 md:px-16 md:py-10 bg-white/95 rounded-b-xl shadow-lg grid grid-cols-8 gap-x-10">
-    //             <div className="col-span-8 md:col-span-3">
-    //                 <Timer onCompleteA={timeUpHandler} />
-    //                 <div className="hidden md:block">
-    //                     <LottiePlayer
-    //                         src="https://lottie.host/9e8fec58-3b6e-4176-bd74-591b3208b9a5/uRfqpO0LZ4.json"
-    //                         height="400px"
-    //                         width="400px"
-    //                     />
-    //                 </div>
-    //             </div>
-
-    //             {/* Questions */}
-    //             <div className="col-span-8 md:col-span-5 ">
-    //                 <>
-    //                     <Questions
-    //                         {...{
-    //                             isLoading,
-    //                             selectedOptIndex,
-    //                             setSelectedOptIndex,
-    //                             currentQuestion,
-    //                             nextQuestion,
-    //                         }}
-    //                     />
-    //                 </>
-    //             </div>
-    //         </div>
-    //     </div>
-    // </div>
     <div className="w-1/2 absolute h-fit py-[50px] text-black drop-shadow-lg border-slate-50/10 backdrop-blur-lg hover:backdrop-blur-xl  border-[1px]">
       <div className="flex justify-center items-center h-auto gap-x-2 mt-2">
         <AlarmClock className="text-slate-400 w-5 h-5" />
@@ -227,7 +187,7 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questions, quizId }) => {
           onClick={nextQuestion}
           disabled={isLoading}
         >
-          Next
+          {isLastQuestion ? "Finish" : "Next"}
         </Button>
       </section>
     </div>

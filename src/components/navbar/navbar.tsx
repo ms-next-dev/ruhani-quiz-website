@@ -77,7 +77,7 @@ const Navbar: React.FC<NavbarProps> = ({ subjects }) => {
   const menu = [
     { id: 2, link: "/topics", text: "Topics", icon: BookCopy },
     { id: 3, link: "/leaderboard", text: "Leaderboard", icon: Trophy },
-    { id: 4, link: "/", text: "Blog", icon: FaBlog },
+    { id: 4, link: "/blog", text: "Blog", icon: FaBlog },
     { id: 5, link: "/contact", text: "Contact Us", icon: Contact },
     { id: 6, link: "/team", text: "Our Team", icon: HeartHandshake },
   ];

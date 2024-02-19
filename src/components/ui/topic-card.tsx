@@ -1,9 +1,9 @@
 "use client";
 // Packages
-
-// Local Imports
 import Image from "next/image";
 import Link from "next/link";
+
+// Local Imports
 
 interface TopicCardV2 {
   image: string;
@@ -11,11 +11,7 @@ interface TopicCardV2 {
   name: string;
 }
 
-const TopicCardV2: React.FC<TopicCardV2> = async ({
-  image,
-  totalQuestion,
-  name,
-}) => {
+const TopicCardV2: React.FC<TopicCardV2> = ({ image, totalQuestion, name }) => {
   const prepareTopicName = name.split(" ").join("_");
   const url = `/topics/${prepareTopicName}`;
 
