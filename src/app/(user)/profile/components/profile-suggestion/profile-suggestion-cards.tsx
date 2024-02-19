@@ -15,7 +15,7 @@ const ProfilePhotoUploadCard = dynamic(
   () => import("./cards/profile-photo-upload-card")
 );
 const CoverPhotoUploadCardCopy = dynamic(
-  () => import("./cards/cover-photo-upload-card copy")
+  () => import("./cards/cover-photo-upload-card")
 );
 
 interface ProfileSuggestionCardsProps {
@@ -25,53 +25,55 @@ interface ProfileSuggestionCardsProps {
 const ProfileSuggestionCards: React.FC<ProfileSuggestionCardsProps> = ({
   user,
 }) => {
-  const content = [
-    {
-      id: 1,
-      data: <NameCard user={user} />,
-      completed: !!user.first_name || !!user.last_name,
-    },
-    {
-      id: 2,
-      data: <VerificationCard user={user} />,
-      completed: !!user.emailVerified,
-    },
-    {
-      id: 4,
-      data: <ProfilePhotoUploadCard user={user} />,
-      completed: !!user.avatar,
-    },
-    {
-      id: 5,
-      data: <PhoneCard user={user} />,
-      completed: !!user.phone,
-    },
-    {
-      id: 6,
-      data: <CoverPhotoUploadCardCopy user={user} />,
-      completed: !!user.coverPhoto,
-    },
-    {
-      id: 7,
-      data: <EducationCard user={user} />,
-      completed: !!user.educational_qualification,
-    },
-    {
-      id: 8,
-      data: <DesignationCard user={user} />,
-      completed: !!user.designation,
-    },
-    {
-      id: 9,
-      data: <DistrictCard user={user} />,
-      completed: !!user.district,
-    },
-    {
-      id: 10,
-      data: <ConnectCard user={user} />,
-      completed: !!user.connect,
-    },
-  ];
+  const content = useMemo(() => {
+    return [
+      {
+        id: 1,
+        data: <NameCard user={user} />,
+        completed: !!user.first_name || !!user.last_name,
+      },
+      {
+        id: 2,
+        data: <VerificationCard user={user} />,
+        completed: !!user.emailVerified,
+      },
+      {
+        id: 4,
+        data: <ProfilePhotoUploadCard user={user} />,
+        completed: !!user.avatar,
+      },
+      {
+        id: 5,
+        data: <PhoneCard user={user} />,
+        completed: !!user.phone,
+      },
+      {
+        id: 6,
+        data: <CoverPhotoUploadCardCopy user={user} />,
+        completed: !!user.coverPhoto,
+      },
+      {
+        id: 7,
+        data: <EducationCard user={user} />,
+        completed: !!user.educational_qualification,
+      },
+      {
+        id: 8,
+        data: <DesignationCard user={user} />,
+        completed: !!user.designation,
+      },
+      {
+        id: 9,
+        data: <DistrictCard user={user} />,
+        completed: !!user.district,
+      },
+      {
+        id: 10,
+        data: <ConnectCard user={user} />,
+        completed: !!user.connect,
+      },
+    ];
+  }, [user]);
 
   const items = useMemo(() => {
     let data = [];

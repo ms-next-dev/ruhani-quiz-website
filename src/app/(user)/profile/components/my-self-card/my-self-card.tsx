@@ -65,12 +65,12 @@ const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
           <section className="absolute top-0 right-6">
             <div className="flex justify-center mt-4 gap-8">
               <div className="flex flex-col items-center">
-                <h3 className="font-semibold">1.1k</h3>
+                <h3 className="font-semibold">10</h3>
                 <span className="text-[14px] text-gray-400">Quizes</span>
               </div>
               <Separator orientation="vertical" className="w-5" />
               <div className="flex flex-col items-center">
-                <h3 className="font-semibold">10k</h3>
+                <h3 className="font-semibold">{user.score}</h3>
                 <span className="text-[14px] text-gray-400">Score</span>
               </div>
             </div>

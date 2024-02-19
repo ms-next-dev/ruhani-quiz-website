@@ -202,15 +202,22 @@ const ResultPage = async ({
                               : question.user_answered[0] === i
                               ? "border-[.2px] bg-red-50 border-red-500 bg-red-400/30 text-red-500"
                               : "bg-slate-100"
-                          } bg-white/10 text-white/70 py-2 px-4   text-[14px] font-normal rounded-[4px] w-full`}
+                          } bg-white/10 text-white/70 py-2 px-4   text-[14px] font-normal rounded-[4px] w-full ${
+                            question.user_answered[0] === 5 && "border-0"
+                          }`}
                         >
                           {option}
                         </div>
                       </div>
                     ))}
                   </div>
+                  {question.user_answered[0] === 5 && (
+                    <p className="text-red-500/70 text-[12px] mt-4">
+                      You didn't answer this question because of time up
+                    </p>
+                  )}
                   <p
-                    className={`mt-8 border-[1px] border-gray-300/15 py-2 px-4 md:py-4 md:px-6 text-[14px] md:text[16px]base font-normal text-white/80 rounded-[6px] w-full selection:bg-gray-700`}
+                    className={`mt-4 border-[1px] border-gray-300/15 py-2 px-4 md:py-4 md:px-6 text-[14px] md:text[16px]base font-normal text-white/80 rounded-[6px] w-full selection:bg-gray-700`}
                   >
                     {question.question?.explanation}
                   </p>
