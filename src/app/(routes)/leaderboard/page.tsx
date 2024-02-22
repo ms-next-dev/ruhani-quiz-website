@@ -52,7 +52,7 @@ const Page = () => {
                 <div className="absolute bg-green-600 text-white text-[12px] px-4 shadow-xl -rotate-45 -left-3 top-1">
                   1st
                 </div>
-                <div className="font-semibold">14</div>
+                <div className="font-semibold ml-1">1</div>
                 <Image
                   src="https://res.cloudinary.com/dzlrpspps/image/upload/v1700392817/profile_bq4fpi.jpg"
                   height={30}
@@ -74,9 +74,9 @@ const Page = () => {
             <div className=" relative flex flex-row justify-between items-center py-2 px-3 gap-16 overflow-hidden w-full  bg-blue-200 rounded-[6px] ">
               <div className="flex items-center gap-2 ">
                 <div className="absolute bg-blue-600 text-white text-[12px] px-4 shadow-xl -rotate-45 -left-3 top-1">
-                  1st
+                  2nd
                 </div>
-                <div className="font-semibold">14</div>
+                <div className="font-semibold ml-1">2</div>
                 <Image
                   src="https://res.cloudinary.com/dzlrpspps/image/upload/v1700392817/profile_bq4fpi.jpg"
                   height={30}
@@ -98,9 +98,9 @@ const Page = () => {
             <div className=" relative flex flex-row justify-between items-center py-2 px-3 gap-16 overflow-hidden w-full  bg-orange-200 rounded-[6px] ">
               <div className="flex items-center gap-2 ">
                 <div className="absolute bg-orange-600 text-white text-[12px] px-4 shadow-xl -rotate-45 -left-3 top-1">
-                  1st
+                  3rd
                 </div>
-                <div className="font-semibold">14</div>
+                <div className="font-semibold ml-1">3</div>
                 <Image
                   src="https://res.cloudinary.com/dzlrpspps/image/upload/v1700392817/profile_bq4fpi.jpg"
                   height={30}

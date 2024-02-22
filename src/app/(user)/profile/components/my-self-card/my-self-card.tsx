@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/hover-card";
 import RuhaniImage from "@/components/ui/ruhani-image";
 import { Separator } from "@/components/ui/separator";
+import { prismaDb } from "@/lib/db";
 import { cn } from "@/lib/utils";
 const MySelfAction = dynamic(() => import("./my-self-action"));
 
@@ -36,6 +37,12 @@ const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
   const coverPhoto =
     user.coverPhoto ||
     "https://res.cloudinary.com/dn2pqzag1/image/upload/v1705403352/pf9jdnlmk9vdhem71z9q.jpg";
+
+  const totalQuizPlayed = await prismaDb.quiz.count({
+    where: {
+      participated: user.id,
+    },
+  });
 
   return (
     <Card className="rounded-[20px] relative shadow-md h-auto w-full">
@@ -65,7 +72,7 @@ const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
           <section className="absolute top-0 right-6">
             <div className="flex justify-center mt-4 gap-8">
               <div className="flex flex-col items-center">
-                <h3 className="font-semibold">10</h3>
+                <h3 className="font-semibold">{totalQuizPlayed}</h3>
                 <span className="text-[14px] text-gray-400">Quizes</span>
               </div>
               <Separator orientation="vertical" className="w-5" />
