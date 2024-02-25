@@ -64,6 +64,8 @@ export const quizComplete = async (quizId: string) => {
     }
   });
 
+  const calculatePercentage = (marks / allQuizAnswer.length) * 100;
+
   try {
     await prismaDb.quiz.update({
       where: {
@@ -72,6 +74,7 @@ export const quizComplete = async (quizId: string) => {
       data: {
         played: true,
         total_marks: marks,
+        parcentage: calculatePercentage,
       },
     });
     await prismaDb.user.update({
@@ -85,6 +88,7 @@ export const quizComplete = async (quizId: string) => {
       },
     });
     revalidatePath("/profile");
+    await updateLeaderBoard(authUser?.user?.id as string);
     return { success: `You got ${marks / allQuizAnswer.length}!` };
   } catch (error: any) {
     console.log("QUIZ_COMPLETE_ERROR", error);
@@ -164,4 +168,53 @@ export const getQuizById = async (quizId: string) => {
     console.log("GET_QUIZ_ERROR", error);
     return { error: "Something went wrong!" };
   }
+};
+
+// leaderboard update
+
+const updateLeaderBoard = async (userId: string) => {
+  const quizes = await prismaDb.quiz.findMany({
+    where: {
+      participated: userId,
+    },
+  });
+  const sumPercentage = quizes.reduce((acc, obj) => acc + obj.parcentage!, 0);
+  // average marks percentage
+  let averatePercentage = sumPercentage / quizes.length;
+  // format >> keep one length after decimal
+  let formattedPercentage = averatePercentage.toFixed(1);
+
+  // If the decimal part is 0, convert to integer
+  if (
+    formattedPercentage.indexOf(".") !== -1 &&
+    formattedPercentage.split(".")[1] !== "0"
+  ) {
+    averatePercentage = Number(formattedPercentage);
+  } else {
+    averatePercentage = Math.floor(Number(formattedPercentage));
+  }
+
+  const exisTingLeaderBoard = await prismaDb.leaderBoard.findFirst({
+    where: {
+      participated: userId,
+    },
+  });
+
+  if (!exisTingLeaderBoard) {
+    await prismaDb.leaderBoard.create({
+      data: {
+        participated: userId,
+        marks: averatePercentage,
+      },
+    });
+  }
+
+  await prismaDb.leaderBoard.update({
+    where: {
+      id: exisTingLeaderBoard?.id,
+    },
+    data: {
+      marks: averatePercentage,
+    },
+  });
 };

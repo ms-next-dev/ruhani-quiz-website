@@ -14,6 +14,8 @@ const AuthUIWrapper: React.FC<AuthUIWrapperProps> = ({ children }) => {
             <Image
               src="/promo1.jpg"
               alt="img"
+              width={300}
+              height={1000}
               className="w-[500px] h-full hidden rounded-l-2xl md:block object-cover"
             />
           </div>
