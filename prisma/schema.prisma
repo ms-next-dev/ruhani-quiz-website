@@ -167,6 +167,7 @@ model Quiz {
   topicId      String  @db.ObjectId
   played       Boolean @default(false)
   total_marks  Int?
+  parcentage   Float?
 
   questions QuizAnswer[]
 }
@@ -178,4 +179,10 @@ model QuizAnswer {
 
   quizId String @db.ObjectId
   quiz   Quiz   @relation(fields: [quizId], references: [id])
+}
+
+model leaderBoard {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  participated String @db.ObjectId
+  marks        Float
 }
