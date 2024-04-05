@@ -186,6 +186,5 @@ model leaderBoard {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
   participated String @unique @db.ObjectId
   marks        Float
-
-  user User @relation(fields: [participated], references: [id])
+  user         User   @relation(fields: [participated], references: [id])
 }

@@ -33,6 +33,7 @@ const Page = async () => {
     orderBy: {
       marks: "desc",
     },
+    take: 500,
   });
 
   allData.sort((a, b) => b.marks - a.marks);
