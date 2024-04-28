@@ -20,9 +20,6 @@ export default async function Home() {
       {/* <HomeTopics /> */}
       <PrayerTime />
       <IslamPillar />
-      <h1 className="flex justify-center items-center my-80 text-2xl lg:text-8xl">
-        Welcome to Ruhani Quiz
-      </h1>
     </div>
   );
 }
