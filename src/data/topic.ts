@@ -1,7 +1,7 @@
 import { prismaDb } from "@/lib/db";
 
 export const getTopicBySubjectName = async (subjectName: string) => {
-  const name = subjectName.split("_").join(" ");
+  const name = subjectName?.split("_").join(" ");
   const subject = await prismaDb.subject.findUnique({
     where: {
       name: name,
