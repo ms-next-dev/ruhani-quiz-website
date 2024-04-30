@@ -17,7 +17,6 @@ export default async function Home() {
       <Banner subjects={subjects} />
       {/* <PopulerTopic /> */}
       <HighlightedTopics />
-      {/* <HomeTopics /> */}
       <PrayerTime />
       <IslamPillar />
       {/* <UpcomingEvent /> */}
