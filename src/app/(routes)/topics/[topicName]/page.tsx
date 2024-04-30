@@ -2,7 +2,14 @@
 import PageBanner from "@/components/page-banner";
 import { getTopicByName } from "@/data/topic";
 import { hindSiliguri } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { Anek_Bangla } from "next/font/google";
 import QuizRulesAction from "./components/quiz-rules-action";
+
+const anek = Anek_Bangla({
+  subsets: ["bengali"],
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 const TopicPage = async ({ params }: { params: { topicName: string } }) => {
   const topic = await getTopicByName(params.topicName);
@@ -54,7 +61,7 @@ const TopicPage = async ({ params }: { params: { topicName: string } }) => {
 
         <ol type="1" className="space-y-4 mt-[50px] ">
           {rules.map(({ id, ruleText, sl }) => (
-            <li key={id} className="font-normal">
+            <li key={id} className={cn(anek.className, "font-normal")}>
               <span className="font-medium">{sl}।</span> {ruleText}
             </li>
           ))}

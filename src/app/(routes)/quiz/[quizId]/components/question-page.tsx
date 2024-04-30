@@ -125,7 +125,9 @@ const QuestionPage: React.FC<QuestionPageProps> = ({ questions, quizId }) => {
   }, [timeUpHandler]);
 
   useEffect(() => {
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    if (document !== undefined) {
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+    }
 
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
