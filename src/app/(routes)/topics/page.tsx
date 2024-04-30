@@ -2,7 +2,7 @@
 import PageBanner from "@/components/page-banner";
 import SectionTitle from "@/components/ui/section-title";
 import SubjectCard from "@/components/ui/subject-card";
-import TopicCardV2 from "@/components/ui/topic-card";
+import TopicCard from "@/components/ui/topic-card";
 import { getSubjects } from "@/data/subjects";
 import { getTopicBySubjectName } from "@/data/topic";
 
@@ -37,7 +37,7 @@ const TopicsPage = async () => {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {topics !== null &&
               topics?.map(({ id, image, totalQuestion, name }) => (
-                <TopicCardV2
+                <TopicCard
                   key={id}
                   image={image}
                   totalQuestion={totalQuestion}
