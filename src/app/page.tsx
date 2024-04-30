@@ -20,6 +20,7 @@ export default async function Home() {
       {/* <HomeTopics /> */}
       <PrayerTime />
       <IslamPillar />
+      {/* <UpcomingEvent /> */}
     </div>
   );
 }
