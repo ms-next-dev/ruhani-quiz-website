@@ -38,7 +38,7 @@ const PopulerTopic = async () => {
             <TopicCardV2
               key={id}
               image={image}
-              totalQuestions={totalQuestion}
+              totalQuestion={totalQuestion}
               name={name}
             />
           ))}
