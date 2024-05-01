@@ -1,5 +1,5 @@
 // Local Imports
-import { montserrat, roboto } from "@/lib/fonts";
+import { montserrat } from "@/lib/fonts";
 
 const IslamPillar = () => {
   const infos = [
@@ -56,7 +56,7 @@ const IslamPillar = () => {
                   </p>
                 </div>
                 <h1
-                  className={`${roboto.className} text-[24px] md:text-[44px] leading-tight font-semibold lg:w-1/2 text-white whitespace-nowrap md:whitespace-normal`}
+                  className={`${montserrat.className} text-[24px] md:text-[44px] leading-tight font-semibold lg:w-1/2 text-white whitespace-nowrap md:whitespace-normal`}
                 >
                   The Pillars of Islam
                 </h1>
