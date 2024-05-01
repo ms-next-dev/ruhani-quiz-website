@@ -12,7 +12,7 @@ const AuthUIWrapper: React.FC<AuthUIWrapperProps> = ({ children }) => {
           {/* <!-- left side --> */}
           <div>
             <Image
-              src="/promo1.jpg"
+              src="/login.jpg"
               alt="img"
               width={300}
               height={1000}
