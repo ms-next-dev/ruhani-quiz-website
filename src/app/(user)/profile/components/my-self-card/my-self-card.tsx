@@ -32,11 +32,11 @@ interface MySelfCardProps {
 const MySelfCard: React.FC<MySelfCardProps> = async ({ user }) => {
   const profileImage =
     user.avatar ||
-    "https://res.cloudinary.com/dn2pqzag1/image/upload/v1703740293/ruhani%20quiz/avatar_itcz1v.jpg";
+    "https://res.cloudinary.com/dn2pqzag1/image/upload/v1714523541/ruhani%20quiz/avatar_kbhewv.jpg";
 
   const coverPhoto =
     user.coverPhoto ||
-    "https://res.cloudinary.com/dn2pqzag1/image/upload/v1705403352/pf9jdnlmk9vdhem71z9q.jpg";
+    "https://res.cloudinary.com/dn2pqzag1/image/upload/v1714523690/ruhani%20quiz/cover_vupssi.jpg";
 
   const totalQuizPlayed = await prismaDb.quiz.count({
     where: {

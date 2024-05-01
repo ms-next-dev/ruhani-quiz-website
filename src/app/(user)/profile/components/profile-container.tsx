@@ -1,15 +1,16 @@
 // Packages
 import { User } from "@prisma/client";
+import dynamic from "next/dynamic";
 
 // Local Imports
 import { auth } from "@/auth";
-import CardOpacityTransition from "@/framer/card-opacity";
 import { prismaDb } from "@/lib/db";
 import MySelfCard from "./my-self-card/my-self-card";
 import ProfileStatus from "./profile-status";
 import QuizHistory from "./quiz-history/quiz-history";
 import QuizMonthSummary from "./quiz-month-summary/quiz-month-summary";
 import QuizReportSummary from "./quiz-report-summary/quiz-report-summary";
+const CardOpacityTransition = dynamic(() => import("@/framer/card-opacity"));
 
 const ProfileContainer = async () => {
   const authUser = await auth();

@@ -1,14 +1,14 @@
 // Packages
+import dynamic from "next/dynamic";
 import Image from "next/image";
 
 // Local Imports
 import { getQuizById } from "@/actions/quiz/quiz";
-import LottiePlayer from "@/components/ui/lottie-player";
 import { Separator } from "@/components/ui/separator";
 import { prismaDb } from "@/lib/db";
-import { hindSiliguri } from "@/lib/fonts";
-import { Manrope } from "next/font/google";
-const manrope = Manrope({ subsets: ["latin"] });
+import { hindSiliguri, manrope } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+const LottiePlayer = dynamic(() => import("@/components/ui/lottie-player"));
 
 const ResultPage = async ({
   params,
@@ -20,11 +20,6 @@ const ResultPage = async ({
   const isNew = searchParams.new;
 
   const quizData = await getQuizById(params.quizId);
-
-  //   const topic: Topic =
-  //     quizData.data !== undefined &&
-  //     quizData.data !== null &&
-  //     (await getTopicById(quizData.data.topicId));
 
   const topic = await prismaDb.topic.findFirst({
     where: {
@@ -154,7 +149,10 @@ const ResultPage = async ({
                     <Separator className="h-[1px] bg-white/10" />
                     <div className="flex justify-between items-center mt-2 mb-1">
                       <p
-                        className={`${manrope.className} font-semibold text-white/70`}
+                        className={cn(
+                          manrope.className,
+                          "font-semibold text-white/70"
+                        )}
                       >
                         Total Score
                       </p>
@@ -169,7 +167,7 @@ const ResultPage = async ({
           </div>
 
           {/* Quiz question & answers */}
-          <div className={`${hindSiliguri.className}`}>
+          <div className={cn(hindSiliguri.className)}>
             <div>
               <h2
                 className={`text-center text-[22px] md:text-[28px] font-medium mt-8 md:mt-14 md:mb-4 text-white`}
@@ -184,7 +182,10 @@ const ResultPage = async ({
                   className="break-inside-avoid border-[1px] border-white/20 rounded-xl h-fit p-5 mb-6 relative"
                 >
                   <h1
-                    className={` font-semibold mb-5 tracking-wider ${manrope.className}`}
+                    className={cn(
+                      manrope.className,
+                      "font-semibold mb-5 tracking-wider"
+                    )}
                   >
                     {question.question?.question}
                   </h1>
@@ -192,19 +193,19 @@ const ResultPage = async ({
                     {question.question?.options.map((option, i) => (
                       <div key={option} className="">
                         <div
-                          className={`${
+                          className={cn(
                             question.question?.correct_answer[0] ===
                               question.user_answered[0] &&
-                            question.question?.correct_answer[0] === i
+                              question.question?.correct_answer[0] === i
                               ? "border-[1px] bg-green-400/30 border-green-500 text-green-500 font-medium"
                               : question.question?.correct_answer[0] === i
                               ? "border-[1px] border-green-500 text-green-500 bg-green-400/30 font-medium"
                               : question.user_answered[0] === i
                               ? "border-[.2px] bg-red-50 border-red-500 bg-red-400/30 text-red-500"
-                              : "bg-slate-100"
-                          } bg-white/10 text-white/70 py-2 px-4   text-[14px] font-normal rounded-[4px] w-full ${
+                              : "bg-slate-100",
+                            "bg-white/10 text-white/70 py-2 px-4 text-[14px] font-normal rounded-[4px] w-full ",
                             question.user_answered[0] === 5 && "border-0"
-                          }`}
+                          )}
                         >
                           {option}
                         </div>

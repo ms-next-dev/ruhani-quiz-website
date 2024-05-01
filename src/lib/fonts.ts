@@ -2,6 +2,7 @@ import {
   Barlow,
   Hind_Siliguri,
   Inter,
+  Manrope,
   Montserrat,
   Poppins,
   Roboto,
@@ -30,3 +31,5 @@ export const barlow = Barlow({
   weight: ["300", "400", "500", "600", "700", "800"],
   subsets: ["latin"],
 });
+
+export const manrope = Manrope({ subsets: ["latin"] });
