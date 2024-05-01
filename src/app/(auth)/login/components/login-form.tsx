@@ -3,16 +3,15 @@
 // Packages
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AccountType } from "@prisma/client";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import * as z from "zod";
 
 // Local Imports
 import { LoginSchema } from "@/Schemas";
 import { login } from "@/actions/auth/login";
-import { AuthCardWrapper } from "@/components/auth/auth-card-wrapper";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -23,6 +22,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+const AuthCardWrapper = dynamic(
+  () => import("@/components/auth/auth-card-wrapper")
+);
 
 const LoginForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -46,19 +48,21 @@ const LoginForm = () => {
 
   // on submit function when login form is submitted
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
-    const toastId = toast.loading("Logging in...");
+    // Dynamic import for performance
+    const { loading, success, error } = (await import("sonner")).toast;
+    const toastId = loading("Logging in...");
 
     startTransition(() => {
       login(values).then((res: any) => {
         if (res.error) {
-          toast.error(res.error, {
+          error(res.error, {
             id: toastId,
           });
           return;
         }
 
         if (res.success) {
-          toast.success(res.success, {
+          success(res.success, {
             id: toastId,
           });
           return;
