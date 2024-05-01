@@ -2,8 +2,9 @@ import { montserrat } from "@/lib/fonts";
 
 interface SectionTitle {
   title: string;
+  varient?: "dark" | "light";
 }
-const SectionTitle: React.FC<SectionTitle> = ({ title }) => {
+const SectionTitle: React.FC<SectionTitle> = ({ title, varient }) => {
   return (
     <>
       <h1

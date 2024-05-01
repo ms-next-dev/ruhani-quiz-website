@@ -1,7 +1,7 @@
 import { getAllTopics } from "@/data/topic";
 import RuhaniImage from "../ui/ruhani-image";
 import Title from "../ui/title";
-import TopicCardV2 from "../ui/topic-card";
+import TopicCard from "../ui/topic-card";
 
 type Topics = {
   id: string;
@@ -35,7 +35,7 @@ const PopulerTopic = async () => {
         />
         <div className="mt-12 flex flex-wrap gap-[20px]">
           {topics?.map(({ id, image, name, totalQuestion }) => (
-            <TopicCardV2
+            <TopicCard
               key={id}
               image={image}
               totalQuestion={totalQuestion}
