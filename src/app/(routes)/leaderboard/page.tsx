@@ -36,6 +36,8 @@ const Page = async () => {
     take: 500,
   });
 
+  console.log(allData);
+
   allData.sort((a, b) => b.marks - a.marks);
   allData.forEach((item, index) => {
     item.ranking = index + 1;

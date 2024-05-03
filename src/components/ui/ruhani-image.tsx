@@ -1,6 +1,5 @@
 // Packages
 import Image from "next/image";
-import { getPlaiceholder } from "plaiceholder";
 import React from "react";
 
 // Local Imports
@@ -32,10 +31,10 @@ const RuhaniImage: React.FC<RuhaniQuizProps> = async ({
   className,
   ...props
 }) => {
-  const buffer = await fetch(src).then(async (res) =>
-    Buffer.from(await res.arrayBuffer())
-  );
-  const { base64 } = await getPlaiceholder(buffer);
+  // const buffer = await fetch(src).then(async (res) =>
+  //   Buffer.from(await res.arrayBuffer())
+  // );
+  // const { base64 } = await getPlaiceholder(buffer);
   return (
     <Image
       src={src}
@@ -48,8 +47,8 @@ const RuhaniImage: React.FC<RuhaniQuizProps> = async ({
       }
       fill={fill}
       priority={priority}
-      placeholder={placeholder ? "blur" : "empty"}
-      blurDataURL={placeholder ? base64 : ""}
+      // placeholder={placeholder ? "blur" : "empty"}
+      // blurDataURL={placeholder ? base64 : ""}
       className={cn(className)}
       loading="lazy"
       {...props}

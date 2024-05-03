@@ -27,7 +27,7 @@ export const createQuiz = async (topicName: string) => {
   try {
     const result = await prismaDb.quiz.create({
       data: {
-        participated: loggedInUserId!,
+        participated: loggedInUserId,
         topicId: existingTopic.id,
       },
       select: {
@@ -70,6 +70,7 @@ export const quizComplete = async (quizId: string) => {
     await prismaDb.quiz.update({
       where: {
         id: quizId,
+        participated: authUser?.user?.id,
       },
       data: {
         played: true,
@@ -173,6 +174,7 @@ export const getQuizById = async (quizId: string) => {
 // leaderboard update
 
 const updateLeaderBoard = async (userId: string) => {
+  console.log("updating leaderboard for id", userId);
   const quizes = await prismaDb.quiz.findMany({
     where: {
       participated: userId,

@@ -42,7 +42,7 @@ const RegistrationForm = () => {
       email: "",
       password: "",
       role: "member" as AccountType,
-      first_name: "",
+      name: "",
     },
   });
 
@@ -93,10 +93,10 @@ const RegistrationForm = () => {
           <div className="space-y-2">
             <FormField
               control={form.control}
-              name="first_name"
+              name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}

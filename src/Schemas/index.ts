@@ -7,7 +7,7 @@ export const RegistrationSchema = z.object({
     message: "Minimum 6 characters required",
   }),
   role: z.string(),
-  first_name: z.string(),
+  name: z.string(),
 });
 
 export const LoginSchema = z.object({

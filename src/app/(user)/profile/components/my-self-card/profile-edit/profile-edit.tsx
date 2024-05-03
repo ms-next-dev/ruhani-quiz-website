@@ -184,7 +184,7 @@ const ProfileEdit: React.FC<ProfileEdit> = ({ user, onClose }) => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>First Name</FormLabel>
+                    <FormLabel>Name</FormLabel>
                     <Input
                       placeholder="Your first name"
                       {...field}
