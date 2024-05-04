@@ -96,7 +96,7 @@ const NameCard: React.FC<NameCardProps> = ({ user }) => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="first_name">First Name</FormLabel>
+                  <FormLabel htmlFor="first_name">Name</FormLabel>
                   <Input
                     type="text"
                     placeholder="Enter Your Name"

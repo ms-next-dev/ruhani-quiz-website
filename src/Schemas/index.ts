@@ -40,7 +40,7 @@ export const NewPasswordSchema = z.object({
 
 export const NameSchema = z.object({
   name: z.string().min(3, {
-    message: "First name must be at least 3 characters",
+    message: "Name must be at least 3 characters",
   }),
 });
 

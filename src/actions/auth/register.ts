@@ -25,7 +25,7 @@ export const register = async (data: z.infer<typeof RegistrationSchema>) => {
     return { error: "Invalid Fields" };
   }
 
-  const { email, first_name, password, role } = validatedFields.data;
+  const { email, name, password, role } = validatedFields.data;
 
   // Hash password using md5 password hashing package manager
   const hashedPassword = md5(password);
@@ -40,7 +40,7 @@ export const register = async (data: z.infer<typeof RegistrationSchema>) => {
   await prismaDb.user.create({
     data: {
       email: email,
-      first_name: first_name,
+      name: name,
       password: hashedPassword,
       role: role as AccountType,
     },
