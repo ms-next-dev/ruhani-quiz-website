@@ -2,6 +2,9 @@
 import dynamic from "next/dynamic";
 
 // Local Imports
+import HighlightedTopics from "@/components/homePage/highlighted-topics";
+import IslamPillar from "@/components/homePage/islam-pillar";
+import PrayerTime from "@/components/homePage/prayer-time";
 import { getSubjects } from "@/data/subjects";
 const Banner = dynamic(() => import("@/components/homePage/banner"));
 
@@ -11,11 +14,11 @@ export default async function Home() {
   const subjects = await getSubjects();
   return (
     <div>
-      <Banner subjects={subjects} />
+      {/* <Banner subjects={subjects} /> */}
       {/* <PopulerTopic /> */}
-      {/* <HighlightedTopics />
+      <HighlightedTopics />
       <PrayerTime />
-      <IslamPillar /> */}
+      <IslamPillar />
       {/* <UpcomingEvent /> */}
     </div>
   );
