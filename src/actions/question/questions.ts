@@ -12,6 +12,7 @@ export const getQuizQuestion = async (topicId: string, take: number) => {
             topicId: {
               $oid: topicId,
             },
+            published: true,
           },
         },
         {

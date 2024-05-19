@@ -64,8 +64,9 @@ model User {
 
   emailVerified DateTime?
 
-  billboards Billboard[]
-  accounts   Account[]
+  billboards  Billboard[]
+  accounts    Account[]
+  leaderBoard leaderBoard?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -183,6 +184,7 @@ model QuizAnswer {
 
 model leaderBoard {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
-  participated String @db.ObjectId
+  participated String @unique @db.ObjectId
   marks        Float
+  user         User   @relation(fields: [participated], references: [id])
 }

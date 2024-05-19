@@ -2,6 +2,7 @@
 
 // Packages
 import { zodResolver } from "@hookform/resolvers/zod";
+import dynamic from "next/dynamic";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -10,7 +11,6 @@ import * as z from "zod";
 // Local Imports
 import { ResetPasswordSchema } from "@/Schemas";
 import { reset } from "@/actions/auth/reset";
-import { AuthCardWrapper } from "@/components/auth/auth-card-wrapper";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -23,6 +23,9 @@ import {
 import { FormError } from "@/components/ui/form-error";
 import { FormSuccess } from "@/components/ui/form-success";
 import { Input } from "@/components/ui/input";
+const AuthCardWrapper = dynamic(
+  () => import("@/components/auth/auth-card-wrapper")
+);
 
 const ResetForm = () => {
   const [isPending, startTransition] = useTransition();

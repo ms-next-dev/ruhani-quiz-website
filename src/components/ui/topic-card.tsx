@@ -4,13 +4,13 @@ import Link from "next/link";
 
 // Local Imports
 
-interface TopicCardV2 {
+interface TopicCard {
   image: string;
   totalQuestion: number;
   name: string;
 }
 
-const TopicCardV2: React.FC<TopicCardV2> = ({ image, totalQuestion, name }) => {
+const TopicCard: React.FC<TopicCard> = ({ image, totalQuestion, name }) => {
   const prepareTopicName = name.split(" ").join("_");
   const url = `/topics/${prepareTopicName}`;
 
@@ -38,4 +38,4 @@ const TopicCardV2: React.FC<TopicCardV2> = ({ image, totalQuestion, name }) => {
   );
 };
 
-export default TopicCardV2;
+export default TopicCard;
