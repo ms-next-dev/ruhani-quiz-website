@@ -48,23 +48,26 @@ const ContactPage = () => {
                                 <input
                                     type="text"
                                     name="name"
-                                    id="name"
+                                    id="contactName"
                                     placeholder="Your Name"
                                     className="w-full rounded-[30px] bg-white text-[#737373] h-12 md:h-[60px] px-4 md:px-8 mb-3"
+                                    autoComplete="name"
                                 />
                                 <input
                                     type="email"
                                     name="email"
-                                    id="email"
+                                    id="contactEmail"
                                     placeholder="Your email"
                                     className="w-full rounded-[30px] bg-white text-[#737373] h-12 md:h-[60px] px-4 md:px-8 mb-3"
+                                    autoComplete="email"
                                 />
                                 <input
                                     type="text"
                                     name="phone"
-                                    id="phone"
+                                    id="contactPhone"
                                     placeholder="Phone Number"
                                     className="w-full rounded-[30px] bg-white text-[#737373] h-12 md:h-[60px] px-4 md:px-8 mb-2"
+                                    autoComplete="phone"
                                 />
                             </div>
 
