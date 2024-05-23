@@ -12,7 +12,7 @@ import * as z from "zod";
 // Local Imports
 import { LoginSchema } from "@/Schemas";
 import { login } from "@/actions/auth/login";
-import { AuthCardWrapper } from "@/components/auth/auth-card-wrapper";
+import AuthCardWrapper from "@/components/auth/auth-card-wrapper";
 import { Button } from "@/components/ui/button";
 import {
     Form,
