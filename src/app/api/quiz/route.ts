@@ -43,6 +43,7 @@ export async function POST(req: Request) {
         const result = await prismaDb.quiz.create({
             data: {
                 participated: "658ef2caa7c9cf8a7dbebbc1",
+                topicId: "66310bc0910fdcea9da2601a",
                 questions: {
                     create: {
                         user_answered: [1],
