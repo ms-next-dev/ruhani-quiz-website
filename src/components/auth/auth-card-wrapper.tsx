@@ -18,7 +18,7 @@ interface AuthCardWrapperProps {
   showSocial?: boolean;
 }
 
-export const AuthCardWrapper = ({
+const AuthCardWrapper = ({
   children,
   headerLabel,
   backButtonLabel,
@@ -42,3 +42,5 @@ export const AuthCardWrapper = ({
     </Card>
   );
 };
+
+export default AuthCardWrapper;

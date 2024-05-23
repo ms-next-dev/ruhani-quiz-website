@@ -1,13 +1,14 @@
-import { barlow } from "@/lib/fonts";
+import { montserrat } from "@/lib/fonts";
 
 interface SectionTitle {
   title: string;
+  varient?: "dark" | "light";
 }
-const SectionTitle: React.FC<SectionTitle> = ({ title }) => {
+const SectionTitle: React.FC<SectionTitle> = ({ title, varient }) => {
   return (
     <>
       <h1
-        className={`${barlow.className} text-[30px] md:text-[36px] text-[#212529] font-medium leading-[50px]`}
+        className={`${montserrat.className} text-[30px] md:text-[36px] text-[#212529] font-medium leading-[50px]`}
       >
         {title}
       </h1>

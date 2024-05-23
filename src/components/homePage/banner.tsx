@@ -4,6 +4,7 @@ import { Subject } from "@prisma/client";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import SubjectCard from "../ui/subject-card";
 import Title from "../ui/title";
@@ -82,10 +83,12 @@ const Banner: React.FC<BannerProps> = ({ subjects }) => {
                 <SubjectCard key={id} name={name} varient="glass" />
               ))}
             </section>
-            <p className="text-green-500/80 flex items-center group cursor-pointer">
-              Want to know more{" "}
-              <ChevronRight className="w-4 h-4 mt-1 ml-2 group-hover:ml-3 duration-300" />
-            </p>
+            <Link href="/subjects">
+              <p className="text-green-500/80 flex items-center group cursor-pointer mt-2">
+                Want to know more{" "}
+                <ChevronRight className="w-4 h-4 mt-1 ml-2 group-hover:ml-3 duration-300" />
+              </p>
+            </Link>
           </motion.div>
         </div>
       </div>
